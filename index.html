@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+*********************************************************************************************************************
+** AUTHOR         : MIKKEL SEPTIANO                                                                                **
+** UI VERSION     : 1.10.3                                                                                         **
+** JQUERY VERSION : 1.3.2                                                                                          **
+** PLEASE MAINTAIN THIS PRODUCT MORE AND MORE. FOR HELPING INFORMATION FEEL FREE TO ASK ME AT mikkels86@gmail.com  **
+*********************************************************************************************************************
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
+<script type="text/javascript" src="js/jquery-mobile-slide-menu.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<title>jQuery Mobile Slide Menu Plugin Example</title>
+</head>
+<body>
+
+<div id="side-menu">
+  <ul>
+    <li><img class="pic" src = "#"></img><span class="icon"></span></li>
+    <li class="uname">Example.com<span class="icon"></span></li>
+    <li id = "item"><a href="#main">Popular</a><span class="icon"></span></li>
+    <li id = "item"><a href="#page-2">Top Rated</a><span class="icon"></span></li>
+  </ul>
+</div>
+
+  <div data-role="page" id="main" data-url="main" data-title="Popular Movies" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Popular</h1>
+    </div>
+    <div data-role="content">
+        <ul id = "movieList">
+        </ul>
+    </div>
+  </div>
+
+  <div data-role="page" id="page-2" data-url="page-2" data-title="Top Rated Movies" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Top Rated</h1>
+    </div>
+    <div data-role="content">
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  	$(function(){
+  		$('#side-menu').slideMenu();
+  	});
+  </script>
+</body>
+</html>

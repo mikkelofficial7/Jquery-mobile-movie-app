@@ -1,0 +1,250 @@
+/*********************************************************************************************************************
+** AUTHOR         : MIKKEL SEPTIANO                                                                                **
+** UI VERSION     : 1.10.3                                                                                         **
+** JQUERY VERSION : 1.3.2                                                                                          **
+** PLEASE MAINTAIN THIS PRODUCT MORE AND MORE. FOR HELPING INFORMATION FEEL FREE TO ASK ME AT mikkels86@gmail.com  **
+*********************************************************************************************************************/
+body
+{
+	font-family: arial;
+}
+#item
+{
+	color: black;
+}
+#side-menu {
+	width: 165px;
+	height: 100%;
+	display: block !important;
+	float: left;
+	visibility: hidden;
+}
+#side-menu ul {
+	margin: 0;
+	padding: 0;
+	width: inherit;
+}
+#side-menu ul li {
+	list-style-type: none;
+	margin: 0px 0;
+	/*border-bottom: solid #6d6d6d 1px;*/
+}
+#side-menu ul li a:link, #side-menu ul li a:visited {
+	border-bottom: solid #333 1px;
+	color: black;
+	font-size: 14px;
+	font-family: arial;
+	text-decoration: none;
+	width: 165px;
+	display: block;
+	padding: 10px 0px 10px 10px;
+	text-shadow: 0px 1px 1px #000000;
+}
+#side-menu ul li a:hover, #side-menu ul li a:active {
+	background-color: #716f6f;
+}
+#side-menu ul li a:hover span.icon {
+	background-position: 0 -40px !important;
+}
+#side-menu li a span.icon {
+	float: right;
+	width: 21px;
+	height: 20px;
+	background: transparent url('images/menu/menuIconsSprite.png') 0 0 no-repeat;
+	position: relative;
+	right: 20px;
+	top: -2px;
+}
+.uname
+{
+	text-shadow: 0px 1px 1px #000000;
+	border-style:none;
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left: 5px;
+	font-family:arial;
+	font-size:14px;
+	color:black;
+	text-align:center;
+	border-bottom:1px solid #333;
+}
+.pic
+{
+	border: 2px solid black;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	margin-left: 50px;
+	margin-right: 60px;
+	height: 60px;
+	width:65px;
+	border-radius:100%;
+}
+.copyright
+{
+	font-size:12px;
+	color:white;
+}
+#a-popcorn:hover
+{
+	border-radius:100%!important;
+}
+#btn-popcorn
+{
+	border-radius:50%; height:130px; width: 130px; border: 3px solid #666666;
+}
+.p
+{
+	color: white;
+	text-decoration:none;
+}
+@media screen and (min-width: 538px) {
+	#movieList, #movieList2, #movieList3, #movieList4, #movieList5, #movieList6, #movieList7
+	{
+		list-style:none;
+		width:100%;
+		margin-left:5px;
+		font-size:12px;
+	}
+	.list-movie{
+		float:left;
+		width: 150px;
+		height : 280px;
+		padding-right:25px;
+		margin-bottom: 7px;
+		margin-left: 0px;
+	}
+	.poster-movie
+	{
+		width: 150px;
+		height: 200px;
+		font-size:40px;
+		font-family:impact;
+		color:#666;
+	}
+	.popup
+	{
+		width: 200px;
+	}
+	.body-quote
+	{
+		width:50%;
+		font-family: arial;
+		text-align:center;
+		margin-left:24%;
+		color:white;
+		font-weight:none;
+	}
+	.ui-block-a
+	{
+		width: 400px;
+	}
+	.img-banner
+	{
+		content:url('../images/banner.png');
+		width: 100%; height: 150px; border-radius: 3px;
+	}
+	.img-banner-horror
+	{
+		content:url('../images/horror.png');
+		width: 100%; height: 150px; border-radius: 3px;
+	}
+	.img-banner-action
+	{
+		content:url('../images/action.png');
+		width: 100%; height: 150px; border-radius: 3px;
+	}
+	.img-banner-romance
+	{
+		content:url('../images/romance.png');
+		width: 100%; height: 150px; border-radius: 3px;
+	}
+}
+
+@media screen and (max-width: 628px) {
+	#movieList, #movieList2, #movieList3, #movieList4, #movieList5, #movieList6, #movieList7
+	{
+		list-style:none;
+		width:100%;
+		margin:auto;
+		padding:5px 5px 5px 7%;
+		font-size:12px;
+	}
+	.list-movie{
+		float:left;
+		width: 110px;
+		height:auto;
+		padding-right:15px;
+		margin-right:0px;
+		height : 200px;
+		padding-bottom: 60px;
+		margin-left: 0px;
+		padding-left: 0px;
+	}
+	.poster-movie
+	{
+		width: 110px;
+		height: 150px;
+		font-size:23px;
+		font-weight:bold;
+		font-family:verdana;
+		color:#666;
+	}
+	.popup
+	{
+		width: 200px;
+	}
+	.body-quote
+	{
+		width:50%;
+		color:white;
+		text-align:center;
+		margin-left:24%;
+		font-size:13px;
+	}
+	.ui-block-a
+	{
+		width:100%;
+	}
+	.img-banner
+	{
+		content:url('../images/banner.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-horror
+	{
+		content:url('../images/horror.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-action
+	{
+		content:url('../images/action.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-romance
+	{
+		content:url('../images/romance.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+}
+@media screen and (max-width: 400px) {
+	.img-banner
+	{
+		content:url('../images/bannersmall.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-horror
+	{
+		content:url('../images/horrorsmall.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-action
+	{
+		content:url('../images/actionsmall.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+	.img-banner-romance
+	{
+		content:url('../images/romancesmall.png');
+		width: 100%; height: 100px; border-radius: 3px;
+	}
+}
