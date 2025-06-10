@@ -1,46 +1,159 @@
-//Upcoming Movies : http://api.themoviedb.org/3/movie/upcoming?api_key=edfccf752de0d09758c56e652809912b
 $(document).ready(function(){
-	$.getJSON("http://api.themoviedb.org/3/movie/upcoming?api_key=edfccf752de0d09758c56e652809912b", function(data){
-		$.each(data.results, function(){
-			$("#movieListUpcoming").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
-		});
-	});
-
-	$.getJSON("http://api.themoviedb.org/3/movie/top_rated?api_key=edfccf752de0d09758c56e652809912b", function(data){
-		$.each(data.results, function(){
-			$("#movieListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
-		});
-	});
-
-	$.getJSON("http://api.themoviedb.org/3/movie/popular?api_key=edfccf752de0d09758c56e652809912b", function(data){
-		$.each(data.results, function(){
-			$("#movieListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
-		});
-	});
-
-	$.getJSON("http://api.themoviedb.org/3/movie/now_playing?api_key=edfccf752de0d09758c56e652809912b", function(data){
-		$.each(data.results, function(){
-			$("#movieListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
-		});
-	});
+	var currentPageUpcoming = 1;
+	var currentPageTopRated = 1;
+	var currentPagePopular = 1;
+	var currentPageNowPlaying = 1;
+	var currentPageSearch = 1;
 
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
+	});
+
+	runUpcomingList(currentPageUpcoming);
+
+	$(document).on("click", "#btn-load-more-top-upcoming", function () {
+		currentPageUpcoming += 1;
+		runUpcomingList(currentPageUpcoming);
+	});
+
+	runTopRatedList(currentPageTopRated);
+
+	$(document).on("click", "#btn-load-more-top-rated", function () {
+		currentPageTopRated += 1;
+		runTopRatedList(currentPageTopRated);
+	});
+	
+	runPopularList(currentPagePopular);
+
+	$(document).on("click", "#btn-load-more-popular", function () {
+		currentPagePopular += 1;
+		runPopularList(currentPagePopular);
+	});
+
+	runNowPlayingList(currentPageNowPlaying);
+
+	$(document).on("click", "#btn-load-more-main", function () {
+		currentPageNowPlaying += 1;
+		runNowPlayingList(currentPageNowPlaying);
 	});
 
 	$(document).on("click", ".btn-search", function () {
 		const keyword = $("#et-search").val();
 
 		if (keyword != "") {
-			$.getJSON('https://api.themoviedb.org/3/search/movie?query="'+keyword+'"&api_key=edfccf752de0d09758c56e652809912b', function(data) {
-				$.each(data.results, function(){
-					$("#movieListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
-				});
-			});
+			runSearchList(currentPageSearch, keyword)
 		} else {
 			alert("keyword cannot be empty!")
 		}
 	});
+
+	$(document).on("click", "#btn-load-more-search", function () {
+		const keyword = $("#et-search").val();
+		currentPageSearch += 1;
+
+		if (keyword != "") {
+			runSearchList(currentPageSearch, keyword)
+		} else {
+			alert("keyword cannot be empty!")
+		}
+	});
+
+	function runUpcomingList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#movieListUpcoming").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#movieListUpcoming").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-upcoming');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-upcoming');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runTopRatedList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#movieListTopRated").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#movieListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-top-rated');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-top-rated');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runPopularList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/movie/popular?page="+currentPage+"1&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#movieListPopular").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#movieListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-popular');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-popular');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+	function runNowPlayingList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#movieListNowPlaying").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#movieListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-main');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-main');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runSearchList(currentPage, keyword) {
+		$.getJSON('https://api.themoviedb.org/3/search/movie?page='+currentPage+'&query="'+keyword+'"&api_key=edfccf752de0d09758c56e652809912b', function(data) {
+			$.each(data.results, function(){
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#movieListSearch").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#movieListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = https://image.tmdb.org/t/p/w300_and_h450_bestv2"+this['poster_path']+"></img></a><br><b>Title : </b>"+this['title']+"</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+
+	// MOVIE DETAIL PART
 
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");

@@ -92,6 +92,15 @@ body
 {
 	border-radius:50%; height:130px; width: 130px; border: 3px solid #666666;
 }
+.flex-li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	font-size: 18px;
+	border: 1px transparent;
+	margin-bottom: 5px; 
+}
 .p
 {
 	color: white;
@@ -106,6 +115,9 @@ body
 }
 .ui-submit.ui-btn.ui-btn-up-b.ui-shadow.ui-btn-corner-all {
 	margin-right: 10px !important;
+}
+#btn-load-more {
+	margin: 20px !important;
 }
 
 @media screen and (min-width: 538px) {
