@@ -97,8 +97,19 @@ body
 	color: white;
 	text-decoration:none;
 }
+.ui-icon.ui-icon-grid.ui-icon-shadow {
+	margin: 1px 0px 0px 2px !important;
+}
+.ui-input-text.ui-shadow-inset.ui-corner-all.ui-btn-shadow.ui-body-b {
+	width: 100% !important;
+	margin: 10px !important;
+}
+.ui-submit.ui-btn.ui-btn-up-b.ui-shadow.ui-btn-corner-all {
+	margin-right: 10px !important;
+}
+
 @media screen and (min-width: 538px) {
-	#movieList, #movieList2, #movieList3, #movieList4, #movieList5, #movieList6, #movieList7
+	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch
 	{
 		list-style:none;
 		width:100%;
@@ -108,7 +119,7 @@ body
 	.list-movie{
 		float:left;
 		width: 150px;
-		height : 280px;
+		height : 300px;
 		padding-right:25px;
 		margin-bottom: 7px;
 		margin-left: 0px;
@@ -161,7 +172,7 @@ body
 }
 
 @media screen and (max-width: 628px) {
-	#movieList, #movieList2, #movieList3, #movieList4, #movieList5, #movieList6, #movieList7
+	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch
 	{
 		list-style:none;
 		width:100%;
@@ -175,7 +186,7 @@ body
 		height:auto;
 		padding-right:15px;
 		margin-right:0px;
-		height : 200px;
+		height : 220px;
 		padding-bottom: 60px;
 		margin-left: 0px;
 		padding-left: 0px;

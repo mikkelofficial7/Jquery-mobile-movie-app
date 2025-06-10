@@ -10,43 +10,181 @@
 *********************************************************************************************************************
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-<link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 <script type="text/javascript" src="js/jquery-mobile-slide-menu.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-<title>jQuery Mobile Slide Menu Plugin Example</title>
+<title>MoviSnap - Your partner movies reference</title>
 </head>
 <body>
 
 <div id="side-menu">
   <ul>
-    <li><img class="pic" src = "#"></img><span class="icon"></span></li>
-    <li class="uname">Example.com<span class="icon"></span></li>
-    <li id = "item"><a href="#main">Popular</a><span class="icon"></span></li>
-    <li id = "item"><a href="#page-2">Top Rated</a><span class="icon"></span></li>
+    <li><img class="pic" src = "https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"></img><span class="icon"></span></li>
+    <li class="uname">MoviSnap<span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#main">Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#upcoming">Upcoming</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#popular">Popular</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#top-rated">Top Rated</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#search">Search Movie</a><span class="icon"></span></li>
   </ul>
 </div>
 
-  <div data-role="page" id="main" data-url="main" data-title="Popular Movies" data-theme="b" class="pages">
+  <div data-role="page" id="main" data-url="main" data-title="Now Playing Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Popular</h1>
+        <h1>Now Playing</h1>
     </div>
     <div data-role="content">
-        <ul id = "movieList">
+        <ul id = "movieListNowPlaying">
+        </ul>
+    </div>
+  </div>
+  
+  <div data-role="page" id="upcoming" data-url="upcoming" data-title="Upcoming Movies" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Upcoming</h1>
+    </div>
+    <div data-role="content">
+        <ul id = "movieListUpcoming">
         </ul>
     </div>
   </div>
 
-  <div data-role="page" id="page-2" data-url="page-2" data-title="Top Rated Movies" data-theme="b" class="pages">
+  <div data-role="page" id="top-rated" data-url="top-rated" data-title="Top Rated Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Top Rated</h1>
     </div>
     <div data-role="content">
+      <ul id = "movieListTopRated">
+        </ul>
     </div>
   </div>
+
+   <div data-role="page" id="popular" data-url="popular" data-title="Popular Movies" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Popular</h1>
+    </div>
+    <div data-role="content">
+      <ul id = "movieListPopular">
+      </ul>
+    </div>
+  </div>
+
+  <div data-role="page" id="search" data-url="search" data-title="Search Movies" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Find your movie name here</h1>
+    </div>
+    <div data-role="content">
+        <div class="flex justify-center w-full">
+            <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden mt-4 ms-4 me-4 mb-4">
+                <input
+                    type="text"
+                    placeholder="Find movie name..."
+                    class="w-full"
+                    id = "et-search"
+                    aria-label="Find movie name...">
+                <button
+                    type="submit"
+                    class="bg-blue-600 text-white p-4 text-lg font-semibold rounded-lg whitespace-nowrap btn-search"
+                    aria-label="Search button">
+                    Find movies
+                </button>
+            </div>
+        </div>
+        <ul id="movieListSearch">
+        </ul>
+    </div>
+</div>
+
+  <div data-role="page" id="movie-detail" data-url="movie-detail" data-title="Movie Detail" data-theme="b" class="pages" data-original="true">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Movie Detail</h1>
+    </div>
+    <div data-role="content">
+        <!-- Movie Detail Section -->
+        <div class="relative text-black overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
+
+        <!-- Background Image Layer -->
+        <img id="movie-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
+
+        <!-- Content Layer -->
+        <div class="relative z-10 p-6 md:p-10 backdrop-blur-sm">
+          
+          <!-- Header -->
+          <header class="flex items-center gap-4 mb-6">
+            <img id="movie-poster" src="#" alt="Movie Poster"
+                class="w-24 h-36 object-cover rounded shadow-md md:w-40 md:h-60"/>
+            <div>
+              <h1 id="movie-title" class="text-2xl md:text-3xl font-bold">-</h1>
+              <p class="text-sm text-black/100">Release Date: <span id="movie-release">-</span></p>
+              <p class="text-sm text-black/100">Rating: <span id="movie-rating">⭐ 0</span></p>
+            </div>
+          </header>
+
+          <!-- Genre tags -->
+          <div id="genre-tags" class="flex flex-wrap gap-2 mb-4">
+            <!-- Tags go here -->
+          </div>
+
+          <!-- Overview -->
+          <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">Overview</h2>
+            <p id="movie-overview" class="text-black/100">
+              <!-- Will be filled dynamically -->
+            </p>
+          </section>
+
+          <section class="mb-6 space-y-4 text-sm text-black/90">
+
+            <!-- Tagline -->
+            <div>
+              <h2 class="text-xl font-semibold mb-1">Tagline</h2>
+              <p id="movie-tagline" class="italic text-black/70">-</p>
+            </div>
+
+            <!-- Production Companies -->
+            <div>
+              <h2 class="text-xl font-semibold mb-1">Production Companies</h2>
+              <ul id="movie-production" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 text-black/80">
+                <!-- Filled dynamically -->
+              </ul>
+            </div>
+
+            <!-- Revenue -->
+            <div>
+              <h2 class="text-xl font-semibold mb-1">Revenue</h2>
+              <p id="movie-revenue">$0</p>
+            </div>
+
+            <!-- Spoken Languages -->
+            <div>
+              <h2 class="text-xl font-semibold mb-1">Spoken Languages</h2>
+              <p id="movie-languages">-</p>
+            </div>
+
+            <!-- Age Rating -->
+            <div>
+              <h2 class="text-xl font-semibold mb-1">Age Rating</h2>
+              <span id="movie-rating-age" class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">
+                -
+              </span>
+            </div>
+          </section>
+
+           <section class="mb-6 space-y-4 text-sm text-black/90">
+            <h2 class="text-xl font-semibold mb-1">Similar movies you'd like</h2>
+            <ul id = "movieListSimilar">
+            </ul>
+           </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <script type="text/javascript">
   	$(function(){
