@@ -2,6 +2,8 @@ jQuery Mobile Slide Menu
 ------------------------
 This is a simple side aligned sliding menu for jQuery Mobile. You can access the menu either by hitting the menu icon or by swiping your finger from left to right, to slide the menu out. Likewise, you can hide it with the menu icon, or by swiping your finger from right to left to slide the menu back in.
 
+<img src="https://github.com/mikkelofficial7/Jquery-mobile-movie-app/blob/master/demo.jpg" alt="Project screenshot" width="700" />
+
 Usage
 -----
 Include the following files:
