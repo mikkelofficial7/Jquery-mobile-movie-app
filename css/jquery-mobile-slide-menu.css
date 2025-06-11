@@ -128,7 +128,7 @@ body
 		margin-left:5px;
 		font-size:12px;
 	}
-	.list-movie{
+	.list-movie, .list-tv{
 		float:left;
 		width: 150px;
 		height : 300px;
@@ -136,7 +136,7 @@ body
 		margin-bottom: 30px;
 		margin-left: 0px;
 	}
-	.list-movie-title p {
+	.list-movie-title p, .list-tv-title p {
 		max-lines: 2;
 	}
 	.poster-movie
@@ -195,7 +195,7 @@ body
 		padding:5px 5px 5px 7%;
 		font-size:12px;
 	}
-	.list-movie{
+	.list-movie, .list-tv{
 		float:left;
 		width: 110px;
 		max-lines: 2;

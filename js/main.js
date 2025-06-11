@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 	runUpcomingList(currentPageUpcoming);
 
-	$(document).on("click", "#btn-load-more-top-upcoming", function () {
+	$(document).on("click", "#btn-load-more-upcoming", function () {
 		currentPageUpcoming += 1;
 		runUpcomingList(currentPageUpcoming);
 	});
@@ -128,7 +128,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#movieListUpcoming").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListUpcoming").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#movieListUpcoming").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -151,7 +151,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#movieListTopRated").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#movieListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -174,7 +174,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#movieListPopular").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#movieListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -196,7 +196,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#movieListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#movieListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -219,7 +219,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#tvListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#tvListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#tvListNowPlaying").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -242,7 +242,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#tvListPopular").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#tvListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#tvListPopular").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -265,7 +265,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#tvListTopRated").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#tvListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#tvListTopRated").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -288,7 +288,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#movieListSearch").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#movieListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -311,7 +311,7 @@ $(document).ready(function(){
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#tvListSearch").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#tvListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#tvListSearch").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 
 			if (data.results.length > 0) {
@@ -331,41 +331,44 @@ $(document).ready(function(){
 		return title.substring(0, maxLength - 3) + '...';
 	}
 
-	// MOVIE DETAIL PART
+	// TV DETAIL PART
 
-	$(document).on("click", ".list-movie", function () {
+	$(document).on("click", ".list-tv", function () {
 		const movieId = $(this).data("id");
+
+		$("#itemSimilarTitle").text("Similar TV show you'd like");
+
 		updateMovieDetailPageIdAndUrl(`-${movieId}`);
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
 
 				if (data.results.length < 1 && currentPage < 2) {
-					$("#movieListSimilar").append("<li class='flex-li'>Data not found</li>");
+					$("#itemListSimilar").append("<li class='flex-li'>Data not found</li>");
 				}
-				$("#movieListSimilar").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				$("#itemListSimilar").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
 			});
 		});
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
 			const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
 
-			document.getElementById("movie-title").textContent = data.title;
-			document.getElementById("movie-release").textContent = data.release_date;
-			document.getElementById("movie-rating").textContent = `⭐ ${data.vote_average}/10`;
-			document.getElementById("movie-poster").src = imageUrl;
-			document.getElementById("movie-bg").src = imageUrl;
+			document.getElementById("item-title").textContent = data.title;
+			document.getElementById("item-release").textContent = data.release_date;
+			document.getElementById("item-rating").textContent = `⭐ ${data.vote_average}/10`;
+			document.getElementById("item-poster").src = imageUrl;
+			document.getElementById("item-bg").src = imageUrl;
 
   			setGenresAndOverview(data);
 
-			document.getElementById("movie-tagline").textContent = data.tagline || "No tagline available.";
+			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
-			const productionList = document.getElementById("movie-production");
+			const productionList = document.getElementById("item-production");
 				productionList.innerHTML = "";
 
 				data.production_companies.forEach(company => {
@@ -392,20 +395,101 @@ $(document).ready(function(){
 			});
 
 
-			document.getElementById("movie-revenue").textContent =
+			document.getElementById("item-revenue").textContent =
 			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
 
-			document.getElementById("movie-languages").textContent =
+			document.getElementById("item-languages").textContent =
 			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
 
-			document.getElementById("movie-rating-age").textContent = data.adult ? "17+" : "All Age";
+			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
 
 			if (data?.adult) {
-				document.getElementById("movie-rating-age").textContent = "17+";
-				document.getElementById("movie-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").textContent = "17+";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
 			} else {
-				document.getElementById("movie-rating-age").textContent = "All ages";
-				document.getElementById("movie-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").textContent = "All ages";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+			}
+		});
+	});
+
+	// MOVIE DETAIL PART
+
+	$(document).on("click", ".list-movie", function () {
+		const movieId = $(this).data("id");
+
+		updateMovieDetailPageIdAndUrl(`-${movieId}`);
+		$("#itemSimilarTitle").text("Similar movies you'd like");
+
+		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+			$.each(data.results, function(){
+				const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#itemListSimilar").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#itemListSimilar").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+			});
+		});
+
+		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+			const imageUrl = data.poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
+
+			document.getElementById("item-title").textContent = data.title;
+			document.getElementById("item-release").textContent = data.release_date;
+			document.getElementById("item-rating").textContent = `⭐ ${data.vote_average}/10`;
+			document.getElementById("item-poster").src = imageUrl;
+			document.getElementById("item-bg").src = imageUrl;
+
+  			setGenresAndOverview(data);
+
+			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
+
+			const productionList = document.getElementById("item-production");
+				productionList.innerHTML = "";
+
+				data.production_companies.forEach(company => {
+				const li = document.createElement("li");
+				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
+
+				// Create logo image if available
+				const imageUrl = company.logo_path == null
+						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+  						: "https://image.tmdb.org/t/p/w92" + company.logo_path;
+
+				const img = document.createElement("img");
+					img.src = imageUrl;
+					img.alt = `${company.name} Logo`;
+					img.className = "w-10 h-auto object-contain";
+					li.appendChild(img);
+
+				// Company name
+				const span = document.createElement("span");
+				span.textContent = company.name;
+				li.appendChild(span);
+
+				productionList.appendChild(li);
+			});
+
+
+			document.getElementById("item-revenue").textContent =
+			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
+
+			document.getElementById("item-languages").textContent =
+			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
+
+			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
+
+			if (data?.adult) {
+				document.getElementById("item-rating-age").textContent = "17+";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+			} else {
+				document.getElementById("item-rating-age").textContent = "All ages";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
 			}
 		});
 	});
@@ -413,8 +497,8 @@ $(document).ready(function(){
 	function updateMovieDetailPageIdAndUrl(newName) {
 		const $page = $('div[data-original="true"]'); // always target the original
 
-		const newId = `movie-detail${newName}`;
-		const newUrl = `movie-detail${newName}`;
+		const newId = `item-detail${newName}`;
+		const newUrl = `item-detail${newName}`;
 
 		$page.attr("id", newId);
 		$page.attr("data-url", newUrl);
@@ -422,7 +506,7 @@ $(document).ready(function(){
 	
 	function setGenresAndOverview(data) {
 		// Set Overview
-		document.getElementById("movie-overview").textContent = data.overview;
+		document.getElementById("item-overview").textContent = data.overview;
 
 		// Set Genres
 		const genreContainer = document.getElementById("genre-tags");

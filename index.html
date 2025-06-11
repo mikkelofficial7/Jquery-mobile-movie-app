@@ -145,7 +145,7 @@
     </div>
   </div>
 
-  <!-- SEARCH AND DETAIL -->
+  <!-- SEARCH -->
   <div data-role="page" id="search" data-url="search" data-title="Search Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Find your movie name here</h1>
@@ -208,7 +208,9 @@
     </div>
 </div>
 
-  <div data-role="page" id="movie-detail" data-url="movie-detail" data-title="Movie Detail" data-theme="b" class="pages" data-original="true">
+<!-- DETAIL -->
+
+  <div data-role="page" id="item-detail" data-url="item-detail" data-title="Movie Detail" data-theme="b" class="pages" data-original="true">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Movie Detail</h1>
     </div>
@@ -217,19 +219,19 @@
         <div class="relative text-black overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
 
         <!-- Background Image Layer -->
-        <img id="movie-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
+        <img id="item-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
 
         <!-- Content Layer -->
         <div class="relative z-10 p-6 md:p-10 backdrop-blur-sm">
           
           <!-- Header -->
           <header class="flex items-center gap-4 mb-6">
-            <img id="movie-poster" src="#" alt="Movie Poster"
+            <img id="item-poster" src="#" alt="Movie Poster"
                 class="w-24 h-36 object-cover rounded shadow-md md:w-40 md:h-60"/>
             <div>
-              <h1 id="movie-title" class="text-2xl md:text-3xl font-bold">-</h1>
-              <p class="text-sm text-black/100">Release Date: <span id="movie-release">-</span></p>
-              <p class="text-sm text-black/100">Rating: <span id="movie-rating">⭐ 0</span></p>
+              <h1 id="item-title" class="text-2xl md:text-3xl font-bold">-</h1>
+              <p class="text-sm text-black/100">Release Date: <span id="item-release">-</span></p>
+              <p class="text-sm text-black/100">Rating: <span id="item-rating">⭐ 0</span></p>
             </div>
           </header>
 
@@ -241,7 +243,7 @@
           <!-- Overview -->
           <section class="mb-6">
             <h2 class="text-xl font-semibold mb-2">Overview</h2>
-            <p id="movie-overview" class="text-black/100">
+            <p id="item-overview" class="text-black/100">
               <!-- Will be filled dynamically -->
             </p>
           </section>
@@ -251,13 +253,13 @@
             <!-- Tagline -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Tagline</h2>
-              <p id="movie-tagline" class="italic text-black/70">-</p>
+              <p id="item-tagline" class="italic text-black/70">-</p>
             </div>
 
             <!-- Production Companies -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Production Companies</h2>
-              <ul id="movie-production" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 text-black/80">
+              <ul id="item-production" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 text-black/80">
                 <!-- Filled dynamically -->
               </ul>
             </div>
@@ -265,27 +267,27 @@
             <!-- Revenue -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Revenue</h2>
-              <p id="movie-revenue">$0</p>
+              <p id="item-revenue">$0</p>
             </div>
 
             <!-- Spoken Languages -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Spoken Languages</h2>
-              <p id="movie-languages">-</p>
+              <p id="item-languages">-</p>
             </div>
 
             <!-- Age Rating -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Age Rating</h2>
-              <span id="movie-rating-age" class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">
+              <span id="item-rating-age" class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">
                 -
               </span>
             </div>
           </section>
 
            <section class="mb-6 space-y-4 text-sm text-black/90">
-            <h2 class="text-xl font-semibold mb-1">Similar movies you'd like</h2>
-            <ul id = "movieListSimilar">
+            <h2 id="itemSimilarTitle" class="text-xl font-semibold mb-1"></h2>
+            <ul id = "itemListSimilar">
             </ul>
            </section>
         </div>
