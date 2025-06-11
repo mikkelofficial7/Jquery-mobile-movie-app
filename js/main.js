@@ -453,49 +453,6 @@ $(document).ready(function(){
 				productionList.appendChild(li);
 			});
 
-			const seasonList = document.getElementById("item-seasons");
-			seasonList.innerHTML = "";
-			
-			if (data.seasons.length > 0) {
-				const section = document.getElementById('section-session');
-				section.classList.remove('hidden');
-			} else {
-				const section = document.getElementById('section-session');
-				section.classList.add('hidden');
-			}
-
-			data.seasons.forEach(season => {
-				const card = document.createElement("li");
-				card.className = "flex-none w-40";
-
-				const imageUrl = season.poster_path == null
-						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
-  						: "https://image.tmdb.org/t/p/w300" + season.poster_path;
-
-				const image = document.createElement("img");
-				image.src = imageUrl;
-				image.alt = season.name;
-				image.className = "rounded-lg shadow-md w-full h-auto";
-
-				const content = document.createElement("div");
-				content.className = "p-3";
-
-				const title = document.createElement("div");
-				title.className = "text-sm font-semibold mb-1";
-				title.textContent = season.name;
-
-				const episodes = document.createElement("div");
-				episodes.className = "text-xs text-black-400";
-				episodes.textContent = `${season.episode_count} Episodes`;
-
-				content.appendChild(title);
-				content.appendChild(episodes);
-				card.appendChild(image);
-				card.appendChild(content);
-				seasonList.appendChild(card);
-			});
-
-
 			document.getElementById("item-revenue").textContent =
 			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
 
@@ -511,6 +468,57 @@ $(document).ready(function(){
 				document.getElementById("item-rating-age").textContent = "All ages";
 				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
 			}
+		});
+
+
+		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/videos?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+			const seasonList = document.getElementById("item-videos");
+			seasonList.innerHTML = "";
+			
+			if (data.results.length > 0) {
+				const section = document.getElementById('section-videos');
+				section.classList.remove('hidden');
+			} else {
+				const section = document.getElementById('section-videos');
+				section.classList.add('hidden');
+			}
+
+			const takeOnly = data.results
+						.sort()
+						.slice(0, 6);
+
+			takeOnly.forEach(data => {
+				const card = document.createElement("li");
+				card.className = "rounded-xl shadow-lg overflow-hidden";
+
+				const iframe = document.createElement("iframe");
+				iframe.className = "w-full h-64";
+				iframe.src = "https://www.youtube.com/embed/"+data.key;
+				iframe.title = data.name;
+				iframe.allowFullscreen = true;
+				iframe.setAttribute("frameborder", "0");
+				iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+
+				const content = document.createElement("div");
+				content.className = "p-3";
+
+				const title = document.createElement("div");
+				title.className = "text-sm font-semibold mb-1";
+				title.textContent = data.name;
+
+				const episodes = document.createElement("div");
+				episodes.className = "text-xs text-navy-400";
+				episodes.textContent = `Available on ${data.site}`;
+
+				content.appendChild(title);
+				content.appendChild(episodes);
+
+				card.appendChild(iframe);
+				card.appendChild(content);
+
+				seasonList.appendChild(card); // seasonList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+			});
+
 		});
 	});
 
@@ -632,6 +640,57 @@ $(document).ready(function(){
 				document.getElementById("item-rating-age").textContent = "All ages";
 				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
 			}
+		});
+
+
+		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+			const seasonList = document.getElementById("item-videos");
+			seasonList.innerHTML = "";
+			
+			if (data.results.length > 0) {
+				const section = document.getElementById('section-videos');
+				section.classList.remove('hidden');
+			} else {
+				const section = document.getElementById('section-videos');
+				section.classList.add('hidden');
+			}
+
+			const takeOnly = data.results
+						.sort()
+						.slice(0, 6);
+
+			takeOnly.forEach(data => {
+				const card = document.createElement("li");
+				card.className = "rounded-xl shadow-lg overflow-hidden";
+
+				const iframe = document.createElement("iframe");
+				iframe.className = "w-full h-64";
+				iframe.src = "https://www.youtube.com/embed/"+data.key;
+				iframe.title = data.name;
+				iframe.allowFullscreen = true;
+				iframe.setAttribute("frameborder", "0");
+				iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+
+				const content = document.createElement("div");
+				content.className = "p-3";
+
+				const title = document.createElement("div");
+				title.className = "text-sm font-semibold mb-1";
+				title.textContent = data.name;
+
+				const episodes = document.createElement("div");
+				episodes.className = "text-xs text-gray-400";
+				episodes.textContent = `Available on ${data.site}`;
+
+				content.appendChild(title);
+				content.appendChild(episodes);
+
+				card.appendChild(iframe);
+				card.appendChild(content);
+
+				seasonList.appendChild(card); // seasonList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+			});
+
 		});
 	});
 
