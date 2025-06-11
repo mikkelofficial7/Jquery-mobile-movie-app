@@ -26,14 +26,17 @@
   <ul>
     <li><img class="pic" src = "https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"></img><span class="icon"></span></li>
     <li class="uname">MoviSnap<span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#main">Now Playing</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#upcoming">Upcoming</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#popular">Popular</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#top-rated">Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#search">Search Movie</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#main">Movie - Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#upcoming">Movie - Upcoming</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#popular">Movie - Popular</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#top-rated">Movie - Top Rated</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#search">Movie - Search</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#tv-main">TV Show - Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#tv-search">TV Show - Search</a><span class="icon"></span></li>
   </ul>
 </div>
 
+<!-- MOVIE -->
   <div data-role="page" id="main" data-url="main" data-title="Now Playing Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Now Playing</h1>
@@ -94,6 +97,23 @@
     </div>
   </div>
 
+  <!-- TV SHOW -->
+  <div data-role="page" id="tv-main" data-url="tv-main" data-title="Now Playing TV Show" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>TV Show - Now</h1>
+    </div>
+    <div data-role="content">
+        <ul id = "tvListNowPlaying">
+        </ul>
+    </div>
+    <div id ="load-more-section-tv-main" class="m-5 hidden">
+      <button id="btn-load-more-tv-main" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+        Load More
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH AND DETAIL -->
   <div data-role="page" id="search" data-url="search" data-title="Search Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Find your movie name here</h1>
@@ -120,6 +140,37 @@
     </div>
     <div id ="load-more-section-search" class="m-5 hidden">
       <button id="btn-load-more-search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+        Load More
+      </button>
+    </div>
+</div>
+
+<div data-role="page" id="tv-search" data-url="tv-search" data-title="Search TV Show" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Find your TV Show here</h1>
+    </div>
+    <div data-role="content">
+        <div class="flex justify-center w-full">
+            <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden mt-4 ms-4 me-4 mb-4">
+                <input
+                    type="text"
+                    placeholder="Find TV Show name..."
+                    class="w-full"
+                    id = "et-tv-search"
+                    aria-label="Find TV Show name...">
+                <button
+                    type="submit"
+                    class="bg-blue-600 text-white p-4 text-lg font-semibold rounded-lg whitespace-nowrap btn-tv-search"
+                    aria-label="Search button">
+                    Find TV Show
+                </button>
+            </div>
+        </div>
+        <ul id="tvListSearch">
+        </ul>
+    </div>
+    <div id ="load-more-section-tv-search" class="m-5 hidden">
+      <button id="btn-load-more-tv-search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>

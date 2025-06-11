@@ -4,6 +4,8 @@ $(document).ready(function(){
 	var currentPagePopular = 1;
 	var currentPageNowPlaying = 1;
 	var currentPageSearch = 1;
+	var tv_currentPageNowPlaying = 1;
+	var tv_currentPageSearch = 1;
 
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
@@ -37,6 +39,21 @@ $(document).ready(function(){
 		runNowPlayingList(currentPageNowPlaying);
 	});
 
+
+	runTvShowNowPlayingList(tv_currentPageNowPlaying);
+
+	$(document).on("click", "#btn-load-more-tv-main", function () {
+		tv_currentPageNowPlaying += 1;
+		runTvShowNowPlayingList(tv_currentPageNowPlaying);
+	});
+
+
+
+
+
+
+
+
 	$(document).on("click", ".btn-search", function () {
 		const keyword = $("#et-search").val();
 
@@ -57,6 +74,32 @@ $(document).ready(function(){
 			alert("keyword cannot be empty!")
 		}
 	});
+
+	$(document).on("click", ".btn-tv-search", function () {
+		const keyword = $("#et-tv-search").val();
+
+		if (keyword != "") {
+			runTvSearchList(tv_currentPageSearch, keyword)
+		} else {
+			alert("keyword cannot be empty!")
+		}
+	});
+
+	$(document).on("click", "#btn-load-more-tv-search", function () {
+		const keyword = $("#et-tv-search").val();
+		tv_currentPageSearch += 1;
+
+		if (keyword != "") {
+			runTvSearchList(tv_currentPageSearch, keyword)
+		} else {
+			alert("keyword cannot be empty!")
+		}
+	});
+
+
+
+
+
 
 	function runUpcomingList(currentPage) {
 		$.getJSON("http://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
@@ -149,6 +192,29 @@ $(document).ready(function(){
 		});
 	}
 
+	function runTvShowNowPlayingList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){				
+				const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#tvListNowPlaying").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#tvListNowPlaying").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-tv-main');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-tv-main');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
 	function runSearchList(currentPage, keyword) {
 		$.getJSON('https://api.themoviedb.org/3/search/movie?page='+currentPage+'&query="'+keyword+'"&api_key=edfccf752de0d09758c56e652809912b', function(data) {
 			$.each(data.results, function(){
@@ -167,6 +233,29 @@ $(document).ready(function(){
 				loadMoreSection.classList.remove('hidden');
 			} else {
 				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runTvSearchList(currentPage, keyword) {
+		$.getJSON('https://api.themoviedb.org/3/search/tv?page='+currentPage+'&query="'+keyword+'"&api_key=edfccf752de0d09758c56e652809912b', function(data) {
+			$.each(data.results, function(){
+				const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+						
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#tvListSearch").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#tvListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-tv-search');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-tv-search');
 				loadMoreSection.classList.add('hidden');
 			}
 		});
