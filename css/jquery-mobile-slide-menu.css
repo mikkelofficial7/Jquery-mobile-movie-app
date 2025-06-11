@@ -133,8 +133,11 @@ body
 		width: 150px;
 		height : 300px;
 		padding-right:25px;
-		margin-bottom: 7px;
+		margin-bottom: 30px;
 		margin-left: 0px;
+	}
+	.list-movie-title p {
+		max-lines: 2;
 	}
 	.poster-movie
 	{
@@ -195,6 +198,7 @@ body
 	.list-movie{
 		float:left;
 		width: 110px;
+		max-lines: 2;
 		height:auto;
 		padding-right:15px;
 		margin-right:0px;
