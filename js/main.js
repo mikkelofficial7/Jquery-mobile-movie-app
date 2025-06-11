@@ -101,7 +101,7 @@ $(document).ready(function(){
 
 
 	function runMovieTrendingTodayList() {
-		$.getJSON("http://api.themoviedb.org/3/trending/movie/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+		$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
 			$.each(data.results, function(){	
 				const posterList = document.getElementById("item-movie-trending-today");
 				posterList.innerHTML = "";
@@ -131,7 +131,7 @@ $(document).ready(function(){
 	}
 
 	function runTvTrendingTodayList() {
-		$.getJSON("http://api.themoviedb.org/3/trending/tv/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+		$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
 			$.each(data.results, function(){	
 				const posterList = document.getElementById("item-tv-trending-today");
 				posterList.innerHTML = "";
@@ -161,7 +161,7 @@ $(document).ready(function(){
 	}
 
 	function runUpcomingList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListUpcoming").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -185,7 +185,7 @@ $(document).ready(function(){
 	}
 
 	function runTopRatedList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListTopRated").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -209,7 +209,7 @@ $(document).ready(function(){
 	}
 
 	function runPopularList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/movie/popular?page="+currentPage+"1&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"1&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListPopular").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -232,7 +232,7 @@ $(document).ready(function(){
 		});
 	}
 	function runNowPlayingList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -256,7 +256,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowNowPlayingList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -280,7 +280,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowPopularList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListPopular").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -304,7 +304,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowTopRatedList(currentPage) {
-		$.getJSON("http://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListTopRated").append("<li class='flex-li'>Data not found</li>");
 			}
