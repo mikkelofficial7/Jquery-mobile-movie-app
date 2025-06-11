@@ -294,6 +294,8 @@ $(document).ready(function(){
 		updateMovieDetailPageIdAndUrl(`-${movieId}`);
 
 		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+			$("#itemListSimilar").html("");
+
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
@@ -417,6 +419,8 @@ $(document).ready(function(){
 		$("#itemSimilarTitle").text("Similar movies you'd like");
 
 		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+			$("#itemListSimilar").html("");
+			
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
