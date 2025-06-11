@@ -6,6 +6,9 @@ $(document).ready(function(){
 	var currentPageSearch = 1;
 	var tv_currentPageNowPlaying = 1;
 	var tv_currentPageSearch = 1;
+	var tv_currentPagePopular = 1;
+	var tv_currentPageTopRated = 1;
+
 
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
@@ -45,6 +48,20 @@ $(document).ready(function(){
 	$(document).on("click", "#btn-load-more-tv-main", function () {
 		tv_currentPageNowPlaying += 1;
 		runTvShowNowPlayingList(tv_currentPageNowPlaying);
+	});
+
+	runTvShowPopularList(tv_currentPagePopular);
+
+	$(document).on("click", "#btn-load-more-tv-popular", function () {
+		tv_currentPagePopular += 1;
+		runTvShowPopularList(tv_currentPagePopular);
+	});
+
+	runTvShowTopRatedList(tv_currentPageTopRated);
+
+	$(document).on("click", "#btn-load-more-tv-top-rated", function () {
+		tv_currentPageTopRated += 1;
+		runTvShowTopRatedList(tv_currentPageTopRated);
 	});
 
 
@@ -210,6 +227,52 @@ $(document).ready(function(){
 				loadMoreSection.classList.remove('hidden');
 			} else {
 				const loadMoreSection = document.getElementById('load-more-section-tv-main');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runTvShowPopularList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){				
+				const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#tvListPopular").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#tvListPopular").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-tv-popular');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-tv-popular');
+				loadMoreSection.classList.add('hidden');
+			}
+		});
+	}
+
+	function runTvShowTopRatedList(currentPage) {
+		$.getJSON("http://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){				
+				const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+				if (data.results.length < 1 && currentPage < 2) {
+					$("#tvListTopRated").append("<li class='flex-li'>Data not found</li>");
+				}
+				$("#tvListTopRated").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#movie-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+			});
+
+			if (data.results.length > 0) {
+				const loadMoreSection = document.getElementById('load-more-section-tv-top-rated');
+				loadMoreSection.classList.remove('hidden');
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-tv-top-rated');
 				loadMoreSection.classList.add('hidden');
 			}
 		});

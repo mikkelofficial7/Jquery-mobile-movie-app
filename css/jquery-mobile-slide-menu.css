@@ -121,7 +121,7 @@ body
 }
 
 @media screen and (min-width: 538px) {
-	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch, #tvListNowPlaying, #tvListSearch
+	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch, #tvListNowPlaying, #tvListSearch, #tvListPopular, #tvListTopRated
 	{
 		list-style:none;
 		width:100%;
@@ -187,7 +187,7 @@ body
 }
 
 @media screen and (max-width: 628px) {
-	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch, #tvListNowPlaying, #tvListSearch
+	#movieListUpcoming, #movieListTopRated, #movieListPopular, #movieListNowPlaying, #movieListSearch, #tvListNowPlaying, #tvListSearch, #tvListPopular, #tvListTopRated
 	{
 		list-style:none;
 		width:100%;
