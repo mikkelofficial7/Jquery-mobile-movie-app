@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
+<link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"/>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -26,7 +27,8 @@
   <ul>
     <li><img class="pic" src = "https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"></img><span class="icon"></span></li>
     <li class="uname">MoviSnap<span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#main">Movie - Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#main">Home</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#now-playing">Movie - Now Playing</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#upcoming">Movie - Upcoming</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#popular">Movie - Popular</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#top-rated">Movie - Top Rated</a><span class="icon"></span></li>
@@ -38,7 +40,25 @@
 </div>
 
 <!-- MOVIE -->
-  <div data-role="page" id="main" data-url="main" data-title="Now Playing Movies" data-theme="b" class="pages">
+ <div data-role="page" id="main" data-url="main" data-title="Home" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#main" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Welcome to MoviSnap</h1>
+    </div>
+    <div data-role="content">
+        <div class="overflow-x-auto whitespace-nowrap p-4">
+          <h2 class="text-xl font-semibold mb-2">Today's Trending Movies</h2>
+          <ul id="item-movie-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
+          </ul>
+        </div>
+        <div class="overflow-x-auto whitespace-nowrap p-4">
+          <h2 class="text-xl font-semibold mb-2">Today's Trending TV Shows</h2>
+          <ul id="item-tv-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
+          </ul>
+        </div>
+    </div>
+  </div>
+
+ <div data-role="page" id="now-playing" data-url="now-playing" data-title="Now Playing Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Now Playing</h1>
     </div>

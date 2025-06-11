@@ -9,6 +9,9 @@ $(document).ready(function(){
 	var tv_currentPageTopRated = 1;
 
 
+	runMovieTrendingTodayList()
+	runTvTrendingTodayList()
+
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
 	});
@@ -91,6 +94,71 @@ $(document).ready(function(){
 			alert("keyword cannot be empty!")
 		}
 	});
+
+
+
+
+
+
+	function runMovieTrendingTodayList() {
+		$.getJSON("http://api.themoviedb.org/3/trending/movie/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){	
+				const posterList = document.getElementById("item-movie-trending-today");
+				posterList.innerHTML = "";
+
+				const randomFive = data.results
+						.sort(() => Math.random() - 0.5)
+						.slice(0, 5);
+
+				randomFive.forEach(data => {
+					const imageUrl = data.poster_path == null
+							? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+							: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + data.poster_path;
+					
+					const li = document.createElement("li");
+					li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
+
+					const img = document.createElement("img");
+						img.src = imageUrl;
+						img.alt = `${data.poster_path} Logo`;
+						img.className = "rounded-lg shadow-md w-full h-auto object-cover";
+						li.appendChild(img);
+
+					posterList.appendChild(li);
+				});
+			});
+		});
+	}
+
+	function runTvTrendingTodayList() {
+		$.getJSON("http://api.themoviedb.org/3/trending/tv/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+			$.each(data.results, function(){	
+				const posterList = document.getElementById("item-tv-trending-today");
+				posterList.innerHTML = "";
+
+				const randomFive = data.results
+						.sort(() => Math.random() - 0.5)
+						.slice(0, 5);
+
+				randomFive.forEach(data => {
+					const imageUrl = data.poster_path == null
+							? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+							: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + data.poster_path;
+					
+					const li = document.createElement("li");
+					li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
+
+					const img = document.createElement("img");
+						img.src = imageUrl;
+						img.alt = `${data.poster_path} Logo`;
+						img.className = "rounded-lg shadow-md w-full h-auto object-cover";
+						li.appendChild(img);
+
+					posterList.appendChild(li);
+				});
+			});
+		});
+	}
 
 	function runUpcomingList(currentPage) {
 		$.getJSON("http://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
