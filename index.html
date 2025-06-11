@@ -203,6 +203,12 @@
             </div>
           </header>
 
+           <!-- Alternate images -->
+          <div class="overflow-x-auto whitespace-nowrap p-4">
+            <ul id="item-images-alternate" class="flex gap-4">
+            </ul>
+          </div>
+
           <!-- Genre tags -->
           <div id="genre-tags" class="flex flex-wrap gap-2 mb-4">
             <!-- Tags go here -->
@@ -234,10 +240,12 @@
 
              <!-- Seasons -->
             <div id = "section-session" class = "hidden">
-              <h2 class="text-xl font-semibold mb-1">Total Seasons</h2>
-              <ul id="item-seasons" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-10 gap-4 pt-4 pb-4">>
-                <!-- Filled dynamically -->
-              </ul>
+              <h2 class="text-xl font-semibold mb-1">List Seasons</h2>
+              <div class="overflow-x-auto whitespace-nowrap p-4">
+                <ul id="item-seasons" class="flex gap-4">>
+                  <!-- Filled dynamically -->
+                </ul>
+              </div>
             </div>
 
             <!-- Revenue -->
