@@ -369,9 +369,9 @@ $(document).ready(function(){
 			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
 			const productionList = document.getElementById("item-production");
-				productionList.innerHTML = "";
+			productionList.innerHTML = "";
 
-				data.production_companies.forEach(company => {
+			data.production_companies.forEach(company => {
 				const li = document.createElement("li");
 				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
 
@@ -392,6 +392,48 @@ $(document).ready(function(){
 				li.appendChild(span);
 
 				productionList.appendChild(li);
+			});
+
+			const seasonList = document.getElementById("item-seasons");
+			seasonList.innerHTML = "";
+			
+			if (data.seasons.length > 0) {
+				const section = document.getElementById('section-session');
+				section.classList.remove('hidden');
+			} else {
+				const section = document.getElementById('section-session');
+				section.classList.add('hidden');
+			}
+
+			data.seasons.forEach(season => {
+				const card = document.createElement("div");
+				card.className = "bg-gray-900 rounded-xl overflow-hidden shadow-md text-white";
+
+				const imageUrl = season.poster_path == null
+						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+  						: "https://image.tmdb.org/t/p/w300" + season.poster_path;
+
+				const image = document.createElement("img");
+				image.src = imageUrl;
+				image.alt = season.name;
+				image.className = "w-full h-60 object-cover";
+
+				const content = document.createElement("div");
+				content.className = "p-3";
+
+				const title = document.createElement("div");
+				title.className = "text-sm font-semibold mb-1";
+				title.textContent = season.name;
+
+				const episodes = document.createElement("div");
+				episodes.className = "text-xs text-black-400";
+				episodes.textContent = `${season.episode_count} Episodes`;
+
+				content.appendChild(title);
+				content.appendChild(episodes);
+				card.appendChild(image);
+				card.appendChild(content);
+				seasonList.appendChild(card);
 			});
 
 
