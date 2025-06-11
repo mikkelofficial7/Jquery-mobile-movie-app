@@ -30,11 +30,10 @@
     <li id = "item" class="menu-item"><a href="#upcoming">Movie - Upcoming</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#popular">Movie - Popular</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#top-rated">Movie - Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#search">Movie - Search</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-main">TV Show - Now Playing</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-popular">TV Show - Popular</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-top-rated">TV Show - Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#tv-search">TV Show - Search</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#search">Search Data</a><span class="icon"></span></li>
   </ul>
 </div>
 
@@ -146,24 +145,24 @@
   </div>
 
   <!-- SEARCH -->
-  <div data-role="page" id="search" data-url="search" data-title="Search Movies" data-theme="b" class="pages">
+  <div data-role="page" id="search" data-url="search" data-title="Search Data" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Find your movie name here</h1>
+        <h1>Find Your Movie/TV Show/Actor Here</h1>
     </div>
     <div data-role="content">
         <div class="flex justify-center w-full">
             <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden mt-4 ms-4 me-4 mb-4">
                 <input
                     type="text"
-                    placeholder="Find movie name..."
+                    placeholder="Find movie/tv show/actor..."
                     class="w-full"
                     id = "et-search"
-                    aria-label="Find movie name...">
+                    aria-label="Find movie/tv show/actor...">
                 <button
                     type="submit"
                     class="bg-blue-600 text-white p-4 text-lg font-semibold rounded-lg whitespace-nowrap btn-search"
                     aria-label="Search button">
-                    Find movies
+                    Search
                 </button>
             </div>
         </div>
@@ -175,44 +174,13 @@
         Load More
       </button>
     </div>
-</div>
-
-<div data-role="page" id="tv-search" data-url="tv-search" data-title="Search TV Show" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Find your TV Show here</h1>
-    </div>
-    <div data-role="content">
-        <div class="flex justify-center w-full">
-            <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden mt-4 ms-4 me-4 mb-4">
-                <input
-                    type="text"
-                    placeholder="Find TV Show name..."
-                    class="w-full"
-                    id = "et-tv-search"
-                    aria-label="Find TV Show name...">
-                <button
-                    type="submit"
-                    class="bg-blue-600 text-white p-4 text-lg font-semibold rounded-lg whitespace-nowrap btn-tv-search"
-                    aria-label="Search button">
-                    Find TV Show
-                </button>
-            </div>
-        </div>
-        <ul id="tvListSearch">
-        </ul>
-    </div>
-    <div id ="load-more-section-tv-search" class="m-5 hidden">
-      <button id="btn-load-more-tv-search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
-        Load More
-      </button>
-    </div>
-</div>
+  </div>
 
 <!-- DETAIL -->
 
   <div data-role="page" id="item-detail" data-url="item-detail" data-title="Movie Detail" data-theme="b" class="pages" data-original="true">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Movie Detail</h1>
+        <h1>Detail Page</h1>
     </div>
     <div data-role="content">
         <!-- Movie Detail Section -->
@@ -226,7 +194,7 @@
           
           <!-- Header -->
           <header class="flex items-center gap-4 mb-6">
-            <img id="item-poster" src="#" alt="Movie Poster"
+            <img id="item-poster" src="#" alt="Movie/TV Poster"
                 class="w-24 h-36 object-cover rounded shadow-md md:w-40 md:h-60"/>
             <div>
               <h1 id="item-title" class="text-2xl md:text-3xl font-bold">-</h1>
