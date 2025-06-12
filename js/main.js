@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var currentPagePopular = 1;
 	var currentPageNowPlaying = 1;
 	var currentPageSearch = 1;
+	var currentPageGenreSearch= 1;
 	var tv_currentPageNowPlaying = 1;
 	var tv_currentPagePopular = 1;
 	var tv_currentPageTopRated = 1;
@@ -67,12 +68,8 @@ $(document).ready(function(){
 		runTvShowTopRatedList(tv_currentPageTopRated);
 	});
 
-
-
-
-
-
-
+	runMovieGenreList()
+	runTvGenreList()
 
 	$(document).on("click", ".btn-search", function () {
 		const keyword = $("#et-search").val();
@@ -95,7 +92,6 @@ $(document).ready(function(){
 			alert("keyword cannot be empty!")
 		}
 	});
-
 
 
 
@@ -351,6 +347,148 @@ $(document).ready(function(){
 				const loadMoreSection = document.getElementById('load-more-section-search');
 				loadMoreSection.classList.add('hidden');
 			}
+		});
+	}
+
+	function runMovieGenreList() {
+		let movieGenre = [];
+
+		$.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key='+apikey, function(data) {
+			movieGenre = data.genres;
+			$.each(data.genres, function(){
+				const li = document.createElement("li");
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow";
+				li.setAttribute("data-genre-id", this['id']);
+				li.textContent = this['name']
+
+				const parentList = document.getElementById("movieGenreList");
+				parentList.appendChild(li);
+			});
+		});
+
+		$("#movieGenreList").on("click", "li", function () {
+			currentPageGenreSearch = 1;
+			$("#GenreListSearch").html("");
+			
+			const index = $(this).index(); // Get the index of clicked <li>
+  			if (movieGenre[index]) {
+				$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {
+					$.each(data.results, function(){
+						const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+						$("#GenreListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+					});
+
+					if (data.results.length < 1 && currentPage < 2) {
+						$("#GenreListSearch").append("<li class='flex-li'>Data not found</li>");
+					}
+
+					if (data.results.length > 0) {
+						const section = document.getElementById('load-more-section-genre-list');
+						section.classList.remove('hidden');
+					} else {
+						const section = document.getElementById('load-more-section-genre-list');
+						section.classList.add('hidden');
+					}
+				});
+			}
+		});
+
+		$(document).on("click", "#btn-load-more-genre-list", function () {
+			const index = $(this).index(); // Get the index of clicked <li>
+			currentPageGenreSearch += 1;
+			
+			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {	
+				$.each(data.results, function(){
+					const imageUrl = this['poster_path'] == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+					$("#GenreListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				});
+
+				if (data.results.length > 0) {
+					const section = document.getElementById('load-more-section-genre-list');
+					section.classList.remove('hidden');
+				} else {
+					const section = document.getElementById('load-more-section-genre-list');
+					section.classList.add('hidden');
+				}
+			});
+		});
+
+	}
+
+	function runTvGenreList() {
+		let tvGenre = [];
+
+		$.getJSON('https://api.themoviedb.org/3/genre/tv/list?api_key='+apikey, function(data) {
+			tvGenre = data.genres;
+			$.each(data.genres, function(){
+				const li = document.createElement("li");
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow";
+				li.setAttribute("data-genre-id", this['id']);
+				li.textContent = this['name']
+
+				const parentList = document.getElementById("tvGenreList");
+				parentList.appendChild(li);
+			});
+		});
+
+		$("#tvGenreList").on("click", "li", function () {
+			currentPageGenreSearch = 1;
+			$("#GenreListSearch").html("");
+
+			const index = $(this).index(); // Get the index of clicked <li>
+  			if (tvGenre[index]) {
+				$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+tvGenre[index].id, function(data) {
+					
+					$.each(data.results, function(){
+						const imageUrl = this['poster_path'] == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+						$("#GenreListSearch").append("<li class = 'list-tv' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-tv-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+					});
+
+					if (data.results.length < 1 && currentPage < 2) {
+						$("#GenreListSearch").append("<li class='flex-li'>Data not found</li>");
+					}
+
+					if (data.results.length > 0) {
+						const section = document.getElementById('load-more-section-genre-list');
+						section.classList.remove('hidden');
+					} else {
+						const section = document.getElementById('load-more-section-genre-list');
+						section.classList.add('hidden');
+					}
+				});
+			}
+		});
+
+		$(document).on("click", "#btn-load-more-genre-list", function () {
+			currentPageGenreSearch += 1;
+			const index = $(this).index(); // Get the index of clicked <li>
+			
+			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+tvGenre[index].id, function(data) {	
+				$.each(data.results, function(){
+					const imageUrl = this['poster_path'] == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+
+					$("#GenreListSearch").append("<li class = 'list-movie' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-movie' src = "+imageUrl+"></img></a><br><p class = 'list-movie-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b>Rating : </b>⭐ "+this['vote_average']+"/10</li>");
+				});
+
+				if (data.results.length > 0) {
+					const section = document.getElementById('load-more-section-genre-list');
+					section.classList.remove('hidden');
+				} else {
+					const section = document.getElementById('load-more-section-genre-list');
+					section.classList.add('hidden');
+				}
+			});
 		});
 	}
 

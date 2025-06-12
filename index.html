@@ -36,6 +36,7 @@
     <li id = "item" class="menu-item"><a href="#tv-popular" data-transition="none">TV Show - Popular</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-top-rated" data-transition="none">TV Show - Top Rated</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#search" data-transition="none">Search Data</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#find-genre" data-transition="none">Find by Genre</a><span class="icon"></span></li>
   </ul>
 </div>
 
@@ -48,7 +49,7 @@
         <div class="overflow-x-auto whitespace-nowrap p-4">
             <span class="inline-flex items-center">
               <h2 class="text-xl font-semibold mb-2">Today's Trending Movies</h2>
-              <h2 class="bg-[#ff0400] text-white no-text-shadow rounded-lg p-2 mb-2 ml-5" id="movie-find-more">
+                <h2 class="bg-[#ff0400] text-white no-text-shadow rounded-lg p-2 mb-2 ml-5" id="movie-find-more">
                 <a class="text-white no-underline" href="#now-playing">Find more</a>
               </h2>
             </span>
@@ -181,13 +182,13 @@
     </div>
     <div data-role="content">
         <div class="flex justify-center w-full">
-            <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden mt-4 ms-4 me-4 mb-4">
+            <div class="flex w-full justify-center max-w-4xl rounded-lg overflow-hidden ms-4 me-4 mt-10 mb-5">
                 <input
                     type="text"
-                    placeholder="Find movie/tv show/actor..."
+                    placeholder="Find Movie/TV Show/Celebrity..."
                     class="w-full"
                     id = "et-search"
-                    aria-label="Find movie/tv show/actor...">
+                    aria-label="Find Movie/TV Show/Celebrity...">
                 <button
                     type="submit"
                     class="bg-blue-600 text-white p-4 text-lg font-semibold rounded-lg whitespace-nowrap btn-search"
@@ -201,6 +202,40 @@
     </div>
     <div id ="load-more-section-search" class="m-5 hidden">
       <button id="btn-load-more-search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+        Load More
+      </button>
+    </div>
+  </div>
+
+  <!-- FIND GENRE -->
+  <div data-role="page" id="find-genre" data-url="find-genre" data-title="Find Genre Data" data-theme="b" class="pages">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Find By Movie/TV Show Genre</h1>
+    </div>
+    <div data-role="content">
+        <div class="flex justify-center w-full">
+          <div class="w-full max-w-4xl rounded-lg overflow-hidden p-4 mx-4 mt-5">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Movie Genres</h2>
+            <div class="overflow-x-auto">
+              <ul id="movieGenreList" class="flex space-x-4 whitespace-nowrap min-w-max px-4 pb-6 justify-center">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center w-full">
+          <div class="w-full max-w-4xl rounded-lg overflow-hidden p-4 mx-4 mt-2">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">TV Show Genres</h2>
+            <div class="overflow-x-auto">
+              <ul id="tvGenreList" class="flex space-x-4 whitespace-nowrap min-w-max px-4 pb-6 justify-center">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <ul id="GenreListSearch" class="mt-20">
+        </ul>
+    </div>
+    <div id ="load-more-section-genre-list" class="m-5 hidden">
+      <button id="btn-load-more-genre-list" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
