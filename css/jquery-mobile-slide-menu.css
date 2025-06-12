@@ -12,6 +12,9 @@ body
 {
 	color: black;
 }
+.text-white {
+	color: white !important;
+}
 #side-menu {
 	width: 165px;
 	height: 100%;

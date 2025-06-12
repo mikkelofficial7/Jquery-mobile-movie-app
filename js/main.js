@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	const apikey = "edfccf752de0d09758c56e652809912b"
 	var currentPageUpcoming = 1;
 	var currentPageTopRated = 1;
 	var currentPagePopular = 1;
@@ -101,7 +102,7 @@ $(document).ready(function(){
 
 
 	function runMovieTrendingTodayList() {
-		$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+		$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
 			$.each(data.results, function(){	
 				const posterList = document.getElementById("item-movie-trending-today");
 				posterList.innerHTML = "";
@@ -131,7 +132,7 @@ $(document).ready(function(){
 	}
 
 	function runTvTrendingTodayList() {
-		$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key=edfccf752de0d09758c56e652809912b", function(data){
+		$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
 			$.each(data.results, function(){	
 				const posterList = document.getElementById("item-tv-trending-today");
 				posterList.innerHTML = "";
@@ -161,7 +162,7 @@ $(document).ready(function(){
 	}
 
 	function runUpcomingList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListUpcoming").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -185,7 +186,7 @@ $(document).ready(function(){
 	}
 
 	function runTopRatedList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListTopRated").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -209,7 +210,7 @@ $(document).ready(function(){
 	}
 
 	function runPopularList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"1&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListPopular").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -232,7 +233,7 @@ $(document).ready(function(){
 		});
 	}
 	function runNowPlayingList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#movieListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -256,7 +257,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowNowPlayingList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListNowPlaying").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -280,7 +281,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowPopularList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListPopular").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -304,7 +305,7 @@ $(document).ready(function(){
 	}
 
 	function runTvShowTopRatedList(currentPage) {
-		$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true", function(data){
+		$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
 				$("#tvListTopRated").append("<li class='flex-li'>Data not found</li>");
 			}
@@ -328,7 +329,7 @@ $(document).ready(function(){
 	}
 
 	function runSearchList(currentPage, keyword) {
-		$.getJSON('https://api.themoviedb.org/3/search/multi?page='+currentPage+'&query="'+keyword+'"&api_key=edfccf752de0d09758c56e652809912b&include_adult=true', function(data) {
+		$.getJSON('https://api.themoviedb.org/3/search/multi?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
 			if (currentPage == 1) $("#movieListSearch").html('');
 
 			if (data.results.length < 1 && currentPage < 2) {
@@ -370,7 +371,7 @@ $(document).ready(function(){
 
 		updateMovieDetailPageIdAndUrl(`-${movieId}`);
 
-		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/images?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/images?api_key="+apikey, function(data) {
 			const posterList = document.getElementById("item-images-alternate");
 				posterList.innerHTML = "";
 
@@ -405,7 +406,7 @@ $(document).ready(function(){
 			}
 		});
 
-		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 			$("#itemListSimilar").html("");
 
 			if (data.results.length < 1 && currentPage < 2) {
@@ -420,7 +421,7 @@ $(document).ready(function(){
 			});
 		});
 
-		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/tv/${movieId}?api_key="+apikey+"&include_adult=true", function(data) {
 			const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
@@ -479,7 +480,7 @@ $(document).ready(function(){
 		});
 
 
-		$.getJSON(`https://api.themoviedb.org/3/tv/${movieId}/videos?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/videos?api_key="+apikey, function(data) {
 			const seasonList = document.getElementById("item-videos");
 			seasonList.innerHTML = "";
 			
@@ -540,7 +541,7 @@ $(document).ready(function(){
 		updateMovieDetailPageIdAndUrl(`-${movieId}`);
 		$("#itemSimilarTitle").text("Similar movies you'd like");
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 			$("#itemListSimilar").html("");
 
 			if (data.results.length < 1 && currentPage < 2) {
@@ -556,7 +557,7 @@ $(document).ready(function(){
 			});
 		});
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/images?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/images?api_key="+apikey, function(data) {
 			const posterList = document.getElementById("item-images-alternate");
 				posterList.innerHTML = "";
 
@@ -592,7 +593,12 @@ $(document).ready(function(){
 			}
 		});
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}?api_key=edfccf752de0d09758c56e652809912b&include_adult=true`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(data) {
+
+		});
+
+
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
 			const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
@@ -652,7 +658,7 @@ $(document).ready(function(){
 		});
 
 
-		$.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=edfccf752de0d09758c56e652809912b`, function(data) {
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key="+apikey, function(data) {
 			const seasonList = document.getElementById("item-videos");
 			seasonList.innerHTML = "";
 			
