@@ -74,7 +74,7 @@
         <h1>Now Playing</h1>
     </div>
     <div data-role="content" class="flex justify-center">
-        <ul id = "movieListNowPlaying" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 justify-center">
+        <ul id = "movieListNowPlaying" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-main" class="m-5 hidden">
@@ -88,8 +88,8 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Upcoming</h1>
     </div>
-    <div data-role="content">
-        <ul id = "movieListUpcoming">
+    <div data-role="content" class="flex justify-center">
+        <ul id = "movieListUpcoming" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-upcoming" class="m-5 hidden">
@@ -103,9 +103,9 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Top Rated</h1>
     </div>
-    <div data-role="content">
-      <ul id = "movieListTopRated">
-      </ul>
+    <div data-role="content" class="flex justify-center">
+        <ul id = "movieListTopRated" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
+        </ul>
     </div>
     <div id ="load-more-section-top-rated" class="m-5 hidden">
       <button id="btn-load-more-top-rated" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
@@ -118,9 +118,9 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Popular</h1>
     </div>
-    <div data-role="content">
-      <ul id = "movieListPopular">
-      </ul>
+    <div data-role="content" class="flex justify-center">
+        <ul id = "movieListPopular" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
+        </ul>
     </div>
     <div id ="load-more-section-popular" class="m-5 hidden">
       <button id="btn-load-more-popular" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
@@ -149,8 +149,8 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Popular</h1>
     </div>
-    <div data-role="content">
-        <ul id = "tvListPopular">
+    <div data-role="content" class="flex justify-center">
+        <ul id = "tvListPopular" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-tv-popular" class="m-5 hidden">
@@ -164,8 +164,8 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Top Rated</h1>
     </div>
-    <div data-role="content">
-        <ul id = "tvListTopRated">
+    <div data-role="content" class="flex justify-center">
+        <ul id = "tvListTopRated" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-tv-top-rated" class="m-5 hidden">
@@ -197,7 +197,7 @@
                 </button>
             </div>
         </div>
-        <ul id="movieListSearch">
+        <ul id = "movieListSearch" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-search" class="m-5 hidden">
@@ -231,7 +231,7 @@
             </div>
           </div>
         </div>
-        <ul id="GenreListSearch" class="mt-20">
+        <ul id = "genreListSearch" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
         </ul>
     </div>
     <div id ="load-more-section-genre-list" class="m-5 hidden">
@@ -336,7 +336,7 @@
 
            <section class="mb-6 space-y-4 text-sm text-black/90">
             <h2 id="itemSimilarTitle" class="text-xl font-semibold mb-1"></h2>
-            <ul id = "itemListSimilar">
+            <ul id = "itemListSimilar" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
             </ul>
            </section>
         </div>
