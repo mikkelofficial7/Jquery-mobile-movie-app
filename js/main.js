@@ -421,65 +421,6 @@ $(document).ready(function(){
 			});
 		});
 
-		$.getJSON("https://api.themoviedb.org/3/tv/${movieId}?api_key="+apikey+"&include_adult=true", function(data) {
-			const imageUrl = data.poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-  						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
-
-			document.getElementById("item-title").textContent = data.name;
-			document.getElementById("item-release").textContent = data.release_date;
-			document.getElementById("item-rating").textContent = `⭐ ${data.vote_average}/10`;
-			document.getElementById("item-poster").src = imageUrl;
-			document.getElementById("item-bg").src = imageUrl;
-
-  			setGenresAndOverview(data);
-
-			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
-
-			const productionList = document.getElementById("item-production");
-			productionList.innerHTML = "";
-
-			data.production_companies.forEach(company => {
-				const li = document.createElement("li");
-				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
-
-				// Create logo image if available
-				const imageUrl = company.logo_path == null
-						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
-  						: "https://image.tmdb.org/t/p/w92" + company.logo_path;
-
-				const img = document.createElement("img");
-					img.src = imageUrl;
-					img.alt = `${company.name} Logo`;
-					img.className = "w-10 h-auto object-contain";
-					li.appendChild(img);
-
-				// Company name
-				const span = document.createElement("span");
-				span.textContent = company.name;
-				li.appendChild(span);
-
-				productionList.appendChild(li);
-			});
-
-			document.getElementById("item-revenue").textContent =
-			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
-
-			document.getElementById("item-languages").textContent =
-			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
-
-			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
-
-			if (data?.adult) {
-				document.getElementById("item-rating-age").textContent = "17+";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
-			} else {
-				document.getElementById("item-rating-age").textContent = "All ages";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
-			}
-		});
-
-
 		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/videos?api_key="+apikey, function(data) {
 			const seasonList = document.getElementById("item-videos");
 			seasonList.innerHTML = "";
@@ -528,6 +469,68 @@ $(document).ready(function(){
 				seasonList.appendChild(card); // seasonList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
 			});
 
+		});
+
+		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
+  			setGenresAndOverview(data);
+
+			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
+
+			const productionList = document.getElementById("item-production");
+			productionList.innerHTML = "";
+
+			data.production_companies.forEach(company => {
+				const li = document.createElement("li");
+				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
+
+				// Create logo image if available
+				const imageUrl = company.logo_path == null
+						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+  						: "https://image.tmdb.org/t/p/w92" + company.logo_path;
+
+				const img = document.createElement("img");
+					img.src = imageUrl;
+					img.alt = `${company.name} Logo`;
+					img.className = "w-10 h-auto object-contain";
+					li.appendChild(img);
+
+				// Company name
+				const span = document.createElement("span");
+				span.textContent = company.name;
+				li.appendChild(span);
+
+				productionList.appendChild(li);
+			});
+
+			document.getElementById("item-revenue").textContent =
+			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
+
+			document.getElementById("item-languages").textContent =
+			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
+
+			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
+
+			if (data?.adult) {
+				document.getElementById("item-rating-age").textContent = "17+";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+			} else {
+				document.getElementById("item-rating-age").textContent = "All ages";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+			}
+		});
+
+		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
+			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+				const imageUrl = data.tv_results[0].poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w500" + data.tv_results[0].poster_path;
+
+				document.getElementById("item-title").textContent = data.tv_results[0].title;
+				document.getElementById("item-release").textContent = data.tv_results[0].release_date;
+				document.getElementById("item-rating").textContent = `⭐ ${data.tv_results[0].vote_average}/10`;
+				document.getElementById("item-poster").src = imageUrl;
+				document.getElementById("item-bg").src = imageUrl;
+			});
 		});
 	});
 
@@ -593,71 +596,6 @@ $(document).ready(function(){
 			}
 		});
 
-		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(data) {
-
-		});
-
-
-		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
-			const imageUrl = data.poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-  						: "https://image.tmdb.org/t/p/w500" + data.poster_path;
-
-			document.getElementById("item-title").textContent = data.title;
-			document.getElementById("item-release").textContent = data.release_date;
-			document.getElementById("item-rating").textContent = `⭐ ${data.vote_average}/10`;
-			document.getElementById("item-poster").src = imageUrl;
-			document.getElementById("item-bg").src = imageUrl;
-
-  			setGenresAndOverview(data);
-
-			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
-
-			const productionList = document.getElementById("item-production");
-				productionList.innerHTML = "";
-
-				data.production_companies.forEach(company => {
-				const li = document.createElement("li");
-				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
-
-				// Create logo image if available
-				const imageUrl = company.logo_path == null
-						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
-  						: "https://image.tmdb.org/t/p/w92" + company.logo_path;
-
-				const img = document.createElement("img");
-					img.src = imageUrl;
-					img.alt = `${company.name} Logo`;
-					img.className = "w-10 h-auto object-contain";
-					li.appendChild(img);
-
-				// Company name
-				const span = document.createElement("span");
-				span.textContent = company.name;
-				li.appendChild(span);
-
-				productionList.appendChild(li);
-			});
-
-
-			document.getElementById("item-revenue").textContent =
-			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
-
-			document.getElementById("item-languages").textContent =
-			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
-
-			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
-
-			if (data?.adult) {
-				document.getElementById("item-rating-age").textContent = "17+";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
-			} else {
-				document.getElementById("item-rating-age").textContent = "All ages";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
-			}
-		});
-
-
 		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key="+apikey, function(data) {
 			const seasonList = document.getElementById("item-videos");
 			seasonList.innerHTML = "";
@@ -706,6 +644,70 @@ $(document).ready(function(){
 				seasonList.appendChild(card); // seasonList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
 			});
 
+		});
+
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
+			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+				const imageUrl = data.movie_results[0].poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w500" + data.movie_results[0].poster_path;
+
+				document.getElementById("item-title").textContent = data.movie_results[0].title;
+				document.getElementById("item-release").textContent = data.movie_results[0].release_date;
+				document.getElementById("item-rating").textContent = `⭐ ${data.movie_results[0].vote_average}/10`;
+				document.getElementById("item-poster").src = imageUrl;
+				document.getElementById("item-bg").src = imageUrl;
+			});
+		});
+
+
+		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
+  			setGenresAndOverview(data);
+
+			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
+
+			const productionList = document.getElementById("item-production");
+				productionList.innerHTML = "";
+
+				data.production_companies.forEach(company => {
+				const li = document.createElement("li");
+				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
+
+				// Create logo image if available
+				const imageUrl = company.logo_path == null
+						? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+  						: "https://image.tmdb.org/t/p/w92" + company.logo_path;
+
+				const img = document.createElement("img");
+					img.src = imageUrl;
+					img.alt = `${company.name} Logo`;
+					img.className = "w-10 h-auto object-contain";
+					li.appendChild(img);
+
+				// Company name
+				const span = document.createElement("span");
+				span.textContent = company.name;
+				li.appendChild(span);
+
+				productionList.appendChild(li);
+			});
+
+
+			document.getElementById("item-revenue").textContent =
+			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
+
+			document.getElementById("item-languages").textContent =
+			data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
+
+			document.getElementById("item-rating-age").textContent = data.adult ? "17+" : "All Age";
+
+			if (data?.adult) {
+				document.getElementById("item-rating-age").textContent = "17+";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+			} else {
+				document.getElementById("item-rating-age").textContent = "All ages";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+			}
 		});
 	});
 
