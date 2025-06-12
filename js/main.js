@@ -93,10 +93,6 @@ $(document).ready(function(){
 		}
 	});
 
-
-
-
-
 	function runMovieTrendingTodayList() {
 		$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
 			$.each(data.results, function(){	
