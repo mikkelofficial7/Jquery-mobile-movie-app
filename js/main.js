@@ -525,7 +525,7 @@ $(document).ready(function(){
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w500" + data.tv_results[0].poster_path;
 
-				document.getElementById("item-title").textContent = data.tv_results[0].title;
+				document.getElementById("item-title").textContent = data.tv_results[0].name;
 				document.getElementById("item-release").textContent = data.tv_results[0].release_date;
 				document.getElementById("item-rating").textContent = `⭐ ${data.tv_results[0].vote_average}/10`;
 				document.getElementById("item-poster").src = imageUrl;
