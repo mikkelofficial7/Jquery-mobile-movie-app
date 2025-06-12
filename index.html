@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-<!--
-*********************************************************************************************************************
-** AUTHOR         : MIKKEL SEPTIANO                                                                                **
-** UI VERSION     : 1.10.3                                                                                         **
-** JQUERY VERSION : 1.3.2                                                                                          **
-** PLEASE MAINTAIN THIS PRODUCT MORE AND MORE. FOR HELPING INFORMATION FEEL FREE TO ASK ME AT mikkels86@gmail.com  **
-*********************************************************************************************************************
--->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
-<link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
-<link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"/>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script type="text/javascript" src="js/jquery-mobile-slide-menu.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<title>MoviSnap - Your partner movies reference</title>
+  <head>
+  <!--
+  ****************************************************************************************************************************
+  ** AUTHOR         : MIKKEL SEPTIANO                                                                                       **
+  ** UI VERSION     : 1.10.3                                                                                                **
+  ** JQUERY VERSION : 1.3.2                                                                                                 **
+  ** PLEASE MAINTAIN THIS PRODUCT MORE AND MORE. FOR HELPING INFORMATION FEEL FREE TO ASK ME AT mikkelseptiano86@gmail.com  **
+  ****************************************************************************************************************************
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
+  <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"/>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="text/javascript" src="js/jquery-mobile-slide-menu.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <title>MoviSnap | Your partner movies reference</title>
+  
+  <meta name="description" content="Your one-stop partner for every movies and tv shows search. Find anything related to movies and tv shows" />
+  <meta name="keywords" content="movie, trailer, tvshow, synopsis" />
+  <meta name="author" content="MoviSnap by Mikkel Septiano" />
+
+  <meta property="og:title" content="MoviSnap | Your partner movies reference" />
+  <meta property="og:description" content="One-stop partner every movie and tv show. Find anything related to movies and tv shows" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://findyourmovies.vercel.app/" />
+  <meta property="og:image" content="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg" />
+
+  <!-- ✅ Twitter Card -->
+  <meta name="twitter:card" content="One-stop partner for movies and tv shows search" />
+  <meta name="twitter:title" content="MoviSnap" />
+  <meta name="twitter:description" content="One-stop partner for movies and tv shows search" />
+  <meta name="twitter:image" content="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg" />
+
 </head>
 <body>
 
@@ -41,7 +58,7 @@
 </div>
 
 <!-- MOVIE -->
- <div data-role="page" id="main" data-url="main" data-title="Home" data-theme="b" class="pages">
+ <div data-role="page" id="main" data-url="main" data-title="MoviSnap | Home" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#main" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Welcome to MoviSnap</h1>
     </div>
@@ -69,7 +86,7 @@
     </div>
   </div>
 
- <div data-role="page" id="now-playing" data-url="now-playing" data-title="Now Playing Movies" data-theme="b" class="pages">
+ <div data-role="page" id="now-playing" data-url="now-playing" data-title="MoviSnap | Now Playing Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Now Playing</h1>
     </div>
@@ -84,7 +101,7 @@
     </div>
   </div>
   
-  <div data-role="page" id="upcoming" data-url="upcoming" data-title="Upcoming Movies" data-theme="b" class="pages">
+  <div data-role="page" id="upcoming" data-url="upcoming" data-title="MoviSnap | Upcoming Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Upcoming</h1>
     </div>
@@ -99,7 +116,7 @@
     </div>
   </div>
 
-  <div data-role="page" id="top-rated" data-url="top-rated" data-title="Top Rated Movies" data-theme="b" class="pages">
+  <div data-role="page" id="top-rated" data-url="top-rated" data-title="MoviSnap | Top Rated Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Top Rated</h1>
     </div>
@@ -114,7 +131,7 @@
     </div>
   </div>
 
-   <div data-role="page" id="popular" data-url="popular" data-title="Popular Movies" data-theme="b" class="pages">
+   <div data-role="page" id="popular" data-url="popular" data-title="MoviSnap | Popular Movies" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Popular</h1>
     </div>
@@ -130,7 +147,7 @@
   </div>
 
   <!-- TV SHOW -->
-  <div data-role="page" id="tv-main" data-url="tv-main" data-title="Now Playing TV Show" data-theme="b" class="pages">
+  <div data-role="page" id="tv-main" data-url="tv-main" data-title="MoviSnap | Now Playing TV Show" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Now</h1>
     </div>
@@ -145,7 +162,7 @@
     </div>
   </div>
 
-  <div data-role="page" id="tv-popular" data-url="tv-popular" data-title="Popular TV Show" data-theme="b" class="pages">
+  <div data-role="page" id="tv-popular" data-url="tv-popular" data-title="MoviSnap | Popular TV Show" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Popular</h1>
     </div>
@@ -160,7 +177,7 @@
     </div>
   </div>
 
-  <div data-role="page" id="tv-top-rated" data-url="tv-top-rated" data-title="Top Rated TV Show" data-theme="b" class="pages">
+  <div data-role="page" id="tv-top-rated" data-url="tv-top-rated" data-title="MoviSnap | Top Rated TV Show" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Top Rated</h1>
     </div>
@@ -176,7 +193,7 @@
   </div>
 
   <!-- SEARCH -->
-  <div data-role="page" id="search" data-url="search" data-title="Search Data" data-theme="b" class="pages">
+  <div data-role="page" id="search" data-url="search" data-title="MoviSnap | Search Data" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Find Your Movie/TV Show/Actor Here</h1>
     </div>
@@ -211,7 +228,7 @@
   </div>
 
   <!-- FIND GENRE -->
-  <div data-role="page" id="find-genre" data-url="find-genre" data-title="Find Genre Data" data-theme="b" class="pages">
+  <div data-role="page" id="find-genre" data-url="find-genre" data-title="MoviSnap | Find Genre Data" data-theme="b" class="pages">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Find By Movie/TV Show Genre</h1>
     </div>
@@ -246,7 +263,7 @@
 
 <!-- DETAIL -->
 
-  <div data-role="page" id="item-detail" data-url="item-detail" data-title="Movie Detail" data-theme="b" class="pages" data-original="true">
+  <div data-role="page" id="item-detail" data-url="item-detail" data-title="MoviSnap | Movie Detail" data-theme="b" class="pages" data-original="true">
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Detail Page</h1>
     </div>
