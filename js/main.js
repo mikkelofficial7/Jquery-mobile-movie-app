@@ -156,8 +156,11 @@ $(document).ready(function(){
 	function runUpcomingList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#movieListUpcoming").append("<li class='flex-li'>Data not found</li>");
+				$("#movieListUpcoming").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#movieListUpcoming").append("<li class='flex justify-center'>Data not found</li>");
 			}
+
+			$("#movieListUpcoming").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
@@ -180,8 +183,10 @@ $(document).ready(function(){
 	function runTopRatedList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#movieListTopRated").append("<li class='flex-li'>Data not found</li>");
+				$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#movieListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#movieListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
@@ -204,8 +209,10 @@ $(document).ready(function(){
 	function runPopularList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#movieListPopular").append("<li class='flex-li'>Data not found</li>");
+				$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#movieListPopular").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#movieListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
@@ -227,8 +234,10 @@ $(document).ready(function(){
 	function runNowPlayingList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#movieListNowPlaying").append("<li class='flex-li'>Data not found</li>");
+				$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#movieListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#movieListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
@@ -251,8 +260,10 @@ $(document).ready(function(){
 	function runTvShowNowPlayingList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#tvListNowPlaying").append("<li class='flex-li'>Data not found</li>");
+				$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#tvListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#tvListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){				
 				const imageUrl = this['poster_path'] == null
@@ -275,8 +286,10 @@ $(document).ready(function(){
 	function runTvShowPopularList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#tvListPopular").append("<li class='flex-li'>Data not found</li>");
+				$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#tvListPopular").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#tvListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 			$.each(data.results, function(){				
 				const imageUrl = this['poster_path'] == null
@@ -299,8 +312,10 @@ $(document).ready(function(){
 	function runTvShowTopRatedList(currentPage) {
 		$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#tvListTopRated").append("<li class='flex-li'>Data not found</li>");
+				$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#tvListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 			}
+			$("#tvListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			
 			$.each(data.results, function(){				
 				const imageUrl = this['poster_path'] == null
@@ -324,8 +339,11 @@ $(document).ready(function(){
 		$.getJSON('https://api.themoviedb.org/3/search/multi?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
 			if (currentPage == 1) $("#movieListSearch").html('');
 
+			$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#movieListSearch").append("<li class='flex-li'>Data not found</li>");
+				$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
 			}
 
 			$.each(data.results, function(){
@@ -353,7 +371,7 @@ $(document).ready(function(){
 			movieGenre = data.genres;
 			$.each(data.genres, function(){
 				const li = document.createElement("li");
-				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow";
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow item-click-genre";
 				li.setAttribute("data-genre-id", this['id']);
 				li.textContent = this['name']
 
@@ -376,9 +394,11 @@ $(document).ready(function(){
 
 						$("#GenreListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p></li>");
 					});
+					$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 					if (data.results.length < 1 && currentPage < 2) {
-						$("#GenreListSearch").append("<li class='flex-li'>Data not found</li>");
+						$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+						$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
 					}
 
 					if (data.results.length > 0) {
@@ -424,7 +444,7 @@ $(document).ready(function(){
 			tvGenre = data.genres;
 			$.each(data.genres, function(){
 				const li = document.createElement("li");
-				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow";
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow item-click-genre";
 				li.setAttribute("data-genre-id", this['id']);
 				li.textContent = this['name']
 
@@ -449,8 +469,10 @@ $(document).ready(function(){
 						$("#GenreListSearch").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p></li>");
 					});
 
+					$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 					if (data.results.length < 1 && currentPage < 2) {
-						$("#GenreListSearch").append("<li class='flex-li'>Data not found</li>");
+						$("#GenreListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+						$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
 					}
 
 					if (data.results.length > 0) {
@@ -543,8 +565,11 @@ $(document).ready(function(){
 		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 			$("#itemListSimilar").html("");
 
+			$("#itemListSimilar").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#itemListSimilar").append("<li class='flex-li'>Data not found</li>");
+				$("#itemListSimilar").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#itemListSimilar").append("<li class='flex justify-center'>Data not found</li>");
 			}
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
@@ -681,8 +706,10 @@ $(document).ready(function(){
 		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 			$("#itemListSimilar").html("");
 
+			$("#itemListSimilar").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			if (data.results.length < 1 && currentPage < 2) {
-				$("#itemListSimilar").append("<li class='flex-li'>Data not found</li>");
+				$("#itemListSimilar").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#itemListSimilar").append("<li class='flex justify-center'>Data not found</li>");
 			}
 
 			$.each(data.results, function(){
