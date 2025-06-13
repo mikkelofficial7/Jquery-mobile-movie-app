@@ -1,20 +1,18 @@
-$(document).ready(function(){
-	const path = window.location.pathname;
-	const segments = path.split('/').filter(Boolean);
+const path = window.location.pathname;
+const segments = path.split('/').filter(Boolean);
 
-	console.log(path);
+console.log(path);
 
-	if (segments.length === 3 && segments[0] === "detail") {
-		const type = segments[1];
-		const id = segments[2];
+if (segments.length === 3 && segments[0] === "detail") {
+	const type = segments[1];
+	const id = segments[2];
 
-		console.log("Type:", type);
-		console.log("ID:", id);
+	console.log("Type:", type);
+	console.log("ID:", id);
 
-		if (type === "movie") {
-			runDetailMovieData(id)
-		} else if (type === "tv") {
-			runDetailTvShowData(id)
-		}
+	if (type === "movie") {
+		runDetailMovieData(id)
+	} else if (type === "tv") {
+		runDetailTvShowData(id)
 	}
-});
+}
