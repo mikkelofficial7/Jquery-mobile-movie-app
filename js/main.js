@@ -634,6 +634,12 @@ $(document).ready(function(){
 		$.getJSON("https://api.themoviedb.org/3/tv/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
   			setGenresAndOverview(data);
 
+			const backdropUrl = data.backdrop_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w500" + data.backdrop_path;
+
+			document.getElementById("item-bg").src = backdropUrl;
+
 			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
 			const productionList = document.getElementById("item-production");
@@ -689,7 +695,6 @@ $(document).ready(function(){
 				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
 				document.getElementById("item-rating").textContent = `⭐ ${data.tv_results[0].vote_average}/10`;
 				document.getElementById("item-poster").src = imageUrl;
-				document.getElementById("item-bg").src = imageUrl;
 			});
 		});
 	});
@@ -825,6 +830,12 @@ $(document).ready(function(){
 
 		$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
   			setGenresAndOverview(data);
+
+			const backdropUrl = data.backdrop_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+  						: "https://image.tmdb.org/t/p/w500" + data.backdrop_path;
+
+			document.getElementById("item-bg").src = backdropUrl;
 
 			document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
