@@ -79,7 +79,7 @@
 
       // Intercept button inside active/current page
       $(document).on('click', '.btn-inside-active', function(e) {
-        var $link = $(this);
+        var $link = $("#section-inside-active a");
         var target = $link.attr('href');
         var transition = $link.data('transition') || 'none';
 
@@ -88,7 +88,14 @@
           e.preventDefault();
 
           $('#side-menu li').removeClass('active');
-          $link.parent().addClass('active');
+
+          $('#side-menu li a').each(function() {
+            const href = $(this).attr('href');
+            if (href === target) {
+              $(this).parent().addClass('active');
+            }
+          });
+
 
           $('.ui-page-active').animate({
             marginLeft: '0px'
