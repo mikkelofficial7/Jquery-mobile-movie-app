@@ -100,6 +100,7 @@ $(document).ready(function(){
 	$(document).on("click", ".list-tv", function () {
 		const tvId = $(this).data("id");
 
+		document.getElementById("externalLink").href = getExternalDetailPageUrl("tv/"+tvId);
 		runDetailTvShowData(tvId)
 	});
 
@@ -108,6 +109,7 @@ $(document).ready(function(){
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
 
+		document.getElementById("externalLink").href = getExternalDetailPageUrl("movie/"+movieId);
 		runDetailMovieData(movieId);
 	});
 });
@@ -982,4 +984,8 @@ function runDetailTvShowData(tvShowId) {
 			document.getElementById("item-poster").src = imageUrl;
 		});
 	});
+}
+
+function getExternalDetailPageUrl(path) {
+	return "https://findyourmovies.vercel.app/detail/"+path;
 }
