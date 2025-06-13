@@ -16,6 +16,9 @@ body
 .text-#f8f8ff {
 	color: #f8f8ff !important;
 }
+#item-rating {
+	margin-left: 5px;
+}
 #side-menu {
 	width: 185px;
 	height: 100%;

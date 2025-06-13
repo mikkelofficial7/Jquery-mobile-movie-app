@@ -681,8 +681,10 @@ $(document).ready(function(){
 			$.each(data.origin_country, function(index, countryCode) {
 				flagString += countryCodeToFlagEmoji(countryCode) + " ";
 			});
-
 			document.getElementById("item-country-flag").textContent = flagString.trim();
+
+			document.getElementById("item-total-episode").innerHTML = "<b>Total Episodes:</b> " + data.number_of_episodes;
+			document.getElementById("item-total-season").innerHTML = "<b>Total Seasons:</b> " + data.number_of_seasons;
 
 			document.getElementById("item-revenue").textContent =
 			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
@@ -707,7 +709,7 @@ $(document).ready(function(){
 
 				document.getElementById("item-title").textContent = data.tv_results[0].name;
 				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
-				document.getElementById("item-rating").textContent = `⭐ ${data.tv_results[0].vote_average}/10`;
+				document.getElementById("item-rating").textContent = `${data.tv_results[0].vote_average}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 			});
 		});
@@ -836,7 +838,7 @@ $(document).ready(function(){
 
 				document.getElementById("item-title").textContent = data.movie_results[0].title;
 				document.getElementById("item-release").textContent = data.movie_results[0].release_date;
-				document.getElementById("item-rating").textContent = `⭐ ${data.movie_results[0].vote_average}/10`;
+				document.getElementById("item-rating").textContent = `${data.movie_results[0].vote_average}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 				document.getElementById("item-bg").src = imageUrl;
 			});
@@ -884,8 +886,10 @@ $(document).ready(function(){
 			$.each(data.origin_country, function(index, countryCode) {
 				flagString += countryCodeToFlagEmoji(countryCode) + " ";
 			});
-
 			document.getElementById("item-country-flag").textContent = flagString.trim();
+
+			document.getElementById("item-total-episode").innerHTML = "";
+			document.getElementById("item-total-season").innerHTML = "";
 
 			document.getElementById("item-revenue").textContent =
 			data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
