@@ -97,11 +97,22 @@ $(document).ready(function(){
 
 	// TV DETAIL PART
 
+	runDetailTvShowData("")
+	runDetailMovieData("");
+
 	$(document).on("click", ".list-tv", function () {
 		const tvId = $(this).data("id");
 
-		document.getElementById("externalLink").href = getExternalDetailPageUrl("tv/"+tvId);
-		runDetailTvShowData(tvId)
+		const url = getExternalDetailPageUrl("tv/"+tvId);
+
+		navigator.clipboard.writeText(url)
+		.then(() => {
+			document.getElementById("externalLink").href = url;
+			runDetailTvShowData(tvId)
+		})
+		.catch(err => {
+			console.error("Failed to copy URL:", err);
+  		});
 	});
 
 	// MOVIE DETAIL PART
@@ -109,8 +120,16 @@ $(document).ready(function(){
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
 
-		document.getElementById("externalLink").href = getExternalDetailPageUrl("movie/"+movieId);
-		runDetailMovieData(movieId);
+		const url = getExternalDetailPageUrl("movie/"+movieId);
+
+		navigator.clipboard.writeText(url)
+		.then(() => {
+			document.getElementById("externalLink").href = url;
+			runDetailMovieData(movieId);
+		})
+		.catch(err => {
+			console.error("Failed to copy URL:", err);
+  		});
 	});
 });
 
@@ -579,13 +598,13 @@ function languageCode(languageCode) {
 		const entry = availableLanguage.find(lang => lang.iso_639_1 === languageCode.toLowerCase());
 
 		if (entry != null) {
-		if (entry.name === "" || entry.name.toLowerCase() === entry.english_name.toLowerCase()) {
-			return entry.english_name+" "+lang
+			if (entry.name === "" || entry.name.toLowerCase() === entry.english_name.toLowerCase()) {
+				return entry.english_name+" "+lang
+			} else {
+				return entry.english_name+" ("+entry.name+")"+" "+lang
+			}
 		} else {
-			return entry.english_name+" ("+entry.name+")"+" "+lang
-		}
-		} else {
-		return "N/A"+" "+lang
+			return "N/A"+" "+lang
 		}
 }
 
@@ -598,6 +617,10 @@ function countryCodeToFlagEmoji(countryCode) {
 }
 
 function runDetailMovieData(movieId) {
+	if (window.location.href.includes("item-detail") && movieId === "") {
+	  	window.location.href = document.referrer;
+	}
+
 	let backdropImages = [];
 	
 	updateMovieDetailPageIdAndUrl(`-${movieId}`);
@@ -789,6 +812,10 @@ function runDetailMovieData(movieId) {
 }
 
 function runDetailTvShowData(tvShowId) {
+	if (window.location.href.includes("item-detail") && tvShowId === "") {
+	  	window.location.href = document.referrer;
+	}
+	
 	let backdropImages = [];
 	$("#itemSimilarTitle").text("Similar TV show you'd like");
 
