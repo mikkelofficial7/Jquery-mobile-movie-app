@@ -107,13 +107,13 @@ $(document).ready(function(){
 		const url = getExternalDetailPageUrl("tv/"+tvId);
 
 		navigator.clipboard.writeText(url)
-		.then(() => {
-			document.getElementById("externalLink").href = url;
-			runDetailTvShowData(tvId)
-		})
+		.then(() => {})
 		.catch(err => {
 			console.error("Failed to copy URL:", err);
   		});
+
+		document.getElementById("externalLink").href = url;
+		runDetailTvShowData(tvId)
 	});
 
 	// MOVIE DETAIL PART
@@ -124,13 +124,13 @@ $(document).ready(function(){
 		const url = getExternalDetailPageUrl("movie/"+movieId);
 
 		navigator.clipboard.writeText(url)
-		.then(() => {
-			document.getElementById("externalLink").href = url;
-			runDetailMovieData(movieId);
-		})
+		.then(() => {})
 		.catch(err => {
 			console.error("Failed to copy URL:", err);
   		});
+
+		document.getElementById("externalLink").href = url;
+		runDetailMovieData(movieId);
 	});
 });
 
