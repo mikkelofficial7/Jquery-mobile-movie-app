@@ -78,8 +78,39 @@
       });
 
       // Intercept button inside active/current page
-      $(document).on('click', '.btn-inside-active', function(e) {
-        var $link = $("#section-inside-active a");
+      $(document).on('click', '.btn-inside-movie', function(e) {
+        var $link = $("#section-inside-movie a");
+        var target = $link.attr('href');
+        var transition = $link.data('transition') || 'none';
+
+        // Only intercept internal page transitions
+        if (target && target.startsWith('#')) {
+          e.preventDefault();
+
+          $('#side-menu li').removeClass('active');
+
+          $('#side-menu li a').each(function() {
+            const href = $(this).attr('href');
+            if (href === target) {
+              $(this).parent().addClass('active');
+            }
+          });
+
+
+          $('.ui-page-active').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing, function() {
+            menuStatus = false;
+            $('#side-menu').css('visibility', 'hidden');
+            $.mobile.changePage(target, {
+              transition: transition
+            });
+          });
+        }
+      });
+
+      $(document).on('click', '.btn-inside-tv', function(e) {
+        var $link = $("#section-inside-tv a");
         var target = $link.attr('href');
         var transition = $link.data('transition') || 'none';
 
