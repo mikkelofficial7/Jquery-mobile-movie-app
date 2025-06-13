@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/detail.html",
-      "destination": "/detail/",
+      "destination": "/detail",
       "permanent": true
     }
   ]
