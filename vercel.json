@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/detail.html",
+      "destination": "/detail/",
+      "permanent": true
+    }
+  ]
+}
