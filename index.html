@@ -11,6 +11,7 @@
   -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" type="text/css" />
   <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"/>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -44,16 +45,16 @@
   <ul>
     <li><img class="pic" src = "https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small_2x/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg"></img><span class="icon"></span></li>
     <li class="uname">MoviSnap<span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#main" data-transition="none">Home</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#now-playing" data-transition="none">Movie - Now Playing</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#upcoming" data-transition="none">Movie - Upcoming</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#popular" data-transition="none">Movie - Popular</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#top-rated" data-transition="none">Movie - Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#tv-main" data-transition="none">TV Show - Now Playing</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#tv-popular" data-transition="none">TV Show - Popular</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#tv-top-rated" data-transition="none">TV Show - Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#search" data-transition="none">Search Data</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#find-genre" data-transition="none">Find by Genre</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#main" data-transition="none"><i class="fas fa-home"></i> Home</a></li>
+    <li id = "item" class="menu-item"><a href="#now-playing" data-transition="none"><i class="fas fa-film"></i> Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#upcoming" data-transition="none"><i class="fas fa-film"></i> Upcoming</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#popular" data-transition="none"><i class="fas fa-film"></i> Popular</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#top-rated" data-transition="none"><i class="fas fa-film"></i> Top Rated</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#tv-main" data-transition="none"><i class="fas fa-tv"></i> Now Playing</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#tv-popular" data-transition="none"><i class="fas fa-tv"></i> Popular</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#tv-top-rated" data-transition="none"><i class="fas fa-tv"></i> Top Rated</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#search" data-transition="none"><i class="fas fa-search"></i> Search Data</a><span class="icon"></span></li>
+    <li id = "item" class="menu-item"><a href="#find-genre" data-transition="none"><i class="fas fa-tags"></i> Find by Genre</a><span class="icon"></span></li>
   </ul>
 </div>
 
@@ -66,8 +67,8 @@
         <div class="overflow-x-auto whitespace-nowrap p-4">
             <span class="inline-flex items-center">
               <h2 class="text-xl font-semibold mb-2">Today's Trending Movies</h2>
-                <h2 class="bg-[#ff0400] text-white no-text-shadow rounded-lg p-2 mb-2 ml-5" id="movie-find-more">
-                <a class="text-white no-underline" href="#now-playing">Find more</a>
+                <h2 class="bg-[#ff0400] text-[#f8f8ff] no-text-shadow rounded-lg p-2 mb-2 ml-5" id="movie-find-more">
+                <a class="text-[#f8f8ff] no-underline btn-inside-active" href="#now-playing" data-role="none">Find more</a>
               </h2>
             </span>
           <ul id="item-movie-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
@@ -76,8 +77,8 @@
         <div class="overflow-x-auto whitespace-nowrap p-4">
             <span class="inline-flex items-center">
               <h2 class="text-xl font-semibold mb-2">Today's Trending TV Shows</h2>
-              <h2 class="bg-[#ff0400] text-white no-text-shadow rounded-lg p-2 mb-2 ml-5" id="tv-find-more">
-                <a class="text-white no-underline" href="#tv-main">Find more</a>
+              <h2 class="bg-[#ff0400] text-[#f8f8ff] no-text-shadow rounded-lg p-2 mb-2 ml-5" id="tv-find-more">
+                <a class="text-[#f8f8ff] no-underline btn-inside-active" href="#tv-main" data-role="none">Find more</a>
               </h2>
             </span>
           <ul id="item-tv-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
@@ -95,7 +96,7 @@
         </ul>
     </div>
     <div id ="load-more-section-main" class="m-5 hidden">
-      <button id="btn-load-more-main" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-main" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -110,7 +111,7 @@
         </ul>
     </div>
     <div id ="load-more-section-upcoming" class="m-5 hidden">
-      <button id="btn-load-more-upcoming" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-upcoming" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -125,7 +126,7 @@
         </ul>
     </div>
     <div id ="load-more-section-top-rated" class="m-5 hidden">
-      <button id="btn-load-more-top-rated" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-top-rated" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -140,7 +141,7 @@
         </ul>
     </div>
     <div id ="load-more-section-popular" class="m-5 hidden">
-      <button id="btn-load-more-popular" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-popular" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -156,7 +157,7 @@
         </ul>
     </div>
     <div id ="load-more-section-tv-main" class="m-5 hidden">
-      <button id="btn-load-more-tv-main" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-tv-main" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -171,7 +172,7 @@
         </ul>
     </div>
     <div id ="load-more-section-tv-popular" class="m-5 hidden">
-      <button id="btn-load-more-tv-popular" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-tv-popular" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -186,7 +187,7 @@
         </ul>
     </div>
     <div id ="load-more-section-tv-top-rated" class="m-5 hidden">
-      <button id="btn-load-more-tv-top-rated" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-tv-top-rated" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -211,7 +212,7 @@
               <button
                 type="submit"
                 data-role="none"
-                class="bg-gradient-to-b from-[#6facd5] to-[#456f9a] hover:scale-108 text-white px-6 py-3 text-base transform transition-transform duration-300 hover:scale-10 btn-search"
+                class="bg-gradient-to-b from-[#6facd5] to-[#456f9a] hover:scale-108 text-[#f8f8ff] px-6 py-3 text-base transform transition-transform duration-300 hover:scale-10 btn-search"
                 aria-label="Search button">
                 Search
               </button>
@@ -221,7 +222,7 @@
         </ul>
     </div>
     <div id ="load-more-section-search" class="m-5 hidden">
-      <button id="btn-load-more-search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-search" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg text-shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -255,7 +256,7 @@
         </ul>
     </div>
     <div id ="load-more-section-genre-list" class="m-5 hidden">
-      <button id="btn-load-more-genre-list" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
+      <button id="btn-load-more-genre-list" class="bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 text-center">
         Load More
       </button>
     </div>
@@ -269,7 +270,7 @@
     </div>
     <div data-role="content">
         <!-- Movie Detail Section -->
-        <div class="relative text-black overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
+        <div class="relative text-[#121212] overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
 
         <!-- Background Image Layer -->
         <img id="item-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
@@ -283,8 +284,8 @@
                 class="w-24 h-36 object-cover rounded shadow-md md:w-40 md:h-60"/>
             <div>
               <h1 id="item-title" class="text-2xl md:text-3xl font-bold">-</h1>
-              <p class="text-sm text-black/100">Release Date: <span id="item-release">-</span></p>
-              <p class="text-sm text-black/100">Rating: <span id="item-rating">⭐ 0</span></p>
+              <p class="text-sm text-[#121212]">Release Date: <span id="item-release">-</span></p>
+              <p class="text-sm text-[#121212]">Rating: <span id="item-rating">⭐ 0</span></p>
             </div>
           </header>
 
@@ -302,23 +303,23 @@
           <!-- Overview -->
           <section class="mb-6">
             <h2 class="text-xl font-semibold mb-2">Overview</h2>
-            <p id="item-overview" class="text-black/100">
+            <p id="item-overview" class="text-[#121212]">
               <!-- Will be filled dynamically -->
             </p>
           </section>
 
-          <section class="mb-6 space-y-4 text-sm text-black/90">
+          <section class="mb-6 space-y-4 text-sm text-[#121212]">
 
             <!-- Tagline -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Tagline</h2>
-              <p id="item-tagline" class="italic text-black/70">-</p>
+              <p id="item-tagline" class="italic text-[#121212]">-</p>
             </div>
 
             <!-- Production Companies -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Production Companies</h2>
-              <ul id="item-production" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 text-black/80">
+              <ul id="item-production" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 text-[#121212]">
                 <!-- Filled dynamically -->
               </ul>
             </div>
@@ -348,13 +349,13 @@
             <!-- Age Rating -->
             <div>
               <h2 class="text-xl font-semibold mb-1">Age Rating</h2>
-              <span id="item-rating-age" class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">
+              <span id="item-rating-age" class="inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full">
                 -
               </span>
             </div>
           </section>
 
-           <section class="mb-6 space-y-4 text-sm text-black/90">
+           <section class="mb-6 space-y-4 text-sm text-[#121212]">
             <h2 id="itemSimilarTitle" class="text-xl font-semibold mb-1"></h2>
             <ul id = "itemListSimilar" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 justify-center">
             </ul>

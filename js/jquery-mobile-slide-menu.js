@@ -15,7 +15,7 @@
         if (!menuStatus) {
           $('#side-menu').css('visibility', 'visible');
           $('.ui-page-active').animate({
-            marginLeft: '165px'
+            marginLeft: '185px'
           }, options.duration, options.easing, function() {
             menuStatus = true;
           });
@@ -54,6 +54,31 @@
 
       // Intercept menu link clicks
       $(document).on('click', '#side-menu li a', function(e) {
+        var $link = $(this);
+        var target = $link.attr('href');
+        var transition = $link.data('transition') || 'none';
+
+        // Only intercept internal page transitions
+        if (target && target.startsWith('#')) {
+          e.preventDefault();
+
+          $('#side-menu li').removeClass('active');
+          $link.parent().addClass('active');
+
+          $('.ui-page-active').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing, function() {
+            menuStatus = false;
+            $('#side-menu').css('visibility', 'hidden');
+            $.mobile.changePage(target, {
+              transition: transition
+            });
+          });
+        }
+      });
+
+      // Intercept button inside active/current page
+      $(document).on('click', '.btn-inside-active', function(e) {
         var $link = $(this);
         var target = $link.attr('href');
         var transition = $link.data('transition') || 'none';

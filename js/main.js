@@ -372,7 +372,7 @@ $(document).ready(function(){
 			movieGenre = data.genres;
 			$.each(data.genres, function(){
 				const li = document.createElement("li");
-				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow item-click-genre";
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
 				li.setAttribute("data-genre-id", this['id']);
 				li.textContent = this['name']
 
@@ -445,7 +445,7 @@ $(document).ready(function(){
 			tvGenre = data.genres;
 			$.each(data.genres, function(){
 				const li = document.createElement("li");
-				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-white no-text-shadow item-click-genre";
+				li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
 				li.setAttribute("data-genre-id", this['id']);
 				li.textContent = this['name']
 
@@ -641,7 +641,7 @@ $(document).ready(function(){
 
 			data.production_companies.forEach(company => {
 				const li = document.createElement("li");
-				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
+				li.className = "flex items-center gap-2 mb-2 bg-[#f8f8ff] rounded-lg px-4 py-2 shadow-sm";
 
 				// Create logo image if available
 				const imageUrl = company.logo_path == null
@@ -672,10 +672,10 @@ $(document).ready(function(){
 
 			if (data?.adult) {
 				document.getElementById("item-rating-age").textContent = "17+";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 			} else {
 				document.getElementById("item-rating-age").textContent = "All ages";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 			}
 		});
 
@@ -833,7 +833,7 @@ $(document).ready(function(){
 
 				data.production_companies.forEach(company => {
 				const li = document.createElement("li");
-				li.className = "flex items-center gap-2 mb-2 bg-white/80 rounded-lg px-4 py-2 shadow-sm";
+				li.className = "flex items-center gap-2 mb-2 bg-[#f8f8ff] rounded-lg px-4 py-2 shadow-sm";
 
 				// Create logo image if available
 				const imageUrl = company.logo_path == null
@@ -865,10 +865,10 @@ $(document).ready(function(){
 
 			if (data?.adult) {
 				document.getElementById("item-rating-age").textContent = "17+";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 			} else {
 				document.getElementById("item-rating-age").textContent = "All ages";
-				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full";
+				document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 			}
 		});
 	});
@@ -893,7 +893,7 @@ $(document).ready(function(){
 
 		data.genres.forEach(genre => {
 			const span = document.createElement("span");
-			span.className = "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full text-xs shadow transition-all";
+			span.className = "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
 			span.textContent = genre.name;
 			genreContainer.appendChild(span);
 		});

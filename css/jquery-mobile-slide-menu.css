@@ -11,13 +11,13 @@ body
 }
 #item
 {
-	color: black;
+	color: #121212;
 }
-.text-white {
-	color: white !important;
+.text-#f8f8ff {
+	color: #f8f8ff !important;
 }
 #side-menu {
-	width: 165px;
+	width: 185px;
 	height: 100%;
 	display: block !important;
 	float: left;
@@ -31,22 +31,30 @@ body
 #side-menu ul li {
 	list-style-type: none;
 	margin: 0px 0;
-	/*border-bottom: solid #6d6d6d 1px;*/
 }
 #side-menu ul li a:link, #side-menu ul li a:visited {
 	border-bottom: solid #333 1px;
-	color: black;
+	color: #121212;
 	font-size: 14px;
 	font-family: arial;
 	text-decoration: none;
-	width: 165px;
+	width: 100%;
 	display: block;
 	padding: 10px 0px 10px 10px;
-	text-shadow: 0px 1px 1px #000000;
+	text-shadow: 0px 1px 1px #b6b4b4;
 }
 #side-menu ul li a:hover, #side-menu ul li a:active {
-	background-color: #716f6f;
+	background-color: #6facd5;
 }
+
+#side-menu ul li a:hover, #side-menu ul li a:active {
+	background-color: #6facd5;
+}
+
+#side-menu ul .active {
+	background-color: #6facd5;
+}
+
 #side-menu ul li a:hover span.icon {
 	background-position: 0 -40px !important;
 }
@@ -61,20 +69,20 @@ body
 }
 .uname
 {
-	text-shadow: 0px 1px 1px #000000;
+	border-bottom: solid #333 1px;
 	border-style:none;
 	padding-top:20px;
 	padding-bottom:20px;
 	padding-left: 5px;
 	font-family:arial;
 	font-size:14px;
-	color:black;
+	color:#121212;
 	text-align:center;
 	border-bottom:1px solid #333;
 }
 .pic
 {
-	border: 2px solid black;
+	border: 2px solid #121212;
 	margin-bottom: 10px;
 	margin-top: 20px;
 	margin-left: 50px;
@@ -86,7 +94,7 @@ body
 .copyright
 {
 	font-size:12px;
-	color:white;
+	color:#f8f8ff;
 }
 #a-popcorn:hover
 {
@@ -106,7 +114,7 @@ body
 	margin-bottom: 5px; 
 }
 .p {
-	color: white;
+	color: #f8f8ff;
 	text-decoration:none;
 }
 .ui-icon.ui-icon-grid.ui-icon-shadow {
@@ -144,7 +152,7 @@ body
 	font-family: arial;
 	text-align:center;
 	margin-left:24%;
-	color:white;
+	color:#f8f8ff;
 	font-weight:none;
 }
 .ui-block-a
@@ -158,7 +166,7 @@ body
 	cursor: pointer;
 	transform: scale(1.08);
 }
-.btn-search, #et-search {
+.btn-search, #et-search, .btn-inside-active {
 	font-family: Helvetica,Arial,sans-serif !important;
 	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4) !important;
 }
@@ -180,7 +188,7 @@ body
 	.body-quote
 	{
 		width:50%;
-		color:white;
+		color:#f8f8ff;
 		text-align:center;
 		margin-left:24%;
 		font-size:13px;
