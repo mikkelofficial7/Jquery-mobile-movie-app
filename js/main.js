@@ -76,6 +76,7 @@ $(document).ready(function(){
 	$(document).on("click", ".btn-search", function () {
 		const keyword = $("#et-search").val();
 		currentPageSearch = 1;
+		$("#movieListSearch").html('');
 
 		if (keyword != "") {
 			runSearchList(currentPageSearch, keyword)
@@ -383,9 +384,7 @@ function runTvShowTopRatedList(currentPage) {
 }
 
 function runSearchList(currentPage, keyword) {
-	$.getJSON('https://api.themoviedb.org/3/search/multi?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
-		if (currentPage == 1) $("#movieListSearch").html('');
-
+	$.getJSON('https://api.themoviedb.org/3/search/video?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
 		$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		if (data.results.length < 1 && currentPage < 2) {
@@ -400,6 +399,32 @@ function runSearchList(currentPage, keyword) {
 					
 			const name = this['title'] || this['name'];
 			$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
+		});
+
+		if (data.results.length > 0) {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.remove('hidden');
+		} else {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.add('hidden');
+		}
+	});
+
+	$.getJSON('https://api.themoviedb.org/3/search/tv?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
+		$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+
+		if (data.results.length < 1 && currentPage < 2) {
+			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+			$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
+		}
+
+		$.each(data.results, function(){
+			const imageUrl = this['poster_path'] == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					
+			const name = this['title'] || this['name'];
+			$("#movieListSearch").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
 
 		if (data.results.length > 0) {
@@ -619,6 +644,7 @@ function countryCodeToFlagEmoji(countryCode) {
 function runDetailMovieData(movieId) {
 	if (window.location.href.includes("item-detail") && movieId === "") {
 	  	window.location.href = document.referrer;
+		return;
 	}
 
 	let backdropImages = [];
@@ -814,6 +840,7 @@ function runDetailMovieData(movieId) {
 function runDetailTvShowData(tvShowId) {
 	if (window.location.href.includes("item-detail") && tvShowId === "") {
 	  	window.location.href = document.referrer;
+		return;
 	}
 	
 	let backdropImages = [];
