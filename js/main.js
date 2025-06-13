@@ -351,7 +351,7 @@ $(document).ready(function(){
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
   						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
 						
-				const name = item.title || item.name;
+				const name = this['title'] || this['name'];
 				$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p></li>");
 			});
 
