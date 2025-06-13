@@ -6,13 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		const type = segments[1];
 		const id = segments[2];
 
-		console.log("Type:", type);
-		console.log("ID:", id);
-
-		// if (type === "movie") {
-		// 	runDetailMovieData(id)
-		// } else if (type === "tv") {
-		// 	runDetailTvShowData(id)
-		// }
+		if (type.toLowerCase() === "movie") {
+			runDetailMovieData(id)
+		} else if (type.toLowerCase() === "tv") {
+			runDetailTvShowData(id)
+		}
 	}
 });
