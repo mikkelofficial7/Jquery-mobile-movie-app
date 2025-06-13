@@ -2,6 +2,8 @@ $(document).ready(function(){
 	const path = window.location.pathname;
 	const segments = path.split('/').filter(Boolean);
 
+	console.log(path);
+
 	if (segments.length === 3 && segments[0] === "detail") {
 		const type = segments[1];
 		const id = segments[2];
