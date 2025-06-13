@@ -12,7 +12,7 @@ $(document).ready(function(){
 		if (type === "movie") {
 			runDetailMovieData(id)
 		} else if (type === "tv") {
-			runDetailTvShowData(870028)
+			runDetailTvShowData(id)
 		}
 	}
 });

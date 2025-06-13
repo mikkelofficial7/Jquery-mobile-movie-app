@@ -4,11 +4,12 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
-    },
+    }
+  ],
+  "rewrites": [
     {
-      "source": "/detail/index.html",
-      "destination": "/detail",
-      "permanent": true
+      "source": "/detail/:type/:id",
+      "destination": "/detail/index.html"
     }
   ]
 }
