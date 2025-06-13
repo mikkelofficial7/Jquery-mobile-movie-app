@@ -1,4 +1,5 @@
 var availableLanguage = [];
+
 const apikey = "edfccf752de0d09758c56e652809912b"
 var currentPageUpcoming = 1;
 var currentPageTopRated = 1;
