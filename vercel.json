@@ -1,7 +1,12 @@
 {
   "redirects": [
     {
-      "source": "/detail.html",
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/detail/index.html",
       "destination": "/detail",
       "permanent": true
     }
