@@ -4,12 +4,12 @@ $(document).ready(function () {
   $('#side-menu ul li.menu-item a[href]').each(function () {
     const linkHref = $(this).attr('href');
     if (linkHref === hash) {
+      $('#side-menu li').removeClass('active');
       $(this).parent().addClass('active');
-    } else {
-       $('#side-menu ul li.menu-item:first').addClass('active');
     }
   });
 });
+
 
 (function($){
   $.fn.slideMenu = function(options) {
