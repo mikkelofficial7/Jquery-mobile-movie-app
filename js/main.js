@@ -756,7 +756,7 @@ function runDetailMovieData(movieId) {
 
 		document.getElementById("item-title").textContent = data.title;
 		document.getElementById("item-release").textContent = data.release_date;
-		document.getElementById("item-rating").textContent = `${data.vote_average}/10`;
+		document.getElementById("item-rating").textContent = `${Number(data.vote_average.toFixed(1))}/10`;
 		document.getElementById("item-poster").src = imageUrl;
 
 		const backdropUrl = data.backdrop_path == null
@@ -832,7 +832,7 @@ function runDetailMovieData(movieId) {
 
 				document.getElementById("item-title").textContent = data.movie_results[0].title;
 				document.getElementById("item-release").textContent = data.movie_results[0].release_date;
-				document.getElementById("item-rating").textContent = `${data.movie_results[0].vote_average}/10`;
+				document.getElementById("item-rating").textContent = `${Number(data.movie_results[0].vote_average.toFixed(1))}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 				document.getElementById("item-bg").src = imageUrl;
 			});
@@ -962,7 +962,7 @@ function runDetailTvShowData(tvShowId) {
 
 		document.getElementById("item-title").textContent = data.name;
 		document.getElementById("item-release").textContent = data.first_air_date;
-		document.getElementById("item-rating").textContent = `${data.vote_average}/10`;
+		document.getElementById("item-rating").textContent = `${Number(data.vote_average.toFixed(1))}/10`;
 		document.getElementById("item-poster").src = imageUrl;
 
 		const backdropUrl = data.backdrop_path == null
@@ -1048,7 +1048,7 @@ function runDetailTvShowData(tvShowId) {
 
 				document.getElementById("item-title").textContent = data.tv_results[0].name;
 				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
-				document.getElementById("item-rating").textContent = `${data.tv_results[0].vote_average}/10`;
+				document.getElementById("item-rating").textContent = `${Number(data.tv_results[0].vote_average.toFixed(1))}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 			});
 		}
@@ -1093,7 +1093,7 @@ function createItemElementTvShow(parentName, item) {
 	li.appendChild(title);
 
 	const rating = document.createElement("p");
-	rating.innerHTML = "<b>Rating : </b>⭐ " + item["vote_average"] + "/10";
+	rating.innerHTML = "<b>Rating : </b>⭐ " +  Number(item["vote_average"].toFixed(1)) + "/10";
 	li.appendChild(rating);
 
 	const language = document.createElement("p");
@@ -1142,7 +1142,7 @@ function createItemElementMovie(parentName, item) {
 	li.appendChild(title);
 
 	const rating = document.createElement("p");
-	rating.innerHTML = "<b>Rating : </b>⭐ " + item["vote_average"] + "/10";
+	rating.innerHTML = "<b>Rating : </b>⭐ " + Number(item["vote_average"].toFixed(1)) + "/10";
 	li.appendChild(rating);
 
 	const language = document.createElement("p");
