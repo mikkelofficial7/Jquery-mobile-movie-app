@@ -385,58 +385,69 @@ function runTvShowTopRatedList(currentPage) {
 	});
 }
 
-function runSearchList(currentPage, keyword) {
-	$.getJSON('https://api.themoviedb.org/3/search/movie?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
-		$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+async function runSearchList(currentPage, keyword) {
+	// make 2 type of api run synchronously
+	
+	let totalMovieFound = [];
+	let totalTvFound = [];
+	let isMovieNotFound = false
+	let isTvNotFound = false
 
-		if (data.results.length < 1 && currentPage < 2) {
-			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
-		}
+	const movieUrl = `https://api.themoviedb.org/3/search/movie?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
+	const tvUrl = `https://api.themoviedb.org/3/search/tv?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
 
-		$.each(data.results, function(){
-			const imageUrl = this['poster_path'] == null
+	// Fetch movies
+	const movieResponse = await fetch(movieUrl);
+	const movieData = await movieResponse.json();
+
+	// Fetch TV
+	const tvResponse = await fetch(tvUrl);
+	const tvData = await tvResponse.json();
+
+	totalMovieFound = movieData.results;
+
+	if (movieData.results.length < 1 && currentPage < 2) {
+		isMovieNotFound = true;
+	}
+
+	totalTvFound = tvData.results;
+
+	if (tvData.results.length < 1 && currentPage < 2) {
+		isTvNotFound = true;
+	}
+
+	$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+
+	movieData.results.forEach(item => {
+		const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + item['poster_path'];
 					
-			const name = this['title'] || this['name'];
-			$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
-		});
-
-		if (data.results.length > 0) {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.remove('hidden');
-		} else {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.add('hidden');
-		}
+		const name = item['title'] || item['name'];
+		$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+item['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
 	});
 
-	$.getJSON('https://api.themoviedb.org/3/search/tv?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
-		$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-
-		if (data.results.length < 1 && currentPage < 2) {
-			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
-		}
-
-		$.each(data.results, function(){
-			const imageUrl = this['poster_path'] == null
+	tvData.results.forEach(item => {
+		const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + item['poster_path'];
 					
-			const name = this['title'] || this['name'];
-			$("#movieListSearch").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
-		});
-
-		if (data.results.length > 0) {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.remove('hidden');
-		} else {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.add('hidden');
-		}
+		const name = item['title'] || item['name'];
+		$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
 	});
+
+	if (isTvNotFound && isMovieNotFound) {
+		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
+	if (totalMovieFound.length > 0 || totalTvFound.length > 0) {
+		const loadMoreSection = document.getElementById('load-more-section-search');
+		loadMoreSection.classList.remove('hidden');
+	} else {
+		const loadMoreSection = document.getElementById('load-more-section-search');
+		loadMoreSection.classList.add('hidden');
+	}
 }
 
 function runMovieGenreList() {
