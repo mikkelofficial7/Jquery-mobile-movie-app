@@ -594,18 +594,21 @@ function setGenresAndOverview(data) {
 
 	// Set Genres
 	const genreContainer = document.getElementById("genre-tags");
-	genreContainer.innerHTML = "No genre"; // Clear old tags
+	genreContainer.innerHTML = ""; // Clear old tags
 
-	if (data.genres > 0) {
-		genreContainer.innerHTML = "";
-	}
-	
-	data.genres.forEach(genre => {
+	if (data.genres < 1) {
 		const span = document.createElement("span");
-		span.className = "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
-		span.textContent = genre.name;
+		span.className = "px-4 py-1 bg-red-600 hover:bg-red-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
+		span.textContent = "Unknown genre";
 		genreContainer.appendChild(span);
-	});
+	} else {
+		data.genres.forEach(genre => {
+			const span = document.createElement("span");
+			span.className = "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
+			span.textContent = genre.name;
+			genreContainer.appendChild(span);
+		});
+	}
 }
 
 function languageCode(languageCode) {
