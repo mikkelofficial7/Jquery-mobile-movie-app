@@ -73,9 +73,7 @@ body
 .uname
 {
 	border-style:none;
-	padding-top:20px;
 	padding-bottom:20px;
-	padding-left: 5px;
 	font-size:14px;
 	color:#121212;
 	text-align:center;
@@ -83,11 +81,9 @@ body
 }
 .pic
 {
-	border: 2px solid #121212;
 	margin-bottom: 10px;
 	margin-top: 20px;
-	margin-left: 50px;
-	margin-right: 60px;
+	margin-left: 55px;
 	height: 60px;
 	width:65px;
 	border-radius:100%;
