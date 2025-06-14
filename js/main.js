@@ -107,7 +107,8 @@ $(document).ready(function(){
 		const url = getExternalDetailPageUrl("tv/"+tvId);
 
 		navigator.clipboard.writeText(url)
-		.then(() => {})
+		.then(() => {
+		})
 		.catch(err => {
 			console.error("Failed to copy URL:", err);
   		});
@@ -124,7 +125,8 @@ $(document).ready(function(){
 		const url = getExternalDetailPageUrl("movie/"+movieId);
 
 		navigator.clipboard.writeText(url)
-		.then(() => {})
+		.then(() => {
+		})
 		.catch(err => {
 			console.error("Failed to copy URL:", err);
   		});
@@ -384,7 +386,7 @@ function runTvShowTopRatedList(currentPage) {
 }
 
 function runSearchList(currentPage, keyword) {
-	$.getJSON('https://api.themoviedb.org/3/search/video?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
+	$.getJSON('https://api.themoviedb.org/3/search/movie?page='+currentPage+'&query='+keyword+'&api_key='+apikey+'&include_adult=true', function(data) {
 		$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		if (data.results.length < 1 && currentPage < 2) {
@@ -646,6 +648,7 @@ function runDetailMovieData(movieId) {
 	  	window.location.href = document.referrer;
 		return;
 	}
+	if (movieId === "") return;
 
 	let backdropImages = [];
 	
@@ -842,6 +845,7 @@ function runDetailTvShowData(tvShowId) {
 	  	window.location.href = document.referrer;
 		return;
 	}
+	if (tvShowId === "") return;
 	
 	let backdropImages = [];
 	$("#itemSimilarTitle").text("Similar TV show you'd like");
@@ -1042,4 +1046,27 @@ function runDetailTvShowData(tvShowId) {
 
 function getExternalDetailPageUrl(path) {
 	return "https://findyourmovies.vercel.app/detail/"+path;
+}
+
+function showToast(message, type = "success", duration = 3000) {
+  const toast = document.createElement("div");
+  const colors = {
+    success: "bg-green-500",
+    error: "bg-red-500",
+    warning: "bg-yellow-500",
+    info: "bg-blue-500"
+  };
+
+    toast.className = "text-white px-4 py-2 rounded shadow-md animate-slide-in-right transition-opacity " +
+    (colors[type] || colors.info);
+  
+  toast.textContent = message;
+
+  const container = document.getElementById("toast-container");
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("opacity-0");
+    setTimeout(() => toast.remove(), 500);
+  }, duration);
 }
