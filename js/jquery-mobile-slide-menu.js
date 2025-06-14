@@ -1,3 +1,16 @@
+$(document).ready(function () {
+  const hash = window.location.hash;
+
+  $('#side-menu ul li.menu-item a[href]').each(function () {
+    const linkHref = $(this).attr('href');
+    if (linkHref === hash) {
+      $(this).parent().addClass('active');
+    } else {
+       $('#side-menu ul li.menu-item:first').addClass('active');
+    }
+  });
+});
+
 (function($){
   $.fn.slideMenu = function(options) {
     options = $.extend({
@@ -27,30 +40,6 @@
           });
         }
       });
-
-      // Swipe gestures
-      // $(document).on('swipeleft', '.pages', function(e) {
-      //   if (menuStatus) {
-      //     $('.ui-page-active').animate({
-      //       marginLeft: '0px'
-      //     }, options.duration, options.easing, function() {
-      //       menuStatus = false;
-      //       $('#side-menu').css('marginTop', $('#side-menu').scrollTop());
-      //     });
-      //   }
-      // });
-
-      // $(document).on('swiperight', '.pages', function(e) {
-      //   if (!menuStatus) {
-      //     $('#side-menu').css('marginTop', $(window).scrollTop());
-      //     $('#side-menu').css('visibility', 'visible');
-      //     $('.ui-page-active').animate({
-      //       marginLeft: '165px'
-      //     }, options.duration, options.easing, function() {
-      //       menuStatus = true;
-      //     });
-      //   }
-      // });
 
       // Intercept menu link clicks
       $(document).on('click', '#side-menu li a', function(e) {
@@ -159,5 +148,29 @@
         $('#side-menu').css('marginTop', $(window).scrollTop(10));
       });
     });
+
+    // Swipe gestures
+    // $(document).on('swipeleft', '.pages', function(e) {
+    //   if (menuStatus) {
+    //     $('.ui-page-active').animate({
+    //       marginLeft: '0px'
+    //     }, options.duration, options.easing, function() {
+    //       menuStatus = false;
+    //       $('#side-menu').css('marginTop', $('#side-menu').scrollTop());
+    //     });
+    //   }
+    // });
+
+    // $(document).on('swiperight', '.pages', function(e) {
+    //   if (!menuStatus) {
+    //     $('#side-menu').css('marginTop', $(window).scrollTop());
+    //     $('#side-menu').css('visibility', 'visible');
+    //     $('.ui-page-active').animate({
+    //       marginLeft: '165px'
+    //     }, options.duration, options.easing, function() {
+    //       menuStatus = true;
+    //     });
+    //   }
+    // });
   };
 })(jQuery);
