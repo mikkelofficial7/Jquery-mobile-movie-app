@@ -1,6 +1,7 @@
 var availableLanguage = [];
 
 const apikey = "edfccf752de0d09758c56e652809912b"
+const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
 var currentPageUpcoming = 1;
 var currentPageTopRated = 1;
 var currentPagePopular = 1;
@@ -155,7 +156,7 @@ function runMovieTrendingTodayList() {
 			randomFive.forEach(data => {
 				const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + data.poster_path;
+						: baseImageLoad + data.poster_path;
 				
 				const li = document.createElement("li");
 				li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
@@ -185,7 +186,7 @@ function runTvTrendingTodayList() {
 			randomFive.forEach(data => {
 				const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-						: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + data.poster_path;
+						: baseImageLoad + data.poster_path;
 				
 				const li = document.createElement("li");
 				li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
@@ -214,7 +215,7 @@ function runUpcomingList(currentPage) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#movieListUpcoming").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -240,7 +241,7 @@ function runTopRatedList(currentPage) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 					
 			$("#movieListTopRated").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -266,7 +267,7 @@ function runPopularList(currentPage) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#movieListPopular").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -292,7 +293,7 @@ function runNowPlayingList(currentPage) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#movieListNowPlaying").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -318,7 +319,7 @@ function runTvShowNowPlayingList(currentPage) {
 		$.each(data.results, function(){				
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#tvListNowPlaying").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -344,7 +345,7 @@ function runTvShowPopularList(currentPage) {
 		$.each(data.results, function(){				
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#tvListPopular").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -370,7 +371,7 @@ function runTvShowTopRatedList(currentPage) {
 		$.each(data.results, function(){				
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#tvListTopRated").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -421,7 +422,7 @@ async function runSearchList(currentPage, keyword) {
 	movieData.results.forEach(item => {
 		const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + item['poster_path'];
+					: baseImageLoad + item['poster_path'];
 					
 		const name = item['title'] || item['name'];
 		$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+item['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
@@ -430,7 +431,7 @@ async function runSearchList(currentPage, keyword) {
 	tvData.results.forEach(item => {
 		const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + item['poster_path'];
+					: baseImageLoad + item['poster_path'];
 					
 		const name = item['title'] || item['name'];
 		$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
@@ -475,7 +476,7 @@ function runMovieGenreList() {
 				$.each(data.results, function(){
 					const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 					$("#GenreListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 				});
@@ -505,7 +506,7 @@ function runMovieGenreList() {
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
 				? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-				: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+				: baseImageLoad + this['poster_path'];
 
 				$("#GenreListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 			});
@@ -542,7 +543,7 @@ function runTvGenreList() {
 				$.each(data.results, function(){
 					const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 					$("#GenreListSearch").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 				});
@@ -572,7 +573,7 @@ function runTvGenreList() {
 			$.each(data.results, function(){
 				const imageUrl = this['poster_path'] == null
 				? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-				: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+				: baseImageLoad + this['poster_path'];
 
 				$("#GenreListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 			});
@@ -645,7 +646,7 @@ function updateMovieDetailPageIdAndUrl(newName) {
 
 function setGenresAndOverview(data) {
 	// Set Overview
-	document.getElementById("item-overview").textContent = data.overview;
+	document.getElementById("item-overview").textContent = data.overview.length < 1 ? "No overview is available" : data.overview;
 
 	// Set Genres
 	const genreContainer = document.getElementById("genre-tags");
@@ -707,7 +708,7 @@ function runDetailMovieData(movieId) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#itemListSimilar").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['title'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -721,7 +722,7 @@ function runDetailMovieData(movieId) {
 			data.backdrops.forEach((data, index) => {
 				const imageUrl = data.file_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.file_path;
+					: baseImageLoad + data.file_path;
 
 			const li = document.createElement("li");
 			li.className = "flex-none w-40";
@@ -742,7 +743,7 @@ function runDetailMovieData(movieId) {
 		if (backdropImages[index]) {
 			const selectedPath = backdropImages[index].file_path;
 			const imageUrl = selectedPath
-			? "https://image.tmdb.org/t/p/original" + selectedPath
+			? baseImageLoad + selectedPath
 			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
 
 			$("#item-bg").attr("src", imageUrl);
@@ -799,43 +800,40 @@ function runDetailMovieData(movieId) {
 
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
-		$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
-			const imageUrl = data.movie_results[0].poster_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.movie_results[0].poster_path;
-
-			document.getElementById("item-title").textContent = data.movie_results[0].title;
-			document.getElementById("item-release").textContent = data.movie_results[0].release_date;
-			document.getElementById("item-rating").textContent = `${data.movie_results[0].vote_average}/10`;
-			document.getElementById("item-poster").src = imageUrl;
-			document.getElementById("item-bg").src = imageUrl;
-		});
-	});
-
-
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
 		setGenresAndOverview(data);
 
+		const imageUrl = data.poster_path == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: baseImageLoad + data.poster_path;
+
+		document.getElementById("item-title").textContent = data.title;
+		document.getElementById("item-release").textContent = data.release_date;
+		document.getElementById("item-rating").textContent = `${data.vote_average}/10`;
+		document.getElementById("item-poster").src = imageUrl;
+
 		const backdropUrl = data.backdrop_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.backdrop_path;
+					: baseImageLoad + data.backdrop_path;
 
 		document.getElementById("item-bg").src = backdropUrl;
-
 		document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
 		const productionList = document.getElementById("item-production");
-			productionList.innerHTML = "";
+		productionList.innerHTML = "N/A";
 
-			data.production_companies.forEach(company => {
+		if (data.production_companies.length > 0) {
+			productionList.innerHTML = "";
+		}
+
+		data.production_companies.forEach(company => {
 			const li = document.createElement("li");
 			li.className = "flex items-center gap-2 mb-2 bg-[#f8f8ff] rounded-lg px-4 py-2 shadow-sm";
 
 			// Create logo image if available
 			const imageUrl = company.logo_path == null
 					? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
-					: "https://image.tmdb.org/t/p/w92" + company.logo_path;
+					: baseImageLoad + company.logo_path;
 
 			const img = document.createElement("img");
 				img.src = imageUrl;
@@ -877,6 +875,23 @@ function runDetailMovieData(movieId) {
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
 	});
+
+	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
+		if (dataId.imdb_id !== null) {
+			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+				const imageUrl = data.movie_results[0].poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + data.movie_results[0].poster_path;
+
+				document.getElementById("item-title").textContent = data.movie_results[0].title;
+				document.getElementById("item-release").textContent = data.movie_results[0].release_date;
+				document.getElementById("item-rating").textContent = `${data.movie_results[0].vote_average}/10`;
+				document.getElementById("item-poster").src = imageUrl;
+				document.getElementById("item-bg").src = imageUrl;
+			});
+		}
+	});
+
 }
 
 function runDetailTvShowData(tvShowId) {
@@ -899,7 +914,7 @@ function runDetailTvShowData(tvShowId) {
 			data.backdrops.forEach(data => {
 				const imageUrl = data.file_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.file_path;
+					: baseImageLoad + data.file_path;
 
 			const li = document.createElement("li");
 			li.className = "flex-none w-40";
@@ -919,7 +934,7 @@ function runDetailTvShowData(tvShowId) {
 		if (backdropImages[index]) {
 			const selectedPath = backdropImages[index].file_path;
 			const imageUrl = selectedPath
-			? "https://image.tmdb.org/t/p/original" + selectedPath
+			? baseImageLoad + selectedPath
 			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
 
 			$("#item-bg").attr("src", imageUrl);
@@ -939,7 +954,7 @@ function runDetailTvShowData(tvShowId) {
 		$.each(data.results, function(){
 			const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + this['poster_path'];
+					: baseImageLoad + this['poster_path'];
 
 			$("#itemListSimilar").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+this['id']+"'><a href='#item-detail-"+this['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(this['name'], 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(this['original_language'])+"</p></a></li>");
 		});
@@ -998,16 +1013,28 @@ function runDetailTvShowData(tvShowId) {
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true", function(data) {
 		setGenresAndOverview(data);
 
+		const imageUrl = data.poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + data.poster_path;
+
+		document.getElementById("item-title").textContent = data.name;
+		document.getElementById("item-release").textContent = data.first_air_date;
+		document.getElementById("item-rating").textContent = `${data.vote_average}/10`;
+		document.getElementById("item-poster").src = imageUrl;
+
 		const backdropUrl = data.backdrop_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.backdrop_path;
+					: baseImageLoad + data.backdrop_path;
 
 		document.getElementById("item-bg").src = backdropUrl;
-
 		document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
 		const productionList = document.getElementById("item-production");
-		productionList.innerHTML = "";
+		productionList.innerHTML = "N/A";
+
+		if (data.production_companies.length > 0) {
+			productionList.innerHTML = "";
+		}
 
 		data.production_companies.forEach(company => {
 			const li = document.createElement("li");
@@ -1016,7 +1043,7 @@ function runDetailTvShowData(tvShowId) {
 			// Create logo image if available
 			const imageUrl = company.logo_path == null
 					? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
-					: "https://image.tmdb.org/t/p/w92" + company.logo_path;
+					: baseImageLoad + company.logo_path;
 
 			const img = document.createElement("img");
 				img.src = imageUrl;
@@ -1048,7 +1075,7 @@ function runDetailTvShowData(tvShowId) {
 		$.each(data.seasons, function(index, season) {
 			const posterSeason = season.poster_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + season.poster_path;
+					: baseImageLoad + season.poster_path;
 
 			const seasonOrdinal = season.season_number < 1 ? "Special edition" : "Season "+season.season_number;
 			$("#item-season").append("<li class = 'list-season flex flex-col items-center justify-center text-center p-4' data-id='"+season.id+"'><a href='#item-detail-"+season.id+"'><p>"+seasonOrdinal+"</p><br/><img alt='Poster' class = 'poster-images-small' src = "+posterSeason+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(season.name, 30)+"</p><b><p>Rating : </b>⭐ "+season.vote_average+"/10</p><p>"+season.episode_count+" episode</p></a></li>");
@@ -1070,16 +1097,18 @@ function runDetailTvShowData(tvShowId) {
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/external_ids?api_key="+apikey, function(dataId) {
-		$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
-			const imageUrl = data.tv_results[0].poster_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
-					: "https://image.tmdb.org/t/p/w500" + data.tv_results[0].poster_path;
+		if(dataId.imdb_id !== null) {
+			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+				const imageUrl = data.tv_results[0].poster_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + data.tv_results[0].poster_path;
 
-			document.getElementById("item-title").textContent = data.tv_results[0].name;
-			document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
-			document.getElementById("item-rating").textContent = `${data.tv_results[0].vote_average}/10`;
-			document.getElementById("item-poster").src = imageUrl;
-		});
+				document.getElementById("item-title").textContent = data.tv_results[0].name;
+				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
+				document.getElementById("item-rating").textContent = `${data.tv_results[0].vote_average}/10`;
+				document.getElementById("item-poster").src = imageUrl;
+			});
+		}
 	});
 }
 
