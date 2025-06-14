@@ -818,7 +818,7 @@ function runDetailMovieData(movieId) {
 			document.getElementById("item-rating-age").textContent = "17+";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		} else {
-			document.getElementById("item-rating-age").textContent = "All ages";
+			document.getElementById("item-rating-age").textContent = "Universal";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
 	});
@@ -1034,7 +1034,7 @@ function runDetailTvShowData(tvShowId) {
 			document.getElementById("item-rating-age").textContent = "17+";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		} else {
-			document.getElementById("item-rating-age").textContent = "All ages";
+			document.getElementById("item-rating-age").textContent = "Universal";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
 	});
