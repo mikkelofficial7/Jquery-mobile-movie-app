@@ -434,7 +434,7 @@ async function runSearchList(currentPage, keyword) {
 					: baseImageLoad + item['poster_path'];
 					
 		const name = item['title'] || item['name'];
-		$("#movieListSearch").append("<li class = 'list-movie flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
+		$("#movieListSearch").append("<li class = 'list-tv flex flex-col items-center justify-center text-center p-4' data-id='"+item['id']+"'><a href='#item-detail-"+item['id']+"'><img alt='Poster' class = 'poster-images' src = "+imageUrl+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(name, 30)+"</p><b><p>Rating : </b>⭐ "+this['vote_average']+"/10</p><p>"+languageCode(item['original_language'])+"</p></a></li>");
 	});
 
 	if (isTvNotFound && isMovieNotFound) {
