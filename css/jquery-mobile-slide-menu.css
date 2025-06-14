@@ -164,6 +164,9 @@ body
 .item-click-genre {
 	cursor: pointer;
 }
+.item-click-genre-active {
+	background: #0d4074 !important;
+}
 .item-click-genre:hover {
 	cursor: pointer;
 	transform: scale(1.08);

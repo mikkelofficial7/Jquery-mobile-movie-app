@@ -450,20 +450,15 @@ async function runSearchList(currentPage, keyword) {
 	}
 }
 
-function runMovieGenreList() {
-	let movieGenre = [];
+var currentMovieGenreId = ""
+var currentTvGenreId = ""
+let movieGenre = [];
+let tvGenre = [];
 
+function runMovieGenreList() {
 	$.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key='+apikey, function(data) {
 		movieGenre = data.genres;
-		$.each(data.genres, function(){
-			const li = document.createElement("li");
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
-			li.setAttribute("data-genre-id", this['id']);
-			li.textContent = this['name']
-
-			const parentList = document.getElementById("movieGenreList");
-			parentList.appendChild(li);
-		});
+		populateItemGenre();
 	});
 
 	$("#movieGenreList").on("click", "li", function () {
@@ -472,6 +467,10 @@ function runMovieGenreList() {
 		
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (movieGenre[index]) {
+			currentMovieGenreId = movieGenre[index].id;
+			currentTvGenreId = "";
+			populateItemGenre();
+
 			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {
 				$.each(data.results, function(){
 					const imageUrl = this['poster_path'] == null
@@ -524,19 +523,9 @@ function runMovieGenreList() {
 }
 
 function runTvGenreList() {
-	let tvGenre = [];
-
 	$.getJSON('https://api.themoviedb.org/3/genre/tv/list?api_key='+apikey, function(data) {
 		tvGenre = data.genres;
-		$.each(data.genres, function(){
-			const li = document.createElement("li");
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
-			li.setAttribute("data-genre-id", this['id']);
-			li.textContent = this['name']
-
-			const parentList = document.getElementById("tvGenreList");
-			parentList.appendChild(li);
-		});
+		populateItemGenre();
 	});
 
 	$("#tvGenreList").on("click", "li", function () {
@@ -545,8 +534,11 @@ function runTvGenreList() {
 
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (tvGenre[index]) {
+			currentMovieGenreId = "";
+			currentTvGenreId = tvGenre[index].id;
+			populateItemGenre();
+
 			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+tvGenre[index].id, function(data) {
-				
 				$.each(data.results, function(){
 					const imageUrl = this['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
@@ -593,6 +585,42 @@ function runTvGenreList() {
 				section.classList.add('hidden');
 			}
 		});
+	});
+}
+
+function populateItemGenre() {
+	$('#movieGenreList li').remove();
+	$.each(movieGenre, function(){
+		const li = document.createElement("li");
+
+		if (currentMovieGenreId === this['id']) {
+			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+		} else {
+			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+		}
+
+		li.setAttribute("data-genre-id", this['id']);
+		li.textContent = this['name']
+
+		const parentList = document.getElementById("movieGenreList");
+		parentList.appendChild(li);
+	});
+
+	$('#tvGenreList li').remove();
+	$.each(tvGenre, function(){
+		const li = document.createElement("li");
+
+		if (currentTvGenreId === this['id']) {
+			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+		} else {
+			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+		}
+
+		li.setAttribute("data-genre-id", this['id']);
+		li.textContent = this['name']
+
+		const parentList = document.getElementById("tvGenreList");
+		parentList.appendChild(li);
 	});
 }
 
