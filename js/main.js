@@ -111,12 +111,12 @@ $(document).ready(function(){
 	var tvRealUrl = "";
 
 	$(document).on("click", "#externalLink", function () {
-		if (isSharing) return; // prevent multiple shares
-		isSharing = true;
-
 		navigator.clipboard.writeText(tvRealUrl)
 		.then(() => {})
 		.catch(() => {})
+		
+		if (isSharing) return; // prevent multiple shares
+		isSharing = true;
 
 		if (navigator.share) {
 			navigator.share({
@@ -146,12 +146,12 @@ $(document).ready(function(){
 	var movieRealUrl = "";
 
 	$(document).on("click", "#externalLink", function () {
-		if (isSharing) return; // prevent multiple shares
-		isSharing = true;
-
 		navigator.clipboard.writeText(movieRealUrl)
 		.then(() => {})
 		.catch(() => {})
+
+		if (isSharing) return; // prevent multiple shares
+		isSharing = true;
 
 		if (navigator.share) {
 			navigator.share({
