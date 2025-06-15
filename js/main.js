@@ -1,10 +1,3 @@
-const apikey = "edfccf752de0d09758c56e652809912b"
-const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
-const baseUrl = "https://findyourmovies.vercel.app"
-
-
-
-
 var availableLanguage = [];
 
 var currentPageUpcoming = 1;
@@ -177,13 +170,17 @@ $(document).ready(function(){
 	});
 });
 
-function runAllLanguageProvided() {
+async function runAllLanguageProvided() {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/configuration/languages?api_key="+apikey, function(data){
 		availableLanguage = data;
 	});
 }
 
-function runMovieTrendingTodayList() {
+async function runMovieTrendingTodayList() {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
 			const posterList = document.getElementById("item-movie-trending-today");
@@ -213,7 +210,9 @@ function runMovieTrendingTodayList() {
 	});
 }
 
-function runTvTrendingTodayList() {
+async function runTvTrendingTodayList() {
+	const apikey = await decryptString(ciphertext, iv, password);
+
 	$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
 			const posterList = document.getElementById("item-tv-trending-today");
@@ -243,7 +242,9 @@ function runTvTrendingTodayList() {
 	});
 }
 
-function runUpcomingList(currentPage) {
+async function runUpcomingList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListUpcoming").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -266,7 +267,9 @@ function runUpcomingList(currentPage) {
 	});
 }
 
-function runTopRatedList(currentPage) {
+async function runTopRatedList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -288,7 +291,9 @@ function runTopRatedList(currentPage) {
 	});
 }
 
-function runPopularList(currentPage) {
+async function runPopularList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -310,7 +315,9 @@ function runPopularList(currentPage) {
 	});
 }
 
-function runNowPlayingList(currentPage) {
+async function runNowPlayingList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -332,7 +339,9 @@ function runNowPlayingList(currentPage) {
 	});
 }
 
-function runTvShowNowPlayingList(currentPage) {
+async function runTvShowNowPlayingList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -354,7 +363,9 @@ function runTvShowNowPlayingList(currentPage) {
 	});
 }
 
-function runTvShowPopularList(currentPage) {
+async function runTvShowPopularList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -376,7 +387,9 @@ function runTvShowPopularList(currentPage) {
 	});
 }
 
-function runTvShowTopRatedList(currentPage) {
+async function runTvShowTopRatedList(currentPage) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -399,6 +412,8 @@ function runTvShowTopRatedList(currentPage) {
 }
 
 async function runSearchList(currentPage, keyword) {
+	const apikey = await decryptString(ciphertext, iv, password);
+
 	// make 2 type of api run synchronously
 	
 	let totalMovieFound = [];
@@ -458,7 +473,9 @@ var currentTvGenreId = ""
 let movieGenre = [];
 let tvGenre = [];
 
-function runMovieGenreList() {
+async function runMovieGenreList() {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key='+apikey, function(data) {
 		movieGenre = data.genres;
 		populateItemGenre();
@@ -517,7 +534,9 @@ function runMovieGenreList() {
 
 }
 
-function runTvGenreList() {
+async function runTvGenreList() {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$.getJSON('https://api.themoviedb.org/3/genre/tv/list?api_key='+apikey, function(data) {
 		tvGenre = data.genres;
 		populateItemGenre();
@@ -575,7 +594,9 @@ function runTvGenreList() {
 	});
 }
 
-function populateItemGenre() {
+async function populateItemGenre() {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	$('#movieGenreList li').remove();
 	$.each(movieGenre, function(){
 		const li = document.createElement("li");
@@ -674,7 +695,9 @@ function countryCodeToFlagEmoji(countryCode) {
 	);
 }
 
-function runDetailMovieData(movieId) {
+async function runDetailMovieData(movieId) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	if (window.location.href.includes("item-detail") && movieId === "") {
 	  	window.location.href = document.referrer;
 		return;
@@ -881,7 +904,9 @@ function runDetailMovieData(movieId) {
 
 }
 
-function runDetailTvShowData(tvShowId) {
+async function runDetailTvShowData(tvShowId) {
+	const apikey = await decryptString(ciphertext, iv, password);
+	
 	if (window.location.href.includes("item-detail") && tvShowId === "") {
 	  	window.location.href = document.referrer;
 		return;
