@@ -114,11 +114,11 @@ $(document).ready(function(){
 		if (isSharing) return; // prevent multiple shares
 		isSharing = true;
 
-		if (navigator.share) {
-			navigator.clipboard.writeText(tvRealUrl)
-			.then(() => {})
-			.catch(() => {})
+		navigator.clipboard.writeText(tvRealUrl)
+		.then(() => {})
+		.catch(() => {})
 
+		if (navigator.share) {
 			navigator.share({
 				title: document.title,
 				text: 'Check this out!',
@@ -132,18 +132,7 @@ $(document).ready(function(){
 			}).finally(() => {
 				isSharing = false; // reset flag
 			});
-		} else {
-		navigator.clipboard.writeText(tvRealUrl)
-			.then(() => {
-				alert('Link copied to clipboard!');
-			})
-			.catch(() => {
-				alert('Failed to copy link');
-			})
-			.finally(() => {
-				isSharing = false; // reset flag
-			});
-		}
+		} else {}
 	});
 
 	$(document).on("click", ".list-tv", function () {
@@ -160,11 +149,11 @@ $(document).ready(function(){
 		if (isSharing) return; // prevent multiple shares
 		isSharing = true;
 
-		if (navigator.share) {
-			navigator.clipboard.writeText(movieRealUrl)
-			.then(() => {})
-			.catch(() => {})
+		navigator.clipboard.writeText(movieRealUrl)
+		.then(() => {})
+		.catch(() => {})
 
+		if (navigator.share) {
 			navigator.share({
 				title: document.title,
 				text: 'Check this out!',
@@ -178,18 +167,7 @@ $(document).ready(function(){
 			}).finally(() => {
 				isSharing = false; // reset flag
 			});
-		} else {
-		navigator.clipboard.writeText(movieRealUrl)
-			.then(() => {
-				alert('Link copied to clipboard!');
-			})
-			.catch(() => {
-				alert('Failed to copy link');
-			})
-			.finally(() => {
-				isSharing = false; // reset flag
-			});
-		}
+		} else {}
 	});
 
 	$(document).on("click", ".list-movie", function () {
