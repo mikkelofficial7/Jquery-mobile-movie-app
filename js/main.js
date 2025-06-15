@@ -1,7 +1,12 @@
-var availableLanguage = [];
-
 const apikey = "edfccf752de0d09758c56e652809912b"
 const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
+const baseUrl = "https://findyourmovies.vercel.app"
+
+
+
+
+var availableLanguage = [];
+
 var currentPageUpcoming = 1;
 var currentPageTopRated = 1;
 var currentPagePopular = 1;
@@ -102,37 +107,94 @@ $(document).ready(function(){
 	runDetailTvShowData("")
 	runDetailMovieData("");
 
+	let isSharing = false;
+	var tvRealUrl = "";
+
+	$(document).on("click", "#externalLink", function () {
+		if (isSharing) return; // prevent multiple shares
+		isSharing = true;
+
+		if (navigator.share) {
+			navigator.clipboard.writeText(tvRealUrl)
+			.then(() => {})
+			.catch(() => {})
+
+			navigator.share({
+				title: document.title,
+				text: 'Check this out!',
+				url: tvRealUrl,
+			}).then(() => {
+				console.log('Shared successfully');
+			}).catch((err) => {
+				if (err.name !== "AbortError") {
+				console.error('Share failed:', err);
+				}
+			}).finally(() => {
+				isSharing = false; // reset flag
+			});
+		} else {
+		navigator.clipboard.writeText(tvRealUrl)
+			.then(() => {
+				alert('Link copied to clipboard!');
+			})
+			.catch(() => {
+				alert('Failed to copy link');
+			})
+			.finally(() => {
+				isSharing = false; // reset flag
+			});
+		}
+	});
+
 	$(document).on("click", ".list-tv", function () {
 		const tvId = $(this).data("id");
-
-		const url = getExternalDetailPageUrl("tv/"+tvId);
-
-		navigator.clipboard.writeText(url)
-		.then(() => {
-		})
-		.catch(err => {
-			console.error("Failed to copy URL:", err);
-  		});
-
-		document.getElementById("externalLink").href = url;
+		tvRealUrl = getExternalDetailPageUrl("tv/"+tvId);
 		runDetailTvShowData(tvId)
 	});
 
 	// MOVIE DETAIL PART
 
+	var movieRealUrl = "";
+
+	$(document).on("click", "#externalLink", function () {
+		if (isSharing) return; // prevent multiple shares
+		isSharing = true;
+
+		if (navigator.share) {
+			navigator.clipboard.writeText(movieRealUrl)
+			.then(() => {})
+			.catch(() => {})
+
+			navigator.share({
+				title: document.title,
+				text: 'Check this out!',
+				url: movieRealUrl,
+			}).then(() => {
+				console.log('Shared successfully');
+			}).catch((err) => {
+				if (err.name !== "AbortError") {
+				console.error('Share failed:', err);
+				}
+			}).finally(() => {
+				isSharing = false; // reset flag
+			});
+		} else {
+		navigator.clipboard.writeText(movieRealUrl)
+			.then(() => {
+				alert('Link copied to clipboard!');
+			})
+			.catch(() => {
+				alert('Failed to copy link');
+			})
+			.finally(() => {
+				isSharing = false; // reset flag
+			});
+		}
+	});
+
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
-
-		const url = getExternalDetailPageUrl("movie/"+movieId);
-
-		navigator.clipboard.writeText(url)
-		.then(() => {
-		})
-		.catch(err => {
-			console.error("Failed to copy URL:", err);
-  		});
-
-		document.getElementById("externalLink").href = url;
+		movieRealUrl = getExternalDetailPageUrl("movie/"+movieId);
 		runDetailMovieData(movieId);
 	});
 });
@@ -815,10 +877,10 @@ function runDetailMovieData(movieId) {
 		data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
 
 		if (data?.adult) {
-			document.getElementById("item-rating-age").textContent = "17+";
+			document.getElementById("item-rating-age").textContent = "Unrated (17+)";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		} else {
-			document.getElementById("item-rating-age").textContent = "Universal";
+			document.getElementById("item-rating-age").textContent = "All Ages";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
 	});
@@ -1031,10 +1093,10 @@ function runDetailTvShowData(tvShowId) {
 		data.spoken_languages.map(lang => lang.english_name).join(", ") || "N/A";
 
 		if (data?.adult) {
-			document.getElementById("item-rating-age").textContent = "17+";
+			document.getElementById("item-rating-age").textContent = "Unrated (17+)";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-red-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		} else {
-			document.getElementById("item-rating-age").textContent = "Universal";
+			document.getElementById("item-rating-age").textContent = "All Ages";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
 	});
@@ -1154,5 +1216,9 @@ function createItemElementMovie(parentName, item) {
 }
 
 function getExternalDetailPageUrl(path) {
-	return "https://findyourmovies.vercel.app/detail/"+path;
+	return baseUrl+"/detail/"+path;
+}
+
+function getBaseUrl() {
+	return baseUrl;
 }

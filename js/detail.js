@@ -13,3 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	}
 });
+
+$(document).on("click", "#goToRealPage", function () {
+	window.location.href = getBaseUrl();
+});

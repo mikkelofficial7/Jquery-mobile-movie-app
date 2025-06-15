@@ -175,6 +175,9 @@ body
 	font-family: Helvetica,Arial,sans-serif !important;
 	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4) !important;
 }
+#externalLink, #goToRealPage {
+	cursor: pointer;
+}
 
 @media screen and (max-width: 639px) {
 	.poster-images
