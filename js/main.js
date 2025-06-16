@@ -728,8 +728,8 @@ async function runDetailMovieData(movieId) {
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key="+apikey, function(data) {
-		const seasonList = document.getElementById("item-videos");
-		seasonList.innerHTML = "";
+		const youtubeVideoList = document.getElementById("item-videos");
+		youtubeVideoList.innerHTML = "";
 		
 		if (data.results.length > 0) {
 			const section = document.getElementById('section-videos');
@@ -772,7 +772,7 @@ async function runDetailMovieData(movieId) {
 			card.appendChild(iframe);
 			card.appendChild(content);
 
-			seasonList.appendChild(card); // seasonList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+			youtubeVideoList.appendChild(card); // youtubeVideoList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
 		});
 
 	});
@@ -796,6 +796,7 @@ async function runDetailMovieData(movieId) {
 		document.getElementById("item-bg").src = backdropUrl;
 		document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
+		// production house
 		const productionList = document.getElementById("item-production");
 		productionList.innerHTML = "N/A";
 
@@ -826,6 +827,51 @@ async function runDetailMovieData(movieId) {
 			productionList.appendChild(li);
 		});
 
+		// casts
+		var allCasts = []
+
+		$("#item-casts").html("N/A");
+
+		if (data.credits.cast.length > 0) {
+			$("#item-casts").html("");
+		}
+		$.each(data.credits.cast, function(index, cast) {
+			allCasts = data.credits.cast;
+		});
+
+		if (allCasts.length > 6) {
+			$("#load-more-cast").removeClass("hidden")
+		} else {
+			$("#load-more-cast").addClass("hidden")
+		}
+
+		const takeOnlyCast = allCasts
+					.sort()
+					.slice(0, 6);
+
+		takeOnlyCast.forEach(cast => {
+			const photoCast = cast.profile_path == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: baseImageLoad + cast.profile_path;
+
+			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+		});
+
+		$(document).on("click", "#btn-load-more-cast", function () {
+			$("#item-casts").html = ""
+			$("#load-more-cast").addClass("hidden")
+
+			allCasts.forEach(cast => {
+				const photoCast = cast.profile_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + cast.profile_path;
+
+				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+			});
+		});
+
+		// country released
+	
 		let flagString = "";
 		$.each(data.origin_country, function(index, countryCode) {
 			flagString += countryCodeToFlagEmoji(countryCode) + " ";
@@ -837,6 +883,7 @@ async function runDetailMovieData(movieId) {
 
 		$("#section-season").addClass("hidden");
 		$("#section-revenue").removeClass("hidden");
+		$("#item-season").html("");
 
 		document.getElementById("item-revenue").textContent =
 		data.revenue ? `$${data.revenue.toLocaleString()}` : "N/A";
@@ -936,8 +983,8 @@ async function runDetailTvShowData(tvShowId) {
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/videos?api_key="+apikey, function(data) {
-		const seasonList = document.getElementById("item-videos");
-		seasonList.innerHTML = "";
+		const youtubeVideoList = document.getElementById("item-videos");
+		youtubeVideoList.innerHTML = "";
 		
 		if (data.results.length > 0) {
 			const section = document.getElementById('section-videos');
@@ -980,7 +1027,7 @@ async function runDetailTvShowData(tvShowId) {
 			card.appendChild(iframe);
 			card.appendChild(content);
 
-			seasonList.appendChild(card);
+			youtubeVideoList.appendChild(card);
 		});
 
 	});
@@ -1004,6 +1051,7 @@ async function runDetailTvShowData(tvShowId) {
 		document.getElementById("item-bg").src = backdropUrl;
 		document.getElementById("item-tagline").textContent = data.tagline || "No tagline available.";
 
+		// production house
 		const productionList = document.getElementById("item-production");
 		productionList.innerHTML = "N/A";
 
@@ -1034,6 +1082,53 @@ async function runDetailTvShowData(tvShowId) {
 			productionList.appendChild(li);
 		});
 
+		// cast
+		
+		// casts
+		var allCasts = []
+
+		$("#item-casts").html("N/A");
+
+		if (data.credits.cast.length > 0) {
+			$("#item-casts").html("");
+		}
+		$.each(data.credits.cast, function(index, cast) {
+			allCasts = data.credits.cast;
+		});
+
+		if (allCasts.length > 6) {
+			$("#load-more-cast").removeClass("hidden")
+		} else {
+			$("#load-more-cast").addClass("hidden")
+		}
+
+		const takeOnlyCast = allCasts
+					.sort()
+					.slice(0, 6);
+
+		takeOnlyCast.forEach(cast => {
+			const photoCast = cast.profile_path == null
+					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					: baseImageLoad + cast.profile_path;
+
+			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+		});
+
+		$(document).on("click", "#btn-load-more-cast", function () {
+			$("#item-casts").html = ""
+			$("#load-more-cast").addClass("hidden")
+			
+			allCasts.forEach(cast => {
+				const photoCast = cast.profile_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + cast.profile_path;
+
+				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+			});
+		});
+
+		// country released
+
 		let flagString = "";
 		$.each(data.origin_country, function(index, countryCode) {
 			flagString += countryCodeToFlagEmoji(countryCode) + " ";
@@ -1045,15 +1140,18 @@ async function runDetailTvShowData(tvShowId) {
 
 		$("#section-season").removeClass("hidden");
 		$("#section-revenue").addClass("hidden");
-		$("#item-season").html("");
+		$("#item-season").html("N/A");
 
+		if (data.seasons.length > 0) {
+			$("#item-season").html("");
+		}
 		$.each(data.seasons, function(index, season) {
 			const posterSeason = season.poster_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 					: baseImageLoad + season.poster_path;
 
 			const seasonOrdinal = season.season_number < 1 ? "Special edition" : "Season "+season.season_number;
-			$("#item-season").append("<li class = 'list-season flex flex-col items-center justify-center text-center p-4' data-id='"+season.id+"'><a href='#item-detail-"+season.id+"'><p>"+seasonOrdinal+"</p><br/><img alt='Poster' class = 'poster-images-small' src = "+posterSeason+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(season.name, 30)+"</p><b><p>Rating : </b>⭐ "+season.vote_average+"/10</p><p>"+season.episode_count+" episode</p></a></li>");
+			$("#item-season").append("<li class = 'list-season flex flex-col items-center justify-center text-center p-4' data-id='"+season.id+"'><a href='#item-season-"+season.id+"'><p>"+seasonOrdinal+"</p><br/><img alt='Poster' class = 'poster-images-small' src = "+posterSeason+"></img></a><br><p class = 'list-item-title'><b>Title : </b>"+truncateLongTitle(season.name, 30)+"</p><p><b>Rating : </b>⭐ "+season.vote_average+"/10</p><p>"+season.episode_count+" episode</p></a></li>");
 		});
 
 		document.getElementById("item-revenue").textContent =
