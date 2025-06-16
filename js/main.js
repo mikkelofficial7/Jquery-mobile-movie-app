@@ -777,7 +777,7 @@ async function runDetailMovieData(movieId) {
 
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true", function(data) {
+	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
 		setGenresAndOverview(data);
 
 		const imageUrl = data.poster_path == null
@@ -985,7 +985,7 @@ async function runDetailTvShowData(tvShowId) {
 
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true", function(data) {
+	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
 		setGenresAndOverview(data);
 
 		const imageUrl = data.poster_path == null
