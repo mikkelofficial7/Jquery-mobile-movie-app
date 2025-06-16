@@ -30,6 +30,32 @@ $(document).on("click", "#goToRealPage", function () {
 
 $(document).on("click", "#copyLink", function () {
 	navigator.clipboard.writeText(window.location.href)
-		.then(() => {})
-		.catch(() => {})
+		.then(() => {
+			showSnackBar(2500, "Link copied successfully!", "#00b120")
+		})
+		.catch(() => {
+			showSnackBar(2500, "Failed to copy link!", "#fc0404")
+		})
 });
+
+function showSnackBar(duration, text, color) {
+	$("#topSnackbar").html(text);
+	$("#topSnackbar").removeClass("hidden");
+	$("#topSnackbar").addClass("bg-["+color+"]");
+	$("#topSnackbar").addClass("opacity-100");
+	
+	setTimeout(() => {
+		$("#topSnackbar").removeClass("opacity-100");
+		$("#topSnackbar").addClass("opacity-50");
+	}, duration/3);
+
+	setTimeout(() => {
+		$("#topSnackbar").removeClass("opacity-50");
+		$("#topSnackbar").addClass("opacity-30");
+	}, duration/3);
+
+	setTimeout(() => {
+		$("#topSnackbar").removeClass("opacity-30");
+		$("#topSnackbar").addClass("hidden");
+	}, duration/3);
+}
