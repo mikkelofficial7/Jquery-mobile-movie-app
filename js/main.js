@@ -124,7 +124,7 @@ $(document).ready(function(){
 
 	$(document).on("click", ".list-tv", function () {
 		const tvId = $(this).data("id");
-		externalUrl = getExternalDetailPageUrl("tv/"+tvId);
+		externalUrl = getExternalDetailPageUrl("tv", tvId);
 		runDetailTvShowData(tvId)
 	});
 
@@ -132,7 +132,7 @@ $(document).ready(function(){
 
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
-		externalUrl = getExternalDetailPageUrl("movie/"+movieId);
+		externalUrl = getExternalDetailPageUrl("movie", movieId);
 		runDetailMovieData(movieId);
 	});
 });
@@ -1185,17 +1185,17 @@ function createItemElementMovie(parentName, item) {
 
 }
 
-function getExternalDetailPageUrl(path) {
+function getExternalDetailPageUrl(type, id) {
 	if (isLocalEnv) {
-		return getBaseUrl()+"detail/index.html";
+		return getBaseUrl().replace("index.html", "")+"detail/index.html?type="+type+"&id="+id;
 	} else {
-		return getBaseUrl()+"detail/"+path;
+		return getBaseUrl()+"detail/"+type+"/"+id;
 	}
 }
 
 function getBaseUrl() {
 	if (isLocalEnv) {
-		return $.mobile.path.documentBase.directory;
+		return $.mobile.path.documentBase.pathname;
 	} else {
 		return baseUrl;
 	}
