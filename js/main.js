@@ -858,7 +858,7 @@ async function runDetailMovieData(movieId) {
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
-			$("#item-casts").html = ""
+			$("#item-casts").html("");
 			$("#load-more-cast").addClass("hidden")
 
 			allCasts.forEach(cast => {
@@ -1115,7 +1115,7 @@ async function runDetailTvShowData(tvShowId) {
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
-			$("#item-casts").html = ""
+			$("#item-casts").html("");
 			$("#load-more-cast").addClass("hidden")
 			
 			allCasts.forEach(cast => {
