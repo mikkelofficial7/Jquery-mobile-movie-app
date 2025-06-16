@@ -1,5 +1,6 @@
 let isLocalEnv = false;
 var availableLanguage = [];
+const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
 var currentPageUpcoming = 1;
 var currentPageTopRated = 1;
@@ -31,6 +32,7 @@ $(document).ready(function(){
 
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
+		updateCastDetailPageIdAndUrl("")
 	});
 
 	runUpcomingList(currentPageUpcoming);
@@ -113,6 +115,7 @@ $(document).ready(function(){
 
 	runDetailTvShowData("")
 	runDetailMovieData("");
+	runDetailCastData("")
 
 	var externalUrl = "";
 
@@ -134,6 +137,14 @@ $(document).ready(function(){
 		const movieId = $(this).data("id");
 		externalUrl = getExternalDetailPageUrl("movie", movieId);
 		runDetailMovieData(movieId);
+	});
+
+	// CAST DETAIL PART
+
+	$(document).on("click", ".list-cast", function () {
+		const castId = $(this).data("id");
+		externalUrl = getExternalDetailPageUrl("cast", castId);
+		runDetailCastData(castId);
 	});
 });
 
@@ -607,10 +618,20 @@ function truncateLongTitle(title, maxLength) {
 }
 
 function updateMovieDetailPageIdAndUrl(newName) {
-	const $page = $('div[data-original="true"]'); // always target the original
+	const $page = $('div[data-original="true"][data-title*="Movie Detail"]'); // always target the original
 
 	const newId = `item-detail${newName}`;
 	const newUrl = `item-detail${newName}`;
+
+	$page.attr("id", newId);
+	$page.attr("data-url", newUrl);
+}
+
+function updateCastDetailPageIdAndUrl(newName) {
+	const $page = $('div[data-original="true"][data-title*="Cast Profile"]'); // always target the original
+
+	const newId = `item-cast${newName}`;
+	const newUrl = `item-cast${newName}`;
 
 	$page.attr("id", newId);
 	$page.attr("data-url", newUrl);
@@ -1180,6 +1201,51 @@ async function runDetailTvShowData(tvShowId) {
 				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
 				document.getElementById("item-rating").textContent = `${Number(data.tv_results[0].vote_average.toFixed(1))}/10`;
 				document.getElementById("item-poster").src = imageUrl;
+			});
+		}
+	});
+}
+
+async function runDetailCastData(castId) {
+	if (window.location.href.includes("item-cast") && castId === "") {
+	  	window.location.href = document.referrer;
+		return;
+	}
+	if (castId === "") return;
+	
+	updateCastDetailPageIdAndUrl(`-${castId}`);
+
+	const apikey = await decryptString(ciphertext, iv, password);
+
+	$.getJSON("https://api.themoviedb.org/3/person/"+castId+"?api_key="+apikey, function(data) {
+		const imageUrl = data.profile_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + data.profile_path;
+
+		let birthAndDeathDay = "N/A";
+		if (data.birthday !== null) {
+			birthAndDeathDay = data.deathday == null ? data.birthday : data.birthday+" (Passed away at "+data.deathday+")"
+		}
+
+		document.getElementById("cast-alias").textContent = data.also_known_as < 1 ? "N/A" : data.also_known_as.join(", ");
+		document.getElementById("cast-name").textContent = data.name;
+		document.getElementById("cast-place-birth").textContent = data.place_of_birth != null ? data.place_of_birth : "N/A";
+		document.getElementById("cast-date-birth").textContent = birthAndDeathDay;
+		document.getElementById("cast-poster").src = imageUrl;
+		document.getElementById("cast-bg").src = imageUrl;
+		document.getElementById("cast-gender").textContent = castGender[data.gender];
+		document.getElementById("cast-biodata").textContent = data.biography.length > 0 ? data.biography : "No Biography"; 
+
+		if (data.imdb_id != null) {
+			$.getJSON("https://api.themoviedb.org/3/find/"+data.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(dataImdb) {
+				const imageUrl = dataImdb.person_results[0].profile_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + dataImdb.person_results[0].profile_path;
+
+				document.getElementById("cast-poster").src = imageUrl;
+				document.getElementById("cast-bg").src = imageUrl;
+				document.getElementById("cast-name").textContent = dataImdb.person_results[0].name;
+				document.getElementById("cast-gender").textContent = castGender[dataImdb.person_results[0].gender];
 			});
 		}
 	});
