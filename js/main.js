@@ -854,7 +854,7 @@ async function runDetailMovieData(movieId) {
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 					: baseImageLoad + cast.profile_path;
 
-			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center px-2 py-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
@@ -866,7 +866,7 @@ async function runDetailMovieData(movieId) {
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + cast.profile_path;
 
-				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center px-2 py-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
 			});
 		});
 
@@ -1111,7 +1111,7 @@ async function runDetailTvShowData(tvShowId) {
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 					: baseImageLoad + cast.profile_path;
 
-			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+			$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center px-2 py-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
@@ -1123,7 +1123,7 @@ async function runDetailTvShowData(tvShowId) {
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + cast.profile_path;
 
-				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center p-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
+				$("#item-casts").append("<li class = 'list-cast flex flex-col items-center justify-center text-center px-2 py-4' data-id='"+cast.id+"'><a href='#item-cast-"+cast.id+"'><img alt='Poster' class = 'poster-images-small' src = "+photoCast+"></img></a><br><p class = 'list-item-title'><b>"+truncateLongTitle(cast.name, 30)+"</b></p><p>Played as "+truncateLongTitle(cast.character, 30)+"</p></a></li>");
 			});
 		});
 
