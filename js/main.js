@@ -640,17 +640,17 @@ function setGenresAndOverview(data) {
 }
 
 function languageCode(languageCode) {
-		const lang = "Sub"
+		const subs = "Sub"
 		const entry = availableLanguage.find(lang => lang.iso_639_1 === languageCode);
 
 		if (entry != null) {
 			if (entry.name === "" || entry.name.toLowerCase() === entry.english_name) {
-				return entry.english_name+" "+lang
+				return entry.english_name+" "+subs
 			} else {
-				return entry.english_name+" ("+entry.name+")"+" "+lang
+				return entry.english_name+" ("+entry.name+")"+" "+subs
 			}
 		} else {
-			return "N/A"+" "+lang
+			return "N/A"+" "+subs
 		}
 }
 
