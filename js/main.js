@@ -1186,12 +1186,16 @@ function createItemElementMovie(parentName, item) {
 }
 
 function getExternalDetailPageUrl(path) {
-	return getBaseUrl()+"detail/"+path;
+	if (isLocalEnv) {
+		return getBaseUrl()+"detail/index.html";
+	} else {
+		return getBaseUrl()+"detail/"+path;
+	}
 }
 
 function getBaseUrl() {
 	if (isLocalEnv) {
-		return $.mobile.path.documentBase.pathname;
+		return $.mobile.path.documentBase.directory;
 	} else {
 		return baseUrl;
 	}
