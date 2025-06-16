@@ -174,7 +174,7 @@ $(document).ready(function(){
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
 		movieRealUrl = getExternalDetailPageUrl("movie/"+movieId);
-		runDetailMovieData(movieRealUrl);
+		runDetailMovieData(movieId);
 	});
 });
 
