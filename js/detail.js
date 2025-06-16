@@ -1,4 +1,9 @@
+let isLocalEnv = false;
+
 document.addEventListener("DOMContentLoaded", function () {
+	const baseUrl = window.location.origin;
+	isLocalEnv = !baseUrl.includes("vercel.app");
+
 	const path = window.location.pathname;
 	const segments = path.split('/').filter(Boolean);
 

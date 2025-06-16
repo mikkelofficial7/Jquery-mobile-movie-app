@@ -3,7 +3,7 @@ const iv = "5orUg6E0UVPz7wdl"
 const password = "X&tDNHYZ4z[%Ok$=Hk6eNz@6hgm$)vo4zPr-GG<>Hb}pbI90iLr4LWJ@b&M5jQuZFa^{xFb<AE80#VG|;Uv)Ce#oW-1S&A_}~D";
 
 const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
-const baseUrl = "https://findyourmovi.vercel.app"
+const baseUrl = "https://findyourmovi.vercel.app/"
 
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();

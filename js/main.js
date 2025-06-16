@@ -15,6 +15,14 @@ $(document).ready(function(){
 	runMovieTrendingTodayList()
 	runTvTrendingTodayList()
 
+	$(document).on("click", "#today-trending-movie", function () {
+		window.location.href = getBaseUrl() + "#now-playing";
+	});
+
+	$(document).on("click", "#today-trending-tv", function () {
+		window.location.href = getBaseUrl() + "#tv-main";
+	});
+
 	$(document).on("click", ".menu-item", function () {
 		updateMovieDetailPageIdAndUrl("")
 	});
@@ -166,7 +174,7 @@ $(document).ready(function(){
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
 		movieRealUrl = getExternalDetailPageUrl("movie/"+movieId);
-		runDetailMovieData(movieId);
+		runDetailMovieData(movieRealUrl);
 	});
 });
 
@@ -716,7 +724,7 @@ async function runDetailMovieData(movieId) {
 		$("#itemListSimilar").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		if (data.results.length < 1) {
 			$("#itemListSimilar").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			$("#itemListSimilar").append("<li><i>Data not found</i></li>");
+			$("#itemListSimilar").append("<li><i>Similar movie not found</i></li>");
 		}
 
 		$.each(data.results, function(index, item) {
@@ -960,7 +968,7 @@ async function runDetailTvShowData(tvShowId) {
 
 		if (data.results.length < 1) {
 			$("#itemListSimilar").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			$("#itemListSimilar").append("<li class='flex justify-center'>Data not found</li>");
+			$("#itemListSimilar").append("<li><i>Similar tv show not found</i></li>");
 		}
 
 		$.each(data.results, function(index, item){
@@ -1219,9 +1227,13 @@ function createItemElementMovie(parentName, item) {
 }
 
 function getExternalDetailPageUrl(path) {
-	return baseUrl+"/detail/"+path;
+	return baseUrl+"detail/"+path;
 }
 
 function getBaseUrl() {
-	return baseUrl;
+	if (isLocalEnv) {
+		return $.mobile.path.documentBase.pathname;
+	} else {
+		return baseUrl;
+	}
 }
