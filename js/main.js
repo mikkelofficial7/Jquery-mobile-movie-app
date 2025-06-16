@@ -704,8 +704,6 @@ function countryCodeToFlagEmoji(countryCode) {
 }
 
 async function runDetailMovieData(movieId) {
-	const apikey = await decryptString(ciphertext, iv, password);
-	
 	if (window.location.href.includes("item-detail") && movieId === "") {
 	  	window.location.href = document.referrer;
 		return;
@@ -717,6 +715,20 @@ async function runDetailMovieData(movieId) {
 	updateMovieDetailPageIdAndUrl(`-${movieId}`);
 	
 	$("#itemSimilarTitle").text("Similar movies you'd like");
+
+	$("#item-images-alternate").on("click", "li", function () {
+		const index = $(this).index(); // Get the index of clicked <li>
+		if (backdropImages[index]) {
+			const selectedPath = backdropImages[index].file_path;
+			const imageUrl = selectedPath
+			? baseImageLoad + selectedPath
+			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
+
+			$("#item-bg").attr("src", imageUrl);
+		}
+	});
+
+	const apikey = await decryptString(ciphertext, iv, password);
 
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 		$("#itemListSimilar").html("");
@@ -754,18 +766,6 @@ async function runDetailMovieData(movieId) {
 
 			posterList.appendChild(li);
 		});
-	});
-
-	$("#item-images-alternate").on("click", "li", function () {
-		const index = $(this).index(); // Get the index of clicked <li>
-		if (backdropImages[index]) {
-			const selectedPath = backdropImages[index].file_path;
-			const imageUrl = selectedPath
-			? baseImageLoad + selectedPath
-			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
-
-			$("#item-bg").attr("src", imageUrl);
-		}
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key="+apikey, function(data) {
@@ -909,22 +909,34 @@ async function runDetailMovieData(movieId) {
 			});
 		}
 	});
-
 }
 
 async function runDetailTvShowData(tvShowId) {
-	const apikey = await decryptString(ciphertext, iv, password);
-	
 	if (window.location.href.includes("item-detail") && tvShowId === "") {
 	  	window.location.href = document.referrer;
 		return;
 	}
 	if (tvShowId === "") return;
-	
-	let backdropImages = [];
+
 	$("#itemSimilarTitle").text("Similar TV show you'd like");
 
 	updateMovieDetailPageIdAndUrl(`-${tvShowId}`);
+
+	$("#item-images-alternate").on("click", "li", function () {
+		const index = $(this).index(); // Get the index of clicked <li>
+		if (backdropImages[index]) {
+			const selectedPath = backdropImages[index].file_path;
+			const imageUrl = selectedPath
+			? baseImageLoad + selectedPath
+			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
+
+			$("#item-bg").attr("src", imageUrl);
+		}
+	});
+
+	const apikey = await decryptString(ciphertext, iv, password);
+	
+	let backdropImages = [];
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/images?api_key="+apikey, function(data) {
 		const posterList = document.getElementById("item-images-alternate");
@@ -947,18 +959,6 @@ async function runDetailTvShowData(tvShowId) {
 
 			posterList.appendChild(li);
 		});
-	});
-
-	$("#item-images-alternate").on("click", "li", function () {
-		const index = $(this).index(); // Get the index of clicked <li>
-		if (backdropImages[index]) {
-			const selectedPath = backdropImages[index].file_path;
-			const imageUrl = selectedPath
-			? baseImageLoad + selectedPath
-			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
-
-			$("#item-bg").attr("src", imageUrl);
-		}
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
