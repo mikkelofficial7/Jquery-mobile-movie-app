@@ -1,3 +1,4 @@
+let isLocalEnv = false;
 var availableLanguage = [];
 
 var currentPageUpcoming = 1;
@@ -9,6 +10,11 @@ var currentPageGenreSearch= 1;
 var tv_currentPageNowPlaying = 1;
 var tv_currentPagePopular = 1;
 var tv_currentPageTopRated = 1;
+
+document.addEventListener("DOMContentLoaded", function () {
+	const baseUrl = window.location.origin;
+	isLocalEnv = !baseUrl.includes("vercel.app");
+});
 
 $(document).ready(function(){
 	runAllLanguageProvided()
