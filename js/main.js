@@ -109,77 +109,30 @@ $(document).ready(function(){
 		}
 	});
 
-	// TV DETAIL PART
+	// TV AND MOVIE DETAIL PART
 
 	runDetailTvShowData("")
 	runDetailMovieData("");
 
-	let isSharing = false;
-	var tvRealUrl = "";
+	var externalUrl = "";
 
 	$(document).on("click", "#externalLink", function () {
-		navigator.clipboard.writeText(tvRealUrl)
-		.then(() => {})
-		.catch(() => {})
-		
-		if (isSharing) return; // prevent multiple shares
-		isSharing = true;
-
-		if (navigator.share) {
-			navigator.share({
-				title: document.title,
-				text: 'Check this out!',
-				url: tvRealUrl,
-			}).then(() => {
-				console.log('Shared successfully');
-			}).catch((err) => {
-				if (err.name !== "AbortError") {
-				console.error('Share failed:', err);
-				}
-			}).finally(() => {
-				isSharing = false; // reset flag
-			});
-		} else {}
+		window.open(externalUrl, "_blank");
 	});
+
+	// TV DETAIL PART
 
 	$(document).on("click", ".list-tv", function () {
 		const tvId = $(this).data("id");
-		tvRealUrl = getExternalDetailPageUrl("tv/"+tvId);
+		externalUrl = getExternalDetailPageUrl("tv/"+tvId);
 		runDetailTvShowData(tvId)
 	});
 
 	// MOVIE DETAIL PART
 
-	var movieRealUrl = "";
-
-	$(document).on("click", "#externalLink", function () {
-		navigator.clipboard.writeText(movieRealUrl)
-		.then(() => {})
-		.catch(() => {})
-
-		if (isSharing) return; // prevent multiple shares
-		isSharing = true;
-
-		if (navigator.share) {
-			navigator.share({
-				title: document.title,
-				text: 'Check this out!',
-				url: movieRealUrl,
-			}).then(() => {
-				console.log('Shared successfully');
-			}).catch((err) => {
-				if (err.name !== "AbortError") {
-				console.error('Share failed:', err);
-				}
-			}).finally(() => {
-				isSharing = false; // reset flag
-			});
-		} else {}
-	});
-
 	$(document).on("click", ".list-movie", function () {
 		const movieId = $(this).data("id");
-		movieRealUrl = getExternalDetailPageUrl("movie/"+movieId);
+		externalUrl = getExternalDetailPageUrl("movie/"+movieId);
 		runDetailMovieData(movieId);
 	});
 });
@@ -1233,7 +1186,7 @@ function createItemElementMovie(parentName, item) {
 }
 
 function getExternalDetailPageUrl(path) {
-	return baseUrl+"detail/"+path;
+	return getBaseUrl()+"detail/"+path;
 }
 
 function getBaseUrl() {

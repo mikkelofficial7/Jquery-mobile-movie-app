@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+	console.log(window.location.pathname);
 	const path = window.location.pathname;
 	const segments = path.split('/').filter(Boolean);
 
@@ -16,4 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 $(document).on("click", "#goToRealPage", function () {
 	window.location.href = getBaseUrl();
+});
+
+$(document).on("click", "#copyLink", function () {
+	navigator.clipboard.writeText(window.location.href)
+		.then(() => {})
+		.catch(() => {})
 });
