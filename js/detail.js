@@ -16,12 +16,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			id = segments[2];
 		}
 	}
-
+	
 	if (type.toLowerCase() === "movie") {
+		$("#external-section-detail").removeClass("hidden");
+		$("#external-section-cast").addClass("hidden");
 		runDetailMovieData(id)
+
 	} else if (type.toLowerCase() === "tv") {
+		$("#external-section-detail").removeClass("hidden");
+		$("#external-section-cast").add("hidden");
 		runDetailTvShowData(id)
+
 	} else if (type.toLowerCase() === "cast") {
+		$("#external-section-detail").addClass("hidden");
+		$("#external-section-cast").removeClass("hidden");
 		runDetailCastData(id)
 	}
 });
