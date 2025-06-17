@@ -159,9 +159,9 @@ body
 	cursor: pointer;
 }
 .item-click-genre-active {
-	background: #0d4074 !important;
+	background: linear-gradient(to bottom, #0d4074, #0a3058) !important;
 }
-.item-click-genre:hover {
+.item-click-genre:hover, #movie-find-more:hover, #tv-find-more:hover {
 	cursor: pointer;
 	transform: scale(1.08);
 }

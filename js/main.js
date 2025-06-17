@@ -578,9 +578,9 @@ async function populateItemGenre() {
 		const li = document.createElement("li");
 
 		if (currentMovieGenreId === this['id']) {
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
 		} else {
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
 		}
 
 		li.setAttribute("data-genre-id", this['id']);
@@ -595,9 +595,9 @@ async function populateItemGenre() {
 		const li = document.createElement("li");
 
 		if (currentTvGenreId === this['id']) {
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
 		} else {
-			li.className = "bg-[#5e87b0] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
 		}
 
 		li.setAttribute("data-genre-id", this['id']);
