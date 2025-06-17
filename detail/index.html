@@ -140,5 +140,53 @@
       </div>
     </div>
   </div>
+  <!-- Cast page -->
+  <div data-role="page" id="item-cast" data-url="item-cast" data-title="MoviSnap | Cast Profile" data-theme="b" class="pages" data-original="true" data-dom-cache="true">
+    <div data-role="header" data-theme="b">
+      <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+      <h1>Cast Profile Page</h1>
+    </div>
+    <div data-role="content">
+      <div class="relative text-[#121212] overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
+          <img id="cast-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
+          <div id="topSnackbar" class="hidden fixed top-5 left-1/2 transform -translate-x-1/2 text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50">
+          </div>
+          <div class="relative z-10 p-6 md:p-10 backdrop-blur-sm">
+            <header class="flex items-center gap-4 mb-6">
+              <img id="cast-poster" src="#" alt="Cast Poster"
+                  class="w-24 h-36 object-cover rounded shadow-md md:w-40 md:h-60"/>
+              <div>
+                <div id="externalLinkCast" 
+                    class="text-sm text-[#121212] underline bg-gray-100 rounded-[8px] px-4 py-2 inline-flex items-center gap-2 mb-4">
+                    <i class="fas fa-external-link-alt"></i>
+                    Open external link
+                </div>          
+               <div class="space-y-1">
+                  <h1 id="cast-name" class="text-2xl md:text-3xl font-bold">N/A</h1>
+                </div>     
+                <p class="text-sm text-[#121212]"><b>Known as: </b><span id="cast-alias">N/A</span></p>     
+                <p class="text-sm text-[#121212]"><b>Place of Birth: </b><span id="cast-place-birth">N/A</span></p>
+                <p class="text-sm text-[#121212]"><b>Date of Birth: </b><span id="cast-date-birth">N/A</span></p>
+                <p class="text-sm text-[#121212]"><b>Gender: </b><span id="cast-gender">N/A</span></p>
+              </div>
+            </header>
+
+            <section class="mb-6">
+              <h2 class="text-xl font-semibold mb-2">Short Biography</h2>
+              <p id="cast-biodata" class="text-[#121212]">No Biography</p>
+            </section>
+
+            <section class="mb-6 space-y-4 text-sm text-[#121212]">
+                <div>
+                  <h2 class="text-xl font-semibold mb-2">Known from</h2>
+                  <ul id="cast-movies" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12 gap-2 justify-center">
+                    N/A
+                  </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		runDetailMovieData(id)
 	} else if (type.toLowerCase() === "tv") {
 		runDetailTvShowData(id)
+	} else if (type.toLowerCase() === "cast") {
+		runDetailCastData(id)
 	}
 });
 
