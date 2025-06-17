@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	} else if (type.toLowerCase() === "tv") {
 		$("#external-section-detail").removeClass("hidden");
-		$("#external-section-cast").add("hidden");
+		$("#external-section-cast").addClass("hidden");
 		runDetailTvShowData(id)
 
 	} else if (type.toLowerCase() === "cast") {
