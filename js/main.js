@@ -1199,6 +1199,14 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 				document.getElementById("cast-bg").src = imageUrl;
 				document.getElementById("cast-name").textContent = dataImdb.person_results[0].name;
 				document.getElementById("cast-gender").textContent = castGender[dataImdb.person_results[0].gender];
+
+				if (dataImdb.person_results[0].known_for.length > 0) {
+					$("#cast-movies").html("");
+				}
+
+				$.each(dataImdb.person_results[0].known_for, function(index, item) {
+					createItemElementMovieTvShow("cast-movies", item, item.media_type, hrefMovie);
+				});
 			});
 		}
 	});
