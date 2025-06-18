@@ -664,7 +664,7 @@ function countryCodeToFlagEmoji(countryCode) {
 async function runDetailMovieData(movieId, isDisplayOnly = false) {	
 	let backdropImages = [];
 
-	var hrefCast = isDisplayOnly == true ? "#" : "#item-cast";
+	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
 		
 	$("#externalLink").attr("data-ref", "movie");
 	$("#externalLink").attr("data-slug", movieId);
@@ -908,7 +908,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	let backdropImages = [];
 
-	var hrefCast = isDisplayOnly == true ? "#" : "#item-cast";
+	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
 
 	$("#externalLink").attr("data-ref", "tv");
 	$("#externalLink").attr("data-slug", tvShowId);
@@ -1161,7 +1161,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 }
 
 async function runDetailCastData(castId, isDisplayOnly = false) {
-	var hrefMovie = isDisplayOnly == true ? "#" : "#item-detail";
+	var hrefMovie = isDisplayOnly == true ? "" : "#item-detail";
 
 	$("#externalLinkCast").attr("data-ref", "cast");
 	$("#externalLinkCast").attr("data-slug", castId);
