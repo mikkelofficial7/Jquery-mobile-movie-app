@@ -661,7 +661,7 @@ function countryCodeToFlagEmoji(countryCode) {
 	);
 }
 
-async function runDetailMovieData(movieId) {	
+async function runDetailMovieData(movieId, isDisplayOnly = false) {	
 	let backdropImages = [];
 
 	var hrefCast = isDisplayOnly == true ? "#" : "#item-cast";
