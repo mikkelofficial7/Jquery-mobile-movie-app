@@ -29,6 +29,14 @@ $(document).ready(function(){
 	runMovieGenreList()
 	runTvGenreList()
 
+	$(document).on("click", "#today-trending-movie", function () {
+		window.location.href = getBaseUrl() + "#now-playing";
+	});
+
+	$(document).on("click", "#today-trending-tv", function () {
+		window.location.href = getBaseUrl() + "#tv-main";
+	});
+
 	runUpcomingList(currentPageUpcoming);
 
 	$(document).on("click", "#btn-load-more-upcoming", function () {
@@ -125,7 +133,7 @@ $(document).ready(function(){
 	$(document).on("click", ".list-tv-movie", function () {
 		var currentActiveDetailId = $(this).attr("data-slug");
 		var currentActiveDetailDisplayType = $(this).attr("data-ref");
-
+		
 		if (currentActiveDetailDisplayType == "tv") {
 			runDetailTvShowData(currentActiveDetailId)
 		} else if (currentActiveDetailDisplayType == "movie") {
@@ -136,9 +144,7 @@ $(document).ready(function(){
 	// CAST DETAIL PART
 
 	$(document).on("click", ".list-cast", function () {
-		var currentActiveDetailId = $(this).attr("data-slug");
-		var currentActiveDetailDisplayType = $(this).attr("data-ref");
-		
+		var currentActiveDetailId = $(this).attr("data-slug");		
 		runDetailCastData(currentActiveDetailId);
 	});
 });
@@ -164,7 +170,12 @@ async function runMovieTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+
+				const a = document.createElement("a");
+				a.setAttribute("data-slug", data.id);
+				a.setAttribute("data-ref", "movie");
+				a.setAttribute("href", "#item-detail");
 
 				const img = document.createElement("img");
 				img.className = "w-full h-full object-cover";
@@ -177,6 +188,7 @@ async function runMovieTrendingTodayList() {
 
 				slide.appendChild(img);
 				slide.appendChild(caption);
+				slide.appendChild(a);
 
 				posterList.appendChild(slide)
 			});
@@ -197,7 +209,12 @@ async function runTvTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+
+				const a = document.createElement("a");
+				a.setAttribute("data-slug", data.id);
+				a.setAttribute("data-ref", "tv");
+				a.setAttribute("href", "#item-detail");
 
 				const img = document.createElement("img");
 				img.className = "w-full h-full object-cover";
@@ -210,6 +227,7 @@ async function runTvTrendingTodayList() {
 
 				slide.appendChild(img);
 				slide.appendChild(caption);
+				slide.appendChild(a);
 
 				posterList.appendChild(slide)
 			});
