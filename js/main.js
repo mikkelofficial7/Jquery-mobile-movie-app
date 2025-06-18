@@ -1,4 +1,5 @@
 let isLocalEnv = false;
+let isInExternalUrlPage = false;
 var availableLanguage = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
@@ -15,6 +16,11 @@ var tv_currentPageTopRated = 1;
 document.addEventListener("DOMContentLoaded", function () {
 	const baseUrl = window.location.origin;
 	isLocalEnv = !baseUrl.includes("vercel.app");
+});
+
+$(window).on("hashchange", function() {
+  const newHash = window.location.hash;
+  isInExternalUrlPage = newHash !== null || newHash !== "";
 });
 
 $(document).ready(function(){
@@ -1202,7 +1208,7 @@ function createItemElementMovieTvShow(parentName, item, displayType) {
 	const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 					: baseImageLoad + item['poster_path'];
-	const hrefDestination = window.location.hash !== null || window.location.hash !== "" ? "#item-detail" : "#";
+	const hrefDestination = !isInExternalUrlPage ? "#item-detail" : "#";
 					
 	const name = item['title'] || item['name'];
 
@@ -1254,7 +1260,7 @@ function createItemElementCast(item, displayType) {
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + item["profile_path"];
 
-	const hrefDestination = window.location.hash !== null || window.location.hash !== "" ? "#item-cast" : "#";
+	const hrefDestination = !isInExternalUrlPage ? "#item-cast" : "#";
 
 	const $li = $("<li>")
 	.addClass("list-cast flex flex-col items-center justify-center text-center px-2 py-4")
