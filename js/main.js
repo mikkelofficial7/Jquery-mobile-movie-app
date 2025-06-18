@@ -130,10 +130,10 @@ $(document).ready(function(){
 
 	// MOVIE AND TV SHOW DETAIL PART
 
-	$(document).on("click", ".list-tv-movie", function () {
+	$(document).on("click", ".list-tv-movie", function () {		
 		var currentActiveDetailId = $(this).attr("data-slug");
 		var currentActiveDetailDisplayType = $(this).attr("data-ref");
-		
+
 		if (currentActiveDetailDisplayType == "tv") {
 			runDetailTvShowData(currentActiveDetailId)
 		} else if (currentActiveDetailDisplayType == "movie") {
@@ -171,22 +171,23 @@ async function runMovieTrendingTodayList() {
 				
 				const slide = document.createElement("div");
 				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.setAttribute("data-slug", data.id);
+				slide.setAttribute("data-ref", "movie");
 
 				const a = document.createElement("a");
-				a.setAttribute("data-slug", data.id);
-				a.setAttribute("data-ref", "movie");
-				a.setAttribute("href", "#item-detail");
+				a.href = "#item-detail";
 
 				const img = document.createElement("img");
 				img.className = "w-full h-full object-cover";
 				img.src = imageUrl;
 				img.alt = `${data.poster_path} Logo`;
 
+				a.appendChild(img);
+
 				const caption = document.createElement("p");
 				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
 				caption.textContent = data.title || "Movie Title";
 
-				slide.appendChild(img);
 				slide.appendChild(caption);
 				slide.appendChild(a);
 
@@ -210,22 +211,23 @@ async function runTvTrendingTodayList() {
 				
 				const slide = document.createElement("div");
 				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.setAttribute("data-slug", data.id);
+				slide.setAttribute("data-ref", "tv");
 
 				const a = document.createElement("a");
-				a.setAttribute("data-slug", data.id);
-				a.setAttribute("data-ref", "tv");
-				a.setAttribute("href", "#item-detail");
+				a.href = "#item-detail";
 
 				const img = document.createElement("img");
 				img.className = "w-full h-full object-cover";
 				img.src = imageUrl;
 				img.alt = `${data.poster_path} Logo`;
 
+				a.appendChild(img);
+
 				const caption = document.createElement("p");
 				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
 				caption.textContent = data.name || "TV Title";
 
-				slide.appendChild(img);
 				slide.appendChild(caption);
 				slide.appendChild(a);
 
