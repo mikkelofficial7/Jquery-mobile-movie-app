@@ -108,16 +108,17 @@ $(document).ready(function(){
 	// HYPERLINK CAST AND DETAIL
 
 	$(document).on("click", "#externalLink", function () {
-		var currentActiveDetailId = $(this).data("slug");
-		var currentActiveDetailDisplayType = $(this).data("ref");
+		var currentActiveDetailId = $(this).attr("data-slug");
+		var currentActiveDetailDisplayType = $(this).attr("data-ref");
 		var externalOpenNewTabUrl = getExternalDetailPageUrl(currentActiveDetailDisplayType, currentActiveDetailId);
 
+		alert(currentActiveDetailId+" "+currentActiveDetailDisplayType);
 		window.open(externalOpenNewTabUrl, "_blank");
 	});
 
 	$(document).on("click", "#externalLinkCast", function () {
-		var currentActiveDetailId = $(this).data("slug");
-		var currentActiveDetailDisplayType = $(this).data("ref");
+		var currentActiveDetailId = $(this).attr("data-slug");
+		var currentActiveDetailDisplayType = $(this).attr("data-ref");
 		var externalOpenNewTabUrl = getExternalDetailPageUrl(currentActiveDetailDisplayType, currentActiveDetailId);
 
 		window.open(externalOpenNewTabUrl, "_blank");
@@ -126,8 +127,8 @@ $(document).ready(function(){
 	// MOVIE AND TV SHOW DETAIL PART
 
 	$(document).on("click", ".list-tv-movie", function () {
-		var currentActiveDetailId = $(this).data("slug");
-		var currentActiveDetailDisplayType = $(this).data("ref");
+		var currentActiveDetailId = $(this).attr("data-slug");
+		var currentActiveDetailDisplayType = $(this).attr("data-ref");
 
 		if (currentActiveDetailDisplayType == "tv") {
 			runDetailTvShowData(currentActiveDetailId)
@@ -139,8 +140,8 @@ $(document).ready(function(){
 	// CAST DETAIL PART
 
 	$(document).on("click", ".list-cast", function () {
-		var currentActiveDetailId = $(this).data("slug");
-		var currentActiveDetailDisplayType = $(this).data("ref");
+		var currentActiveDetailId = $(this).attr("data-slug");
+		var currentActiveDetailDisplayType = $(this).attr("data-ref");
 		
 		runDetailCastData(currentActiveDetailId);
 	});
