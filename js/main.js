@@ -665,6 +665,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 	let backdropImages = [];
 
 	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
+	var hrefSimilar = isDisplayOnly == true ? "" : "#item-detail";
 		
 	$("#externalLink").attr("data-ref", "movie");
 	$("#externalLink").attr("data-slug", movieId);
@@ -695,7 +696,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		}
 
 		$.each(data.results, function(index, item) {
-			createItemElementMovieTvShow("itemListSimilar", item, "movie");
+			createItemElementMovieTvShow("itemListSimilar", item, "movie", hrefSimilar);
 		});
 	});
 
@@ -909,6 +910,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	let backdropImages = [];
 
 	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
+	var hrefSimilar = isDisplayOnly == true ? "" : "#item-detail";
 
 	$("#externalLink").attr("data-ref", "tv");
 	$("#externalLink").attr("data-slug", tvShowId);
@@ -963,7 +965,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		}
 
 		$.each(data.results, function(index, item){
-			createItemElementMovieTvShow("itemListSimilar", item, "tv");
+			createItemElementMovieTvShow("itemListSimilar", item, "tv", hrefSimilar);
 		});
 	});
 
