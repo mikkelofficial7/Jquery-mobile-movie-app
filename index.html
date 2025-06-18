@@ -57,26 +57,32 @@
         <h1>Welcome to MoviSnap</h1>
     </div>
     <div data-role="content">
-        <div class="overflow-x-auto whitespace-nowrap p-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div class="overflow-x-auto whitespace-nowrap p-4 mt-5">
             <span class="inline-flex items-center" id="section-inside-movie">
-                <h2 class="text-xl font-semibold mb-2">Today's Trending Movies</h2>
+                <h2 class="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl font-semibold mb-2">Trending Movies</h2>
                 <h2 class="bg-gradient-to-b from-[#c9403e] to-[#a11b19] no-text-shadow rounded-lg p-2 mb-2 ml-5" id="movie-find-more">
                   <div class="text-[#f8f8ff] no-underline btn-inside-movie" id="today-trending-movie" data-role="none">Find more</div>
                 </h2>
             </span>
-          <ul id="item-movie-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
-          </ul>
+          <div class="w-full relative mx-auto overflow-hidden rounded-xl shadow-lg">
+            <div id="item-movie-trending-today" class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory space-x-4" data-role="none">
+            </div>
+          </div>
         </div>
-        <div class="overflow-x-auto whitespace-nowrap p-4">
-            <span class="inline-flex items-center" id="section-inside-tv">
-              <h2 class="text-xl font-semibold mb-2">Today's Trending TV Shows</h2>
-              <h2 class="bg-gradient-to-b from-[#c9403e] to-[#a11b19] no-text-shadow rounded-lg p-2 mb-2 ml-5" id="tv-find-more">
-                <div class="text-[#f8f8ff] no-underline btn-inside-tv" id="today-trending-tv" data-role="none">Find more</div>
-              </h2>
-            </span>
-          <ul id="item-tv-trending-today" class="flex space-x-4 overflow-x-auto py-2 px-1">
-          </ul>
+        <div class="overflow-x-auto whitespace-nowrap p-4 mt-5">
+          <span class="inline-flex items-center" id="section-inside-tv">
+            <h2 class="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl font-semibold mb-2">Trending TV Shows</h2>
+            <h2 class="bg-gradient-to-b from-[#c9403e] to-[#a11b19] no-text-shadow rounded-lg p-2 mb-2 ml-5" id="tv-find-more">
+              <div class="text-[#f8f8ff] no-underline btn-inside-tv" id="today-trending-tv" data-role="none">Find more</div>
+            </h2>
+          </span>
+          <div class="w-full relative mx-auto overflow-hidden rounded-xl shadow-lg">
+            <div id="item-tv-trending-today" class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory space-x-4" data-role="none">
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 

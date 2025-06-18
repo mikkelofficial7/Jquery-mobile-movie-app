@@ -2,6 +2,8 @@ let isLocalEnv = false;
 var availableLanguage = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
+const scrollAmount = 320;
+
 var currentPageUpcoming = 1;
 var currentPageTopRated = 1;
 var currentPagePopular = 1;
@@ -18,19 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
+	autoScroll("item-movie-trending-today")
+	autoScroll("item-tv-trending-today")
+
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
 	runTvTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
-
-	$(document).on("click", "#today-trending-movie", function () {
-		window.location.href = getBaseUrl() + "#now-playing";
-	});
-
-	$(document).on("click", "#today-trending-tv", function () {
-		window.location.href = getBaseUrl() + "#tv-main";
-	});
 
 	runUpcomingList(currentPageUpcoming);
 
@@ -159,28 +156,29 @@ async function runMovieTrendingTodayList() {
 	
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
-			const posterList = document.getElementById("item-movie-trending-today");
-			posterList.innerHTML = "";
+			const posterList = document.querySelector("#item-movie-trending-today");
 
-			const randomFive = data.results
-					.sort(() => Math.random() - 0.5)
-					.slice(0, 5);
-
-			randomFive.forEach(data => {
+			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + data.poster_path;
 				
-				const li = document.createElement("li");
-				li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
+				const slide = document.createElement("div");
+				slide.className = "relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
 
 				const img = document.createElement("img");
-					img.src = imageUrl;
-					img.alt = `${data.poster_path} Logo`;
-					img.className = "rounded-lg shadow-md w-full h-auto object-cover";
-					li.appendChild(img);
+				img.className = "w-full h-full object-cover";
+				img.src = imageUrl;
+				img.alt = `${data.poster_path} Logo`;
 
-				posterList.appendChild(li);
+				const caption = document.createElement("p");
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
+				caption.textContent = data.title || "Movie Title";
+
+				slide.appendChild(img);
+				slide.appendChild(caption);
+
+				posterList.appendChild(slide)
 			});
 		});
 	});
@@ -191,28 +189,29 @@ async function runTvTrendingTodayList() {
 
 	$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
-			const posterList = document.getElementById("item-tv-trending-today");
-			posterList.innerHTML = "";
+			const posterList = document.querySelector("#item-tv-trending-today");
 
-			const randomFive = data.results
-					.sort(() => Math.random() - 0.5)
-					.slice(0, 5);
-
-			randomFive.forEach(data => {
+			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + data.poster_path;
 				
-				const li = document.createElement("li");
-				li.className = "flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5";
+				const slide = document.createElement("div");
+				slide.className = "relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
 
 				const img = document.createElement("img");
-					img.src = imageUrl;
-					img.alt = `${data.poster_path} Logo`;
-					img.className = "rounded-lg shadow-md w-full h-auto object-cover";
-					li.appendChild(img);
+				img.className = "w-full h-full object-cover";
+				img.src = imageUrl;
+				img.alt = `${data.poster_path} Logo`;
 
-				posterList.appendChild(li);
+				const caption = document.createElement("p");
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
+				caption.textContent = data.name || "TV Title";
+
+				slide.appendChild(img);
+				slide.appendChild(caption);
+
+				posterList.appendChild(slide)
 			});
 		});
 	});
@@ -1305,4 +1304,14 @@ function getBaseUrl() {
 	} else {
 		return baseUrl;
 	}
+}
+
+function autoScroll(parentName, pixelPerFrame = 1) {
+  const parent = document.getElementById(parentName).scrollLeft += pixelPerFrame;
+
+  if (parent.scrollLeft >= parent.scrollWidth - parent.clientWidth) {
+    parent.scrollLeft = 0;
+  }
+
+  requestAnimationFrame(() => autoScroll(parentName));
 }
