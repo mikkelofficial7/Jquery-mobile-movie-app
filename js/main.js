@@ -112,7 +112,6 @@ $(document).ready(function(){
 		var currentActiveDetailDisplayType = $(this).attr("data-ref");
 		var externalOpenNewTabUrl = getExternalDetailPageUrl(currentActiveDetailDisplayType, currentActiveDetailId);
 
-		alert(currentActiveDetailId+" "+currentActiveDetailDisplayType);
 		window.open(externalOpenNewTabUrl, "_blank");
 	});
 
