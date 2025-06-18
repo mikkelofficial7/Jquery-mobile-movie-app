@@ -1202,6 +1202,7 @@ function createItemElementMovieTvShow(parentName, item, displayType) {
 	const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 					: baseImageLoad + item['poster_path'];
+	const hrefDestination = window.location.hash !== null || window.location.hash !== "" ? "#item-detail" : "#";
 					
 	const name = item['title'] || item['name'];
 
@@ -1211,7 +1212,7 @@ function createItemElementMovieTvShow(parentName, item, displayType) {
 	li.setAttribute("data-ref", displayType);
 
 	const link = document.createElement("a");
-	link.href = "#item-detail";
+	link.href = hrefDestination;
 	link.className = "relative";
 
 	const img = document.createElement("img");
@@ -1253,12 +1254,14 @@ function createItemElementCast(item, displayType) {
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + item["profile_path"];
 
+	const hrefDestination = window.location.hash !== null || window.location.hash !== "" ? "#item-cast" : "#";
+
 	const $li = $("<li>")
 	.addClass("list-cast flex flex-col items-center justify-center text-center px-2 py-4")
 	.attr("data-ref", displayType)
 	.attr("data-slug", item["id"]);
 
-	const $a = $("<a>").attr("href", "#item-cast");
+	const $a = $("<a>").attr("href", hrefDestination);
 
 	const $img = $("<img>")
 	.addClass("poster-images-small")
