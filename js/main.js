@@ -663,6 +663,8 @@ function countryCodeToFlagEmoji(countryCode) {
 
 async function runDetailMovieData(movieId) {	
 	let backdropImages = [];
+
+	var hrefCast = isDisplayOnly == true ? "#" : "#item-cast";
 		
 	$("#externalLink").attr("data-ref", "movie");
 	$("#externalLink").attr("data-slug", movieId);
@@ -766,7 +768,7 @@ async function runDetailMovieData(movieId) {
 			card.appendChild(iframe);
 			card.appendChild(content);
 
-			youtubeVideoList.appendChild(card); // youtubeVideoList should be a <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+			youtubeVideoList.appendChild(card);
 		});
 
 	});
@@ -844,7 +846,7 @@ async function runDetailMovieData(movieId) {
 					.slice(0, 6);
 
 		takeOnlyCast.forEach(cast => {
-			createItemElementCast(cast, "cast");	
+			createItemElementCast(cast, "cast", hrefCast);	
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
@@ -852,7 +854,7 @@ async function runDetailMovieData(movieId) {
 			$("#load-more-cast").addClass("hidden")
 
 			allCasts.forEach(cast => {
-				createItemElementCast(cast, "cast");
+				createItemElementCast(cast, "cast", hrefCast);
 			});
 		});
 
@@ -903,8 +905,10 @@ async function runDetailMovieData(movieId) {
 	});
 }
 
-async function runDetailTvShowData(tvShowId) {
+async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	let backdropImages = [];
+
+	var hrefCast = isDisplayOnly == true ? "#" : "#item-cast";
 
 	$("#externalLink").attr("data-ref", "tv");
 	$("#externalLink").attr("data-slug", tvShowId);
@@ -1062,8 +1066,6 @@ async function runDetailTvShowData(tvShowId) {
 
 			productionList.appendChild(li);
 		});
-
-		// cast
 		
 		// casts
 		var allCasts = []
@@ -1088,7 +1090,7 @@ async function runDetailTvShowData(tvShowId) {
 					.slice(0, 6);
 
 		takeOnlyCast.forEach(cast => {
-			createItemElementCast(cast, "cast");
+			createItemElementCast(cast, "cast", hrefCast);
 		});
 
 		$(document).on("click", "#btn-load-more-cast", function () {
@@ -1096,7 +1098,7 @@ async function runDetailTvShowData(tvShowId) {
 			$("#load-more-cast").addClass("hidden")
 			
 			allCasts.forEach(cast => {
-				createItemElementCast(cast, "cast");
+				createItemElementCast(cast, "cast", hrefCast);
 			});
 		});
 
@@ -1158,7 +1160,9 @@ async function runDetailTvShowData(tvShowId) {
 	});
 }
 
-async function runDetailCastData(castId) {
+async function runDetailCastData(castId, isDisplayOnly = false) {
+	var hrefMovie = isDisplayOnly == true ? "#" : "#item-detail";
+
 	$("#externalLinkCast").attr("data-ref", "cast");
 	$("#externalLinkCast").attr("data-slug", castId);
 
