@@ -668,7 +668,7 @@ async function runMovieGenreList() {
 
 			populateItemGenre();
 
-			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {
+			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+currentMovieGenreId, function(data) {
 				$.each(data.results, function(index, item){
 					createItemElementMovieTvShow("GenreListSearch", item, "movie");
 				});
@@ -726,9 +726,10 @@ async function runTvGenreList() {
 		if (tvGenre[index]) {
 			currentMovieGenreId = "";
 			currentTvGenreId = tvGenre[index].id;
+
 			populateItemGenre();
 
-			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+tvGenre[index].id, function(data) {
+			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+currentTvGenreId, function(data) {
 				$.each(data.results, function(index, item){
 					createItemElementMovieTvShow("GenreListSearch", item, "tv")
 				});
