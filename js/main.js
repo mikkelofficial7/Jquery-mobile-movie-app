@@ -29,6 +29,7 @@ $(document).ready(function(){
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
+	runTvTrendingTodayList()
 	runCastTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
@@ -167,7 +168,7 @@ async function runMovieTrendingTodayList() {
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
 		listReviewMovieId = data.results.map(item => item.id);
 
-		$.each(data.results, function(){	
+		$.each(data.results, function() {	
 			const posterList = document.querySelector("#item-movie-trending-today");
 
 			data.results.forEach(data => {
@@ -201,7 +202,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runTvTrendingTodayList()
+		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today")
 	});
 }
 
@@ -245,7 +246,7 @@ async function runTvTrendingTodayList() {
 			});
 		});
 
-		runReviewList()
+		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today")
 	});
 }
 
@@ -289,13 +290,13 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList() {	
+async function runReviewList(listOfId, displayType, parentList, maxItem = 10, maxCommentLength = 150) {	
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	const fetchAllReviewsMovie = () => {
+	const fetchAllReviews= () => {
 		return Promise.all(
-			listReviewMovieId.map(id =>
-				$.getJSON("https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=" + apikey)
+			listOfId.map(id =>
+				$.getJSON("https://api.themoviedb.org/3/"+displayType+"/" + id + "/reviews?api_key=" + apikey)
 					.then(data => {
 						data.results.forEach(item => listReview.push(item));
 					})
@@ -303,57 +304,48 @@ async function runReviewList() {
 		);
 	};
 
-	fetchAllReviewsMovie().then(() => {
-		const fetchAllReviewsTvShow = () => {
-			return Promise.all(
-				listReviewTvShowId.map(id =>
-					$.getJSON("https://api.themoviedb.org/3/tv/" + id + "/reviews?api_key=" + apikey)
-						.then(data => {
-							data.results.forEach(item => listReview.push(item));
-						})
-				)
-			);
-		};
+	fetchAllReviews().then(() => {
+		if (listReview.length < 1) {
+			$(parentList).html("N/A");
+		}
 
-		fetchAllReviewsTvShow().then(() => {
-			const takeOnly = listReview
+		const takeOnly = listReview
 						.sort(() => Math.random() - 0.5)
-						.slice(0, 10);
+						.slice(0, maxItem);
 						
-			takeOnly.forEach(function(data) {
-				const imageUrl = data.author_details.avatar_path == null
-					? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
-					: baseImageLoad + data.author_details.avatar_path;
-				
-				const $li = $('<li>').addClass('bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4');
+		takeOnly.forEach(function(data) {
+			const imageUrl = data.author_details.avatar_path == null
+				? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
+				: baseImageLoad + data.author_details.avatar_path;
+			
+			const $li = $('<li>').addClass('bg-white rounded-xl p-4 flex flex-col shadow sm:flex-row gap-4');
 
-				const $img = $('<img>')
-				.attr('src', imageUrl)
-				.attr('alt', 'Reviewer Photo')
-				.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
+			const $img = $('<img>')
+			.attr('src', imageUrl)
+			.attr('alt', 'Reviewer Photo')
+			.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
 
-				const $content = $('<div>').addClass('flex-1 w-full');
+			const $content = $('<div>').addClass('flex-1 w-full');
 
-				const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
-				.text(data.author_details.name + " (@" + data.author_details.username + ")");
+			const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
+			.text(data.author_details.name + " (@" + data.author_details.username + ")");
 
-				const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
-				.text("Reviewed at " + convertIsoString(data.updated_at));
+			const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
+			.text("Reviewed at " + convertIsoString(data.updated_at));
 
-				const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
-				.html(truncateLongTitle(data.content, 150));
+			const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
+			.html(truncateLongTitle(data.content, maxCommentLength));
 
-				const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
-				$stars.append(
-					$('<span>').text('⭐'),
-					$('<span>').text(data.author_details.rating+"/10" ?? 'N/A')
-				);
+			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
+			$stars.append(
+				$('<span>').text('⭐'),
+				$('<span>').text(data.author_details.rating+"/10" ?? 'N/A')
+			);
 
-				$content.append($title, $release, $review, $stars);
-				$li.append($img, $content);
+			$content.append($title, $release, $review, $stars);
+			$li.append($img, $content);
 
-				$('#item-reviews-trending-today').append($li);
-			});
+			$(parentList).append($li);
 		});
 	});
 }
@@ -811,6 +803,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 	$("#externalLink").attr("data-slug", movieId);
 
 	$("#itemSimilarTitle").text("Similar movies you'd like");
+	$("#item-reviews-title").text("What they said about this movie?");
 
 	$("#item-images-alternate").on("click", "li", function () {
 		const index = $(this).index(); // Get the index of clicked <li>
@@ -1044,6 +1037,16 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 			});
 		}
 	});
+
+	listReview = [];
+	$("#item-reviews").html("");
+	runReviewList([movieId], "movie", "#item-reviews", 3, 250)
+
+	if (listReview.length <= 3) {
+		$("#load-more-reviews").addClass("hidden")
+	} else {
+		$("#load-more-reviews").removeClass("hidden")
+	}
 }
 
 async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
@@ -1056,6 +1059,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	$("#externalLink").attr("data-slug", tvShowId);
 
 	$("#itemSimilarTitle").text("Similar TV show you'd like");
+	$("#item-reviews-title").text("What they said about this TV show?");
 
 	$("#item-images-alternate").on("click", "li", function () {
 		const index = $(this).index(); // Get the index of clicked <li>
@@ -1300,6 +1304,16 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 			});
 		}
 	});
+
+	listReview = [];
+	$("#item-reviews").html("");
+	runReviewList([tvShowId], "tv", "#item-reviews", 3, 250)
+
+	if (listReview.length <= 3) {
+		$("#load-more-reviews").addClass("hidden")
+	} else {
+		$("#load-more-reviews").removeClass("hidden")
+	}
 }
 
 async function runDetailCastData(castId, isDisplayOnly = false) {
