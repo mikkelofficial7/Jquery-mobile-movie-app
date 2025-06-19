@@ -1119,7 +1119,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 	
-	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 250, true, (listReview) => {
+	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 150, true, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
@@ -1396,7 +1396,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 
-	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 250, true, (listReview) => {
+	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 150, true, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
