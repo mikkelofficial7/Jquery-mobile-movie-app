@@ -659,6 +659,7 @@ async function runMovieGenreList() {
 
 	$("#movieGenreList").on("click", "li", function () {
 		currentPageGenreSearch = 1;
+		selectedTvGenreId = [];
 		
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (movieGenre[index]) {
@@ -669,7 +670,7 @@ async function runMovieGenreList() {
 				selectedMovieGenreId.push(movieGenre[index].id);
 			}
 			populateItemGenre();
-
+			
 			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+selectedMovieGenreId.join(","), function(data) {
 				$("#GenreListSearch").html("");
 
@@ -724,6 +725,7 @@ async function runTvGenreList() {
 
 	$("#tvGenreList").on("click", "li", function () {
 		currentPageGenreSearch = 1;
+		selectedMovieGenreId = [];
 
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (tvGenre[index]) {
