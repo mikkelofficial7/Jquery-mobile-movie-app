@@ -15,6 +15,7 @@ var currentPageGenreSearch= 1;
 var tv_currentPageNowPlaying = 1;
 var tv_currentPagePopular = 1;
 var tv_currentPageTopRated = 1;
+var currentPageReview = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
 	const baseUrl = window.location.origin;
@@ -152,7 +153,10 @@ $(document).ready(function(){
 		runDetailCastData(currentActiveDetailId);
 	});
 
+	// LOAD MORE REVIEW
 	$(document).on("click", "#btn-load-more-review", function () {
+		currentPageReview = 1;
+
 		var id = $(this).attr("data-slug");
 		var displayType = $(this).attr("data-ref");
 		var itemPoster = $(this).attr("data-image");
@@ -162,14 +166,27 @@ $(document).ready(function(){
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 						: baseImageLoad + itemPoster;
 
-		console.log(title);
-
 		$("#review-movie-title").text(title);
 		$("#review-movie-poster").attr("src", imageUrl);
 		$("#review-movie-poster-bg").attr("src", imageUrl);
+
+		$("#btn-load-more-all-review").attr("data-ref", displayType);
+		$("#btn-load-more-all-review").attr("data-slug", id);
 		
-		runReviewList([id], displayType, "#review-list", 50, 1000, (listReview) => {
-			// add load more
+		runReviewList([id], displayType, "#review-list", 1, 50, 5000, (listReview) => {})
+	});
+
+	$(document).on("click", "#btn-load-more-all-review", function () {
+		currentPageReview += 1;
+		var id = $(this).attr("data-slug");
+		var displayType = $(this).attr("data-ref");
+
+		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 5000, (listReview) => {
+			if (listReview.length < 1) {
+				$("#btn-load-more-all-review").addClass("hidden");
+			} else {
+				$("#btn-load-more-all-review").removeClass("hidden");
+			}
 		})
 	});
 });
@@ -222,7 +239,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today")
+		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1)
 	});
 }
 
@@ -266,7 +283,7 @@ async function runTvTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today")
+		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1)
 	});
 }
 
@@ -310,14 +327,14 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList(listOfId, displayType, parentList, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {	
+async function runReviewList(listOfId, displayType, parentList, page = 1, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {	
 	const apikey = await decryptString(ciphertext, iv, password);
 	let listReview = [];
 
 	const fetchAllReviews= () => {
 		return Promise.all(
 			listOfId.map(id =>
-				$.getJSON("https://api.themoviedb.org/3/"+displayType+"/" + id + "/reviews?api_key=" + apikey)
+				$.getJSON("https://api.themoviedb.org/3/"+displayType+"/" + id + "/reviews?page="+page+"&api_key=" + apikey)
 					.then(data => {
 						data.results.forEach(item => listReview.push(item));
 					})
@@ -326,7 +343,7 @@ async function runReviewList(listOfId, displayType, parentList, maxItem = 10, ma
 	};
 
 	fetchAllReviews().then(() => {
-		if (listReview.length < 1) {
+		if (listReview.length < 1 && page < 2) {
 			$(parentList).html("N/A");
 		}
 
@@ -1068,7 +1085,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 	
-	runReviewList([movieId], "movie", "#item-reviews", 3, 250, (listReview) => {
+	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 250, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
@@ -1340,7 +1357,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 
-	runReviewList([tvShowId], "tv", "#item-reviews", 3, 250, (listReview) => {
+	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 250, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
