@@ -12,6 +12,8 @@ $(document).ready(function () {
 
 
 (function($){
+  const navWidth = "185px";
+
   $.fn.slideMenu = function(options) {
     options = $.extend({
       duration: 500,
@@ -28,16 +30,25 @@ $(document).ready(function () {
         if (!menuStatus) {
           $('#side-menu').css('visibility', 'visible');
           $('.ui-page-active').animate({
-            marginLeft: '185px'
+            marginLeft: navWidth
           }, options.duration, options.easing, function() {
             menuStatus = true;
           });
+
+          $('.overlapping-bg').animate({
+            marginLeft: navWidth
+          }, options.duration, options.easing);
+
         } else {
           $('.ui-page-active').animate({
             marginLeft: '0px'
           }, options.duration, options.easing, function() {
             menuStatus = false;
           });
+
+          $('.overlapping-bg').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing);
         }
       });
 
@@ -53,6 +64,10 @@ $(document).ready(function () {
 
           $('#side-menu li').removeClass('active');
           $link.parent().addClass('active');
+
+          $('.overlapping-bg').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing);
 
           $('.ui-page-active').animate({
             marginLeft: '0px'
@@ -85,6 +100,9 @@ $(document).ready(function () {
             }
           });
 
+          $('.overlapping-bg').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing);
 
           $('.ui-page-active').animate({
             marginLeft: '0px'
@@ -116,6 +134,9 @@ $(document).ready(function () {
             }
           });
 
+          $('.overlapping-bg').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing);
 
           $('.ui-page-active').animate({
             marginLeft: '0px'
@@ -141,6 +162,10 @@ $(document).ready(function () {
             'marginTop': $(window).scrollTop()
           });
         });
+
+        $('.overlapping-bg').animate({
+            marginLeft: '0px'
+          }, options.duration, options.easing);
       });
 
       // Scroll handler
