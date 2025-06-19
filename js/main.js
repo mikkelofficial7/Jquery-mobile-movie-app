@@ -1374,7 +1374,7 @@ function createItemElementMovieTvShow(parentName, item, displayType, hrefDestina
 	const name = item['title'] || item['name'];
 
 	const li = document.createElement("li");
-	li.className = "list-tv-movie flex flex-col items-center justify-center text-center p-4";
+	li.className = "list-tv-movie flex flex-col items-center justify-center text-center pt-4 pb-4";
 	li.setAttribute("data-slug", item["id"]);
 	li.setAttribute("data-ref", displayType);
 
@@ -1422,7 +1422,7 @@ function createItemElementCast(item, displayType, hrefDestination = "#item-cast"
 						: baseImageLoad + item["profile_path"];
 
 	const $li = $("<li>")
-	.addClass("list-cast flex flex-col items-center justify-center text-center px-2 py-4")
+	.addClass("list-cast flex flex-col items-center justify-center text-center py-4")
 	.attr("data-ref", displayType)
 	.attr("data-slug", item["id"]);
 
