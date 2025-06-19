@@ -1303,7 +1303,7 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 
 		let birthAndDeathDay = "N/A";
 		if (data.birthday !== null) {
-			birthAndDeathDay = data.deathday == null ? data.birthday : data.birthday+" (Passed away at "+data.deathday+")"
+			birthAndDeathDay = data.deathday == null ? convertDate(data.birthday) : convertDate(data.birthday)+" (Passed away at "+convertDate(data.deathday)+")"
 		}
 
 		document.getElementById("cast-alias").textContent = data.also_known_as < 1 ? "N/A" : data.also_known_as.join(", ");
