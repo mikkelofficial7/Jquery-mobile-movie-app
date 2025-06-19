@@ -376,7 +376,7 @@ async function runCastTrendingTodayList() {
 
 				// Anchor tag
 				const a = document.createElement("a");
-				a.href = "#item-detail";
+				a.href = "#item-cast";
 				a.className = "relative z-10 flex items-center justify-center";
 
 				// Centered and sized image
