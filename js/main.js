@@ -179,7 +179,7 @@ $(document).ready(function(){
 		
 		$("#review-list").html("");
 		$("#load-more-all-review").removeClass("hidden");
-		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, (listReview) => {})
+		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {})
 	});
 
 	$(document).on("click", "#btn-load-more-all-review", function () {
@@ -187,13 +187,21 @@ $(document).ready(function(){
 		var id = $(this).attr("data-slug");
 		var displayType = $(this).attr("data-ref");
 
-		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, (listReview) => {
+		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {
 			if (listReview.length < 1) {
 				$("#load-more-all-review").addClass("hidden");
 			} else {
 				$("#load-more-all-review").removeClass("hidden");
 			}
 		})
+	});
+
+	$(document).on("click", ".review-read-more", function () {
+  		const $clickedSpan = $(this);
+  		const $parentParagraph = $clickedSpan.closest('p');
+
+		const $fullText = $(this).siblings('.review-full-text');
+		$parentParagraph.text($fullText.text());
 	});
 });
 
@@ -245,7 +253,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1)
+		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1, 1000, 5000, false)
 	});
 }
 
@@ -289,7 +297,7 @@ async function runTvTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1)
+		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1, 1000, 5000, false)
 	});
 }
 
@@ -333,7 +341,7 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList(listOfId = [], displayType = "", parentList = "", page = 1, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {
+async function runReviewList(listOfId = [], displayType = "", parentList = "", page = 1, maxItem = 10, maxCommentLength = 150, addReadMoreButton = false, onComplete = () => {}) {
 	if (listOfId.length < 1 && window.location.hash == "#item-all-review") {
 		window.location.href = document.referrer;
 		return;
@@ -382,8 +390,17 @@ async function runReviewList(listOfId = [], displayType = "", parentList = "", p
 			const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
 			.text("Reviewed at " + convertIsoString(data.updated_at));
 
+			var longReview = truncateLongTitle(data.content, maxCommentLength);
+			
 			const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
-			.html(truncateLongTitle(data.content, maxCommentLength));
+			.html(longReview);
+			
+			if (addReadMoreButton && longReview.trim().endsWith("...")) {
+				$review.append(
+					$('<span>').text(data.content).addClass('hidden review-full-text'),
+					$('<span>').text('Read more').addClass('text-blue-500 hover:underline cursor-pointer ml-2 mr-5 review-read-more')
+				)
+			}
 
 			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
 			$stars.append(
@@ -1102,7 +1119,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 	
-	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 250, (listReview) => {
+	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 250, false, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
@@ -1379,7 +1396,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 
-	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 250, (listReview) => {
+	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 250, false, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
