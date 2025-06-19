@@ -51,12 +51,20 @@
   </ul>
 </div>
 
-<!-- MOVIE -->
- <div data-role="page" id="main" data-url="main" data-title="MoviSnap | Home" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#main" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Welcome to MoviSnap</h1>
+  <!-- MOVIE -->
+  <div data-role="page" id="main" data-url="main" data-title="MoviSnap | Home" class="pages">
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Welcome to MoviSnap</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="backdrop-blur-sm">
       <div class="block lg:grid lg:grid-cols-2 lg:gap-4">
           <div class="flex flex-col gap-4">
@@ -109,11 +117,19 @@
     </div>
   </div>
 
- <div data-role="page" id="now-playing" data-url="now-playing" data-title="MoviSnap | Now Playing Movies" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Now Playing</h1>
+  <div data-role="page" id="now-playing" data-url="now-playing" data-title="MoviSnap | Now Playing Movies" data-theme="b" class="pages">
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Movie - Now Playing</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "movieListNowPlaying" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -126,10 +142,18 @@
   </div>
   
   <div data-role="page" id="upcoming" data-url="upcoming" data-title="MoviSnap | Upcoming Movies" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Upcoming</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Movie - Upcoming</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "movieListUpcoming" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -142,10 +166,18 @@
   </div>
 
   <div data-role="page" id="top-rated" data-url="top-rated" data-title="MoviSnap | Top Rated Movies" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Top Rated</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Movie - Top Rated</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "movieListTopRated" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -158,10 +190,18 @@
   </div>
 
    <div data-role="page" id="popular" data-url="popular" data-title="MoviSnap | Popular Movies" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Popular</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Movie - Popular</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "movieListPopular" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -175,10 +215,18 @@
 
   <!-- TV SHOW -->
   <div data-role="page" id="tv-main" data-url="tv-main" data-title="MoviSnap | Now Playing TV Show" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>TV Show - Now</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">TV Show - Now Playing</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "tvListNowPlaying">
         </ul>
@@ -191,10 +239,18 @@
   </div>
 
   <div data-role="page" id="tv-popular" data-url="tv-popular" data-title="MoviSnap | Popular TV Show" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>TV Show - Popular</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">TV Show - Popular</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "tvListPopular" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -207,10 +263,18 @@
   </div>
 
   <div data-role="page" id="tv-top-rated" data-url="tv-top-rated" data-title="MoviSnap | Top Rated TV Show" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>TV Show - Top Rated</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">TV Show - Top Rated</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "tvListTopRated" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
         </ul>
@@ -224,11 +288,19 @@
 
   <!-- Search page -->
   <div data-role="page" id="search" data-url="search" data-title="MoviSnap | Search Data" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Find Your Movie or TV Show</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Find Movie or TV Show</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
-    <div data-role="content" class="relative min-h-screen overflow-hidden backdrop-blur-sm">
+    <!-- header -->
+     <div data-role="content" class="relative min-h-screen overflow-hidden backdrop-blur-sm">
       <div class="relative z-10 flex justify-center w-full opacity-100">
         <div id="layout-search" class="flex w-full justify-center max-w-5xl rounded-lg overflow-hidden ms-4 me-4 mt-10 mb-5 border border-gray-300 bg-white/70">
 
@@ -262,10 +334,18 @@
 
   <!-- Find Genre -->
   <div data-role="page" id="find-genre" data-url="find-genre" data-title="MoviSnap | Find Genre Data" data-theme="b" class="pages">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Find By Movie/TV Show Genre</h1>
+    <div class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Search by Genre</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
-    <div class="fixed top-50 left-0 w-full h-screen bg-[url('search.png')] overlapping-bg bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <!-- header -->
     <div data-role="content" class="relative min-h-screen overflow-hidden backdrop-blur-sm">
         <div class="flex justify-center w-full">
           <div class="w-full max-w-5xl rounded-lg overflow-hidden p-4 mx-4 mt-5">
@@ -299,10 +379,18 @@
   </div>
 
   <!-- Detail page -->
-  <div data-role="page" id="item-detail" data-url="item-detail" data-title="MoviSnap | Movie Detail" data-theme="b" class="pages" data-original="true" data-dom-cache="true">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Detail Page</h1>
+  <div data-role="page" id="item-detail" data-url="item-detail" data-title="MoviSnap | Movie Detail" data-theme="b" class="pages">
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Detail Page</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
+    <!-- header -->
     <div data-role="content">
         <div class="relative text-[#121212] overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
           <img id="item-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
@@ -431,11 +519,18 @@
   </div>
 
   <!-- Cast page -->
-  <div data-role="page" id="item-cast" data-url="item-cast" data-title="MoviSnap | Cast Profile" data-theme="b" class="pages" data-original="true" data-dom-cache="true">
-    <div data-role="header" data-theme="b">
-      <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-      <h1>Cast Profile Page</h1>
+  <div data-role="page" id="item-cast" data-url="item-cast" data-title="MoviSnap | Cast Profile" data-theme="b" class="pages">
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Cast Profile</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
+    <!-- header -->
     <div data-role="content">
       <div class="relative text-[#121212] overflow-hidden rounded-xl shadow-lg [text-shadow:none]">
           <img id="cast-bg" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0"/>
@@ -480,10 +575,18 @@
   </div>
 
   <!-- Review page -->
-  <div data-role="page" id="item-all-review" data-url="item-all-review" data-title="MoviSnap | Movie Review" data-theme="b" class="pages" data-original="true" data-dom-cache="true">
-    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
-        <h1>Review Page</h1>
+  <div data-role="page" id="item-all-review" data-url="item-all-review" data-title="MoviSnap | Movie Review" data-theme="b" class="pages">
+    <!-- header -->
+    <div class="relative w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] shadow-lg backdrop-blur-lg">
+      <div class="flex items-center justify-between px-4 py-3 mx-auto">
+        <a href="#" class="showMenu text-white p-2 rounded-md hover:bg-white/10 transition duration-300">
+          <i class="fas fa-bars"></i>
+        </a>
+        <h1 class="text-white text-lg sm:text-2xl font-bold tracking-wide text-center flex-1">Review Page</h1>
+        <div class="w-8"></div>
+      </div>
     </div>
+    <!-- header -->
     <div data-role="content" class="p-4 space-y-6">
       <div class="relative w-full h-screen overflow-hidden max-h-[400px] rounded-lg shadow-lg">
         <img id="review-movie-poster-bg" alt="Movie Poster Background" class="absolute inset-0 w-full h-full object-cover z-0">
