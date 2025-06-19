@@ -644,8 +644,8 @@ async function runSearchList(currentPage, keyword) {
 	}
 }
 
-var currentMovieGenreId = ""
-var currentTvGenreId = ""
+var selectedMovieGenreId = []
+var selectedTvGenreId = []
 let movieGenre = [];
 let tvGenre = [];
 
@@ -659,16 +659,20 @@ async function runMovieGenreList() {
 
 	$("#movieGenreList").on("click", "li", function () {
 		currentPageGenreSearch = 1;
-		$("#GenreListSearch").html("");
 		
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (movieGenre[index]) {
-			currentMovieGenreId = movieGenre[index].id;
-			currentTvGenreId = "";
-
+			if (selectedMovieGenreId.includes(movieGenre[index].id)) {
+				const i = selectedMovieGenreId.indexOf(movieGenre[index].id);
+  				selectedMovieGenreId.splice(i, 1); 
+			} else {
+				selectedMovieGenreId.push(movieGenre[index].id);
+			}
 			populateItemGenre();
 
-			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+currentMovieGenreId, function(data) {
+			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+selectedMovieGenreId.join(","), function(data) {
+				$("#GenreListSearch").html("");
+
 				$.each(data.results, function(index, item){
 					createItemElementMovieTvShow("GenreListSearch", item, "movie");
 				});
@@ -720,16 +724,20 @@ async function runTvGenreList() {
 
 	$("#tvGenreList").on("click", "li", function () {
 		currentPageGenreSearch = 1;
-		$("#GenreListSearch").html("");
 
 		const index = $(this).index(); // Get the index of clicked <li>
 		if (tvGenre[index]) {
-			currentMovieGenreId = "";
-			currentTvGenreId = tvGenre[index].id;
-
+			if (selectedTvGenreId.includes(tvGenre[index].id)) {
+				const i = selectedTvGenreId.indexOf(tvGenre[index].id);
+  				selectedTvGenreId.splice(i, 1); 
+			} else {
+				selectedTvGenreId.push(tvGenre[index].id);	 
+			}
 			populateItemGenre();
 
-			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+currentTvGenreId, function(data) {
+			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+selectedTvGenreId.join(","), function(data) {
+				$("#GenreListSearch").html("");
+				
 				$.each(data.results, function(index, item){
 					createItemElementMovieTvShow("GenreListSearch", item, "tv")
 				});
@@ -774,10 +782,10 @@ async function populateItemGenre() {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$('#movieGenreList li').remove();
-	$.each(movieGenre, function(){
+	$.each(movieGenre, function(index, movieGenre){
 		const li = document.createElement("li");
 
-		if (currentMovieGenreId === this['id']) {
+		if (selectedMovieGenreId.includes(this['id'])) {
 			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
 		} else {
 			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
@@ -794,7 +802,7 @@ async function populateItemGenre() {
 	$.each(tvGenre, function(){
 		const li = document.createElement("li");
 
-		if (currentTvGenreId === this['id']) {
+		if (selectedTvGenreId.includes(this['id'])) {
 			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
 		} else {
 			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
