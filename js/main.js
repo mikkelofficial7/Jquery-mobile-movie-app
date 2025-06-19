@@ -354,7 +354,7 @@ async function runCastTrendingTodayList() {
 						: baseImageLoad + data.profile_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
+				slide.className = "list-cast relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "cast");
 
