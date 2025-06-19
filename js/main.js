@@ -2,7 +2,6 @@ let isLocalEnv = false;
 var availableLanguage = [];
 var listReviewMovieId = [];
 var listReviewTvShowId = [];
-let listReview = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
 const scrollAmount = 320;
@@ -290,8 +289,9 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList(listOfId, displayType, parentList, maxItem = 10, maxCommentLength = 150) {	
+async function runReviewList(listOfId, displayType, parentList, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {	
 	const apikey = await decryptString(ciphertext, iv, password);
+	let listReview = [];
 
 	const fetchAllReviews= () => {
 		return Promise.all(
@@ -347,6 +347,8 @@ async function runReviewList(listOfId, displayType, parentList, maxItem = 10, ma
 
 			$(parentList).append($li);
 		});
+
+		onComplete(listReview);
 	});
 }
 
@@ -1038,15 +1040,14 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		}
 	});
 
-	listReview = [];
 	$("#item-reviews").html("");
-	runReviewList([movieId], "movie", "#item-reviews", 3, 250)
-
-	if (listReview.length <= 3) {
-		$("#load-more-reviews").addClass("hidden")
-	} else {
-		$("#load-more-reviews").removeClass("hidden")
-	}
+	runReviewList([movieId], "movie", "#item-reviews", 3, 250, (listReview) => {
+		if (listReview.length < 3) {
+			$("#load-more-reviews").addClass("hidden")
+		} else {
+			$("#load-more-reviews").removeClass("hidden")
+		}
+  	})
 }
 
 async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
@@ -1305,15 +1306,14 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		}
 	});
 
-	listReview = [];
 	$("#item-reviews").html("");
-	runReviewList([tvShowId], "tv", "#item-reviews", 3, 250)
-
-	if (listReview.length <= 3) {
-		$("#load-more-reviews").addClass("hidden")
-	} else {
-		$("#load-more-reviews").removeClass("hidden")
-	}
+	runReviewList([tvShowId], "tv", "#item-reviews", 3, 250, (listReview) => {
+		if (listReview.length < 3) {
+			$("#load-more-reviews").addClass("hidden")
+		} else {
+			$("#load-more-reviews").removeClass("hidden")
+		}
+  	})
 }
 
 async function runDetailCastData(castId, isDisplayOnly = false) {
