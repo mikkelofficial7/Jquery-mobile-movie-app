@@ -33,6 +33,10 @@ $(document).ready(function(){
 	runCastTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
+	runDetailMovieData()
+	runDetailTvShowData()
+	runDetailCastData()
+	runReviewList()
 
 	$(document).on("click", "#today-trending-movie", function () {
 		window.location.href = getBaseUrl() + "#now-playing";
@@ -173,7 +177,9 @@ $(document).ready(function(){
 		$("#btn-load-more-all-review").attr("data-ref", displayType);
 		$("#btn-load-more-all-review").attr("data-slug", id);
 		
-		runReviewList([id], displayType, "#review-list", 1, 50, 5000, (listReview) => {})
+		$("#review-list").html("");
+		$("#load-more-all-review").removeClass("hidden");
+		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, (listReview) => {})
 	});
 
 	$(document).on("click", "#btn-load-more-all-review", function () {
@@ -181,11 +187,11 @@ $(document).ready(function(){
 		var id = $(this).attr("data-slug");
 		var displayType = $(this).attr("data-ref");
 
-		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 5000, (listReview) => {
+		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, (listReview) => {
 			if (listReview.length < 1) {
-				$("#btn-load-more-all-review").addClass("hidden");
+				$("#load-more-all-review").addClass("hidden");
 			} else {
-				$("#btn-load-more-all-review").removeClass("hidden");
+				$("#load-more-all-review").removeClass("hidden");
 			}
 		})
 	});
@@ -327,7 +333,12 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList(listOfId, displayType, parentList, page = 1, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {	
+async function runReviewList(listOfId = [], displayType = "", parentList = "", page = 1, maxItem = 10, maxCommentLength = 150, onComplete = () => {}) {
+	if (listOfId.length < 1 && window.location.hash == "#item-all-review") {
+		window.location.href = document.referrer;
+		return;
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	let listReview = [];
 
@@ -637,6 +648,7 @@ async function runMovieGenreList() {
 		if (movieGenre[index]) {
 			currentMovieGenreId = movieGenre[index].id;
 			currentTvGenreId = "";
+
 			populateItemGenre();
 
 			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {
@@ -834,6 +846,11 @@ function countryCodeToFlagEmoji(countryCode) {
 }
 
 async function runDetailMovieData(movieId, isDisplayOnly = false) {	
+	if (movieId == null && window.location.hash == "#item-detail") {
+		window.location.href = document.referrer;
+		return;
+	}
+
 	let backdropImages = [];
 
 	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
@@ -1095,6 +1112,11 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 }
 
 async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
+	if (tvShowId == null && window.location.hash == "#item-detail") {
+		window.location.href = document.referrer;
+		return;
+	}
+
 	let backdropImages = [];
 
 	var hrefCast = isDisplayOnly == true ? "" : "#item-cast";
@@ -1367,6 +1389,11 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 }
 
 async function runDetailCastData(castId, isDisplayOnly = false) {
+	if (castId == null && window.location.hash == "#item-cast") {
+		window.location.href = document.referrer;
+		return;
+	}
+
 	var hrefMovie = isDisplayOnly == true ? "" : "#item-detail";
 
 	$("#externalLinkCast").attr("data-ref", "cast");
