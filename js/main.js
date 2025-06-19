@@ -2,6 +2,7 @@ let isLocalEnv = false;
 var availableLanguage = [];
 var listReviewMovieId = [];
 var listReviewTvShowId = [];
+let listReview = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
 const scrollAmount = 320;
@@ -28,7 +29,6 @@ $(document).ready(function(){
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
-	runTvTrendingTodayList()
 	runCastTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
@@ -201,7 +201,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runReviewList()
+		runTvTrendingTodayList()
 	});
 }
 
@@ -244,6 +244,8 @@ async function runTvTrendingTodayList() {
 				posterList.appendChild(slide)
 			});
 		});
+
+		runReviewList()
 	});
 }
 
@@ -289,9 +291,8 @@ async function runCastTrendingTodayList() {
 
 async function runReviewList() {	
 	const apikey = await decryptString(ciphertext, iv, password);
-	let listReview = [];
 
-	const fetchAllReviews = () => {
+	const fetchAllReviewsMovie = () => {
 		return Promise.all(
 			listReviewMovieId.map(id =>
 				$.getJSON("https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=" + apikey)
@@ -302,44 +303,57 @@ async function runReviewList() {
 		);
 	};
 
-	fetchAllReviews().then(() => {
-		const takeOnly = listReview
-					.sort(() => Math.random() - 0.5)
-					.slice(0, 10);
-					
-		takeOnly.forEach(function(data) {
-			const imageUrl = data.author_details.avatar_path == null
-				? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
-				: baseImageLoad + data.author_details.avatar_path;
-			
-			const $li = $('<li>').addClass('bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4');
-
-			const $img = $('<img>')
-			.attr('src', imageUrl)
-			.attr('alt', 'Reviewer Photo')
-			.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
-
-			const $content = $('<div>').addClass('flex-1 w-full');
-
-			const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
-			.text(data.author_details.name + " (@" + data.author_details.username + ")");
-
-			const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
-			.text("Reviewed at " + convertIsoString(data.updated_at));
-
-			const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
-			.text(truncateLongTitle(data.content, 150));
-
-			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-3');
-			$stars.append(
-				$('<span>').text('⭐'),
-				$('<span>').text(data.author_details.rating ?? 'N/A')
+	fetchAllReviewsMovie().then(() => {
+		const fetchAllReviewsTvShow = () => {
+			return Promise.all(
+				listReviewTvShowId.map(id =>
+					$.getJSON("https://api.themoviedb.org/3/tv/" + id + "/reviews?api_key=" + apikey)
+						.then(data => {
+							data.results.forEach(item => listReview.push(item));
+						})
+				)
 			);
+		};
 
-			$content.append($title, $release, $review, $stars);
-			$li.append($img, $content);
+		fetchAllReviewsTvShow().then(() => {
+			const takeOnly = listReview
+						.sort(() => Math.random() - 0.5)
+						.slice(0, 10);
+						
+			takeOnly.forEach(function(data) {
+				const imageUrl = data.author_details.avatar_path == null
+					? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
+					: baseImageLoad + data.author_details.avatar_path;
+				
+				const $li = $('<li>').addClass('bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4');
 
-			$('#item-reviews-trending-today').append($li);
+				const $img = $('<img>')
+				.attr('src', imageUrl)
+				.attr('alt', 'Reviewer Photo')
+				.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
+
+				const $content = $('<div>').addClass('flex-1 w-full');
+
+				const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
+				.text(data.author_details.name + " (@" + data.author_details.username + ")");
+
+				const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
+				.text("Reviewed at " + convertIsoString(data.updated_at));
+
+				const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
+				.html(truncateLongTitle(data.content, 150));
+
+				const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
+				$stars.append(
+					$('<span>').text('⭐'),
+					$('<span>').text(data.author_details.rating+"/10" ?? 'N/A')
+				);
+
+				$content.append($title, $release, $review, $stars);
+				$li.append($img, $content);
+
+				$('#item-reviews-trending-today').append($li);
+			});
 		});
 	});
 }
