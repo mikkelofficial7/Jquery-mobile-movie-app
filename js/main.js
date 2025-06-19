@@ -228,28 +228,48 @@ async function runMovieTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "movie");
 
+				// Background overlay
+				const img_bg = document.createElement("img");
+				img_bg.className = "absolute inset-0 w-full h-full object-cover rounded z-0";
+				img_bg.src = imageUrl;
+				img_bg.alt = `${data.poster_path} Logo`;
+
+				const overlay = document.createElement("div");
+				overlay.className = "absolute inset-0 bg-black bg-opacity-50 rounded z-10";
+
+				const background = document.createElement("div");
+				background.className = "absolute inset-0 rounded overflow-hidden";
+				background.appendChild(img_bg);
+				background.appendChild(overlay);
+
+				slide.appendChild(background);
+
+				// Anchor tag
 				const a = document.createElement("a");
 				a.href = "#item-detail";
+				a.className = "relative z-10 flex items-center justify-center";
 
+				// Centered and sized image
 				const img = document.createElement("img");
-				img.className = "w-full h-full object-cover";
+				img.className = "w-[100px] h-[150px] object-cover rounded";
 				img.src = imageUrl;
 				img.alt = `${data.poster_path} Logo`;
 
 				a.appendChild(img);
 
+				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
 				caption.textContent = data.title || "Movie Title";
 
+				// Append elements
 				slide.appendChild(caption);
 				slide.appendChild(a);
-
-				posterList.appendChild(slide)
+				posterList.appendChild(slide);
 			});
 		});
 
@@ -272,28 +292,48 @@ async function runTvTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-tv-movie relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "tv");
 
+				// Background overlay
+				const img_bg = document.createElement("img");
+				img_bg.className = "absolute inset-0 w-full h-full object-cover rounded z-0";
+				img_bg.src = imageUrl;
+				img_bg.alt = `${data.poster_path} Logo`;
+
+				const overlay = document.createElement("div");
+				overlay.className = "absolute inset-0 bg-black bg-opacity-50 rounded z-10";
+
+				const background = document.createElement("div");
+				background.className = "absolute inset-0 rounded overflow-hidden";
+				background.appendChild(img_bg);
+				background.appendChild(overlay);
+
+				slide.appendChild(background);
+
+				// Anchor tag
 				const a = document.createElement("a");
 				a.href = "#item-detail";
+				a.className = "relative z-10 flex items-center justify-center";
 
+				// Centered and sized image
 				const img = document.createElement("img");
-				img.className = "w-full h-full object-cover";
+				img.className = "w-[100px] h-[150px] object-cover rounded";
 				img.src = imageUrl;
 				img.alt = `${data.poster_path} Logo`;
 
 				a.appendChild(img);
 
+				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
-				caption.textContent = data.name || "TV Title";
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
+				caption.textContent = data.name || "TV Show Title";
 
+				// Append elements
 				slide.appendChild(caption);
 				slide.appendChild(a);
-
-				posterList.appendChild(slide)
+				posterList.appendChild(slide);
 			});
 		});
 
@@ -314,28 +354,48 @@ async function runCastTrendingTodayList() {
 						: baseImageLoad + data.profile_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-cast relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "cast");
 
-				const a = document.createElement("a");
-				a.href = "#item-cast";
+				// Background overlay
+				const img_bg = document.createElement("img");
+				img_bg.className = "absolute inset-0 w-full h-full object-cover rounded z-0";
+				img_bg.src = imageUrl;
+				img_bg.alt = `${data.poster_path} Logo`;
 
+				const overlay = document.createElement("div");
+				overlay.className = "absolute inset-0 bg-black bg-opacity-50 rounded z-10";
+
+				const background = document.createElement("div");
+				background.className = "absolute inset-0 rounded overflow-hidden";
+				background.appendChild(img_bg);
+				background.appendChild(overlay);
+
+				slide.appendChild(background);
+
+				// Anchor tag
+				const a = document.createElement("a");
+				a.href = "#item-detail";
+				a.className = "relative z-10 flex items-center justify-center";
+
+				// Centered and sized image
 				const img = document.createElement("img");
-				img.className = "w-full h-full object-cover";
+				img.className = "w-[100px] h-[150px] object-cover rounded";
 				img.src = imageUrl;
 				img.alt = `${data.poster_path} Logo`;
 
 				a.appendChild(img);
 
+				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
-				caption.textContent = data.name || "TV Title";
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
+				caption.textContent = data.name || "Cast Name";
 
+				// Append elements
 				slide.appendChild(caption);
 				slide.appendChild(a);
-
-				posterList.appendChild(slide)
+				posterList.appendChild(slide);
 			});
 		});
 	});
