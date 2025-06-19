@@ -178,7 +178,8 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>TV Show - Now</h1>
     </div>
-    <div data-role="content">
+    <div id="search-bg" class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
+    <div data-role="content" class="flex justify-center backdrop-blur-sm">
         <ul id = "tvListNowPlaying">
         </ul>
     </div>
@@ -227,7 +228,6 @@
         <h1>Find Your Movie or TV Show</h1>
     </div>
     <div id="search-bg" class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
-    
     <div data-role="content" class="relative min-h-screen overflow-hidden">
       <div class="relative z-10 flex justify-center w-full opacity-100">
         <div id="layout-search" class="flex w-full justify-center max-w-5xl rounded-lg overflow-hidden ms-4 me-4 mt-10 mb-5 border border-gray-300 backdrop-blur-sm bg-white/70">
@@ -265,8 +265,7 @@
     <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
         <h1>Find By Movie/TV Show Genre</h1>
     </div>
-     <div id="search-genre-bg" class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
-
+    <div id="search-bg" class="fixed top-0 left-0 w-full h-screen bg-[url('search.png')] bg-cover bg-center opacity-40 z-0 pointer-events-none"></div>
     <div data-role="content" class="relative min-h-screen overflow-hidden">
         <div class="flex justify-center w-full">
           <div class="w-full max-w-5xl rounded-lg overflow-hidden p-4 mx-4 mt-5">
