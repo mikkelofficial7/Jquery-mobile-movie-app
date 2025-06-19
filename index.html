@@ -356,10 +356,12 @@
                   </ul>
                 </div>
                 <div id ="load-more-reviews" class="mt-5 mb-5">
-                  <button id="btn-load-more-review"
+                  <a href = "#item-all-review">
+                    <button id="btn-load-more-review"
                       class="w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] text-[#f8f8ff] text-white py-3 rounded-lg text-center font-semibold hover:bg-blue-700 transition-all duration-300"
-                      data-role="none"> See More Reviews
-                  </button>
+                      data-role="none">See More Reviews
+                    </button>
+                  </a>
                 </div>
               </div>
 
@@ -464,6 +466,27 @@
         </div>
     </div>
   </div>
+
+  <!-- Review page -->
+  <div data-role="page" id="item-all-review" data-url="item-all-review" data-title="MoviSnap | Movie Review" data-theme="b" class="pages" data-original="true" data-dom-cache="true">
+    <div data-role="header" data-theme="b"> <a href="#" class="showMenu" data-role="button" data-icon="grid" data-iconpos="notext">Menu</a>
+        <h1>Review Page</h1>
+    </div>
+    <div data-role="content" class="p-4 space-y-6">
+      <div class="relative w-full h-64 sm:h-96 rounded-xl overflow-hidden shadow-lg">
+        <img id="review-movie-poster-bg" alt="Movie Poster" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end">
+          <img id="review-movie-poster" alt="Movie Poster" class="w-full h-full object-cover max-w-[250px]">
+          <h2 id="review-movie-title" class="text-white text-2xl sm:text-3xl font-bold p-4">N/A</h2>
+        </div>
+      </div>
+      <div class="w-full h-full relative mx-auto overflow-hidden rounded-xl flex-1">
+        <ul id="review-list" class="space-y-4 h-full overflow-y-auto pr-2" data-role="none">
+        </ul>
+      </div>
+    </div>
+  </div>
+
 
   <script type="text/javascript">
   	$(function(){

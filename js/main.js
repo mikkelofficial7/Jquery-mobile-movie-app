@@ -151,6 +151,27 @@ $(document).ready(function(){
 		var currentActiveDetailId = $(this).attr("data-slug");		
 		runDetailCastData(currentActiveDetailId);
 	});
+
+	$(document).on("click", "#btn-load-more-review", function () {
+		var id = $(this).attr("data-slug");
+		var displayType = $(this).attr("data-ref");
+		var itemPoster = $(this).attr("data-image");
+		var title = $(this).attr("data-title-name");
+
+		const imageUrl = itemPoster == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + itemPoster;
+
+		console.log(title);
+
+		$("#review-movie-title").text(title);
+		$("#review-movie-poster").attr("src", imageUrl);
+		$("#review-movie-poster-bg").attr("src", imageUrl);
+		
+		runReviewList([id], displayType, "#review-list", 50, 1000, (listReview) => {
+			// add load more
+		})
+	});
 });
 
 async function runAllLanguageProvided() {
@@ -342,7 +363,7 @@ async function runReviewList(listOfId, displayType, parentList, maxItem = 10, ma
 				$('<span>').text(data.author_details.rating+"/10" ?? 'N/A')
 			);
 
-			$content.append($title, $release, $review, $stars);
+			$content.append($title, $stars, $release, $review);
 			$li.append($img, $content);
 
 			$(parentList).append($li);
@@ -1022,6 +1043,11 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 			document.getElementById("item-rating-age").textContent = "All Ages";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
+
+		$("#btn-load-more-review").attr("data-ref", "movie");
+		$("#btn-load-more-review").attr("data-slug", movieId);
+		$("#btn-load-more-review").attr("data-image", data.poster_path);		
+		$("#btn-load-more-review").attr("data-title-name", data.title);
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
@@ -1041,6 +1067,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 	});
 
 	$("#item-reviews").html("");
+	
 	runReviewList([movieId], "movie", "#item-reviews", 3, 250, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
@@ -1289,6 +1316,11 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 			document.getElementById("item-rating-age").textContent = "All Ages";
 			document.getElementById("item-rating-age").className = "inline-block px-3 py-1 bg-green-600 text-[#f8f8ff] text-xs font-bold rounded-full";
 		}
+
+		$("#btn-load-more-review").attr("data-ref", "tv");
+		$("#btn-load-more-review").attr("data-slug", tvShowId);
+		$("#btn-load-more-review").attr("data-image", data.poster_path);
+		$("#btn-load-more-review").attr("data-title-name", data.name);
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/external_ids?api_key="+apikey, function(dataId) {
@@ -1307,6 +1339,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	});
 
 	$("#item-reviews").html("");
+
 	runReviewList([tvShowId], "tv", "#item-reviews", 3, 250, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
