@@ -355,7 +355,7 @@ async function runReviewList(listOfId = [], displayType = "", parentList = "", p
 
 	fetchAllReviews().then(() => {
 		if (listReview.length < 1 && page < 2) {
-			$(parentList).html("N/A");
+			$(parentList).html("No Reviews");
 		}
 
 		const takeOnly = listReview
@@ -388,7 +388,7 @@ async function runReviewList(listOfId = [], displayType = "", parentList = "", p
 			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
 			$stars.append(
 				$('<span>').text('⭐'),
-				$('<span>').text(data.author_details.rating+"/10" ?? 'N/A')
+				$('<span>').text(data.author_details.rating+"/10" ?? 'No Rating')
 			);
 
 			$content.append($title, $stars, $release, $review);
@@ -1129,7 +1129,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	$("#item-reviews-title").text("What they said about this TV show?");
 
 	$("#item-images-alternate").on("click", "li", function () {
-		const index = $(this).index(); // Get the index of clicked <li>
+		const index = $(this).index();
 		if (backdropImages[index]) {
 			const selectedPath = backdropImages[index].file_path;
 			const imageUrl = selectedPath
