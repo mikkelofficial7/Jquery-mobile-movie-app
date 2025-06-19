@@ -253,7 +253,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1, 1000, 5000, false)
+		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1, 10, 250, false)
 	});
 }
 
@@ -297,7 +297,7 @@ async function runTvTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1, 1000, 5000, false)
+		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1, 10, 250, false)
 	});
 }
 
