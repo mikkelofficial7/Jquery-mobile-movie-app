@@ -1,5 +1,7 @@
 let isLocalEnv = false;
 var availableLanguage = [];
+var listReviewMovieId = [];
+var listReviewTvShowId = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
 const scrollAmount = 320;
@@ -22,10 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 $(document).ready(function(){
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
+	autoScroll("item-cast-trending-today")
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
 	runTvTrendingTodayList()
+	runCastTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
 
@@ -161,6 +165,8 @@ async function runMovieTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
+		listReviewMovieId = data.results.map(item => item.id);
+
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-movie-trending-today");
 
@@ -194,6 +200,8 @@ async function runMovieTrendingTodayList() {
 				posterList.appendChild(slide)
 			});
 		});
+
+		runReviewList()
 	});
 }
 
@@ -201,6 +209,8 @@ async function runTvTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 
 	$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
+		listReviewTvShowId = data.results.map(item => item.id);
+
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-tv-trending-today");
 
@@ -233,6 +243,103 @@ async function runTvTrendingTodayList() {
 
 				posterList.appendChild(slide)
 			});
+		});
+	});
+}
+
+async function runCastTrendingTodayList() {
+	const apikey = await decryptString(ciphertext, iv, password);
+
+	$.getJSON("https://api.themoviedb.org/3/trending/person/day?api_key="+apikey, function(data){
+		$.each(data.results, function(){	
+			const posterList = document.querySelector("#item-cast-trending-today");
+
+			data.results.forEach(data => {
+				const imageUrl = data.profile_path == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + data.profile_path;
+				
+				const slide = document.createElement("div");
+				slide.className = "list-cast relative w-1/3 flex-shrink-0 max-h-80 overflow-hidden";
+				slide.setAttribute("data-slug", data.id);
+				slide.setAttribute("data-ref", "cast");
+
+				const a = document.createElement("a");
+				a.href = "#item-cast";
+
+				const img = document.createElement("img");
+				img.className = "w-full h-full object-cover";
+				img.src = imageUrl;
+				img.alt = `${data.poster_path} Logo`;
+
+				a.appendChild(img);
+
+				const caption = document.createElement("p");
+				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-10 no-text-shadow";
+				caption.textContent = data.name || "TV Title";
+
+				slide.appendChild(caption);
+				slide.appendChild(a);
+
+				posterList.appendChild(slide)
+			});
+		});
+	});
+}
+
+async function runReviewList() {	
+	const apikey = await decryptString(ciphertext, iv, password);
+	let listReview = [];
+
+	const fetchAllReviews = () => {
+		return Promise.all(
+			listReviewMovieId.map(id =>
+				$.getJSON("https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=" + apikey)
+					.then(data => {
+						data.results.forEach(item => listReview.push(item));
+					})
+			)
+		);
+	};
+
+	fetchAllReviews().then(() => {
+		const takeOnly = listReview
+					.sort(() => Math.random() - 0.5)
+					.slice(0, 10);
+					
+		takeOnly.forEach(function(data) {
+			const imageUrl = data.author_details.avatar_path == null
+				? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
+				: baseImageLoad + data.author_details.avatar_path;
+			
+			const $li = $('<li>').addClass('bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4');
+
+			const $img = $('<img>')
+			.attr('src', imageUrl)
+			.attr('alt', 'Reviewer Photo')
+			.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
+
+			const $content = $('<div>').addClass('flex-1 w-full');
+
+			const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
+			.text(data.author_details.name + " (@" + data.author_details.username + ")");
+
+			const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
+			.text("Reviewed at " + convertIsoString(data.updated_at));
+
+			const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
+			.text(truncateLongTitle(data.content, 150));
+
+			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-3');
+			$stars.append(
+				$('<span>').text('⭐'),
+				$('<span>').text(data.author_details.rating ?? 'N/A')
+			);
+
+			$content.append($title, $release, $review, $stars);
+			$li.append($img, $content);
+
+			$('#item-reviews-trending-today').append($li);
 		});
 	});
 }
@@ -801,7 +908,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 					: baseImageLoad + data.poster_path;
 
 		document.getElementById("item-title").textContent = data.title;
-		document.getElementById("item-release").textContent = data.release_date;
+		document.getElementById("item-release").textContent = convertDate(data.release_date);
 		document.getElementById("item-rating").textContent = `${Number(data.vote_average.toFixed(1))}/10`;
 		document.getElementById("item-poster").src = imageUrl;
 
@@ -916,7 +1023,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 						: baseImageLoad + data.movie_results[0].poster_path;
 
 				document.getElementById("item-title").textContent = data.movie_results[0].title;
-				document.getElementById("item-release").textContent = data.movie_results[0].release_date;
+				document.getElementById("item-release").textContent = convertDate(data.movie_results[0].release_date);
 				document.getElementById("item-rating").textContent = `${Number(data.movie_results[0].vote_average.toFixed(1))}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 				document.getElementById("item-bg").src = imageUrl;
@@ -1046,7 +1153,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 						: baseImageLoad + data.poster_path;
 
 		document.getElementById("item-title").textContent = data.name;
-		document.getElementById("item-release").textContent = data.first_air_date;
+		document.getElementById("item-release").textContent = convertDate(data.first_air_date);
 		document.getElementById("item-rating").textContent = `${Number(data.vote_average.toFixed(1))}/10`;
 		document.getElementById("item-poster").src = imageUrl;
 
@@ -1173,7 +1280,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 						: baseImageLoad + data.tv_results[0].poster_path;
 
 				document.getElementById("item-title").textContent = data.tv_results[0].name;
-				document.getElementById("item-release").textContent = data.tv_results[0].first_air_date;
+				document.getElementById("item-release").textContent = convertDate(data.tv_results[0].first_air_date);
 				document.getElementById("item-rating").textContent = `${Number(data.tv_results[0].vote_average.toFixed(1))}/10`;
 				document.getElementById("item-poster").src = imageUrl;
 			});
@@ -1324,6 +1431,28 @@ function getBaseUrl() {
 	} else {
 		return baseUrl;
 	}
+}
+
+function convertIsoString(isoString) {
+	const date = new Date(isoString);
+
+	const options = { day: '2-digit', month: 'short', year: 'numeric' };
+	const formattedDate = date.toLocaleDateString('en-GB', options);
+	const forrmattedTime = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+	return formattedDate+" "+forrmattedTime;
+}
+
+function convertDate(input) {
+	const date = new Date(input);
+
+	const formatted = date.toLocaleDateString('en-GB', {
+		day: '2-digit',
+		month: 'short',
+		year: 'numeric'
+	});
+
+	return formatted
 }
 
 function autoScroll(parentName, pixelPerFrame = 1) {
