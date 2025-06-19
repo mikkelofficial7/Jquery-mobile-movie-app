@@ -672,7 +672,6 @@ async function runMovieGenreList() {
 				$.each(data.results, function(index, item){
 					createItemElementMovieTvShow("GenreListSearch", item, "movie");
 				});
-				$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -734,7 +733,6 @@ async function runTvGenreList() {
 					createItemElementMovieTvShow("GenreListSearch", item, "tv")
 				});
 
-				$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 				if (data.results.length < 1 && currentPage < 2) {
 					$("#GenreListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 					$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
