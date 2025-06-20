@@ -152,18 +152,16 @@ body
 {
 	width: 400px;
 }
-.item-click-genre {
+#externalLink, #externalLinkCast, #goToRealPage, #today-trending-movie, #today-trending-tv, #today-trending-cast, #copyLink, 
+.item-click-genre, .item-genre-tv-movie, .item-genre-tv-movie-unknown {
 	cursor: pointer;
 }
-.item-click-genre-active {
-	background: linear-gradient(to bottom, #0d4074, #0a3058) !important;
-}
-.item-click-genre:hover, #movie-find-more:hover, #tv-find-more:hover {
+.item-click-genre:hover, #movie-find-more:hover, #tv-find-more:hover, .item-genre-tv-movie:hover, .item-genre-tv-movie-unknown:hover {
 	cursor: pointer;
 	transform: scale(1.08);
 }
-#externalLink, #externalLinkCast, #goToRealPage, #today-trending-movie, #today-trending-tv, #today-trending-cast, #copyLink {
-	cursor: pointer;
+.item-click-genre-active {
+	background: linear-gradient(to bottom, #0d4074, #0a3058) !important;
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;

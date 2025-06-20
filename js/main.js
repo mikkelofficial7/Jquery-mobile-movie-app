@@ -952,22 +952,20 @@ function truncateLongTitle(title, maxLength) {
 }
 
 function setGenresAndOverview(data) {
-	// Set Overview
 	document.getElementById("item-overview").textContent = data.overview.length < 1 ? "No overview is available" : data.overview;
 
-	// Set Genres
 	const genreContainer = document.getElementById("genre-tags");
-	genreContainer.innerHTML = ""; // Clear old tags
+	genreContainer.innerHTML = "";
 
 	if (data.genres < 1) {
 		const span = document.createElement("span");
-		span.className = "px-4 py-1 bg-red-600 hover:bg-red-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
+		span.className = "px-4 py-1 bg-[#fc0404] hover:bg-[#cb0606] text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all item-genre-tv-movie-unknown";
 		span.textContent = "Unknown genre";
 		genreContainer.appendChild(span);
 	} else {
 		data.genres.forEach(genre => {
 			const span = document.createElement("span");
-			span.className = "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-[#f8f8ff] font-medium rounded-full text-xs shadow transition-all";
+			span.className = "px-4 py-1 bg-[#6facd5] hover:bg-[#456f9a] text-[#121212] font-medium rounded-full text-xs shadow transition-all item-genre-tv-movie";
 			span.textContent = genre.name;
 			genreContainer.appendChild(span);
 		});
