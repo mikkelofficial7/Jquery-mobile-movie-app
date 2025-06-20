@@ -106,7 +106,7 @@ $(document).ready(function(){
 		if (keyword != "") {
 			runSearchList(currentPageSearch, keyword)
 		} else {
-			alert("keyword cannot be empty!")
+			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
 		}
 	});
 
@@ -117,7 +117,7 @@ $(document).ready(function(){
 		if (keyword != "") {
 			runSearchList(currentPageSearch, keyword)
 		} else {
-			alert("keyword cannot be empty!")
+			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
 		}
 	});
 
@@ -215,7 +215,7 @@ async function runAllLanguageProvided() {
 	});
 }
 
-async function runMovieTrendingTodayList() {
+async function runMovieTrendingTodayList() {	
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
@@ -348,6 +348,8 @@ async function runTvTrendingTodayList() {
 				posterList.appendChild(slide);
 			});
 		});
+
+		runReviewListHome(listReviewTvShowData, "tv", 1)
 	});
 }
 
@@ -456,8 +458,6 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 		const takeOnly = listReview
 					.sort()
 					.slice(0, 20);
-
-		$("#item-reviews-trending-today").html("");
 		
 		takeOnly.forEach(itemReviews => {
 			const imageUrl = itemReviews.poster_path == null
@@ -465,7 +465,7 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 			: baseImageLoad + itemReviews.poster_path;
 
 			const container = document.createElement("div");
-			container.className = "relative h-[300px] w-[420px] rounded-xl m-2 shrink-0";
+			container.className = "relative h-[300px] w-[380px] rounded-xl m-2 shrink-0";
 
 			const image_bg = document.createElement("img");
 			image_bg.src = imageUrl;
@@ -1685,10 +1685,9 @@ function createItemElementMovieTvShow(parentName, item, displayType, hrefDestina
 	img.src = imageUrl;
 	link.appendChild(img);
 
-	// Optional "Adult" badge overlay
 	if (item["adult"]) {
 		const badge = document.createElement("span");
-		badge.textContent = "Adult";
+		badge.textContent = "17+";
 		badge.className = "absolute top-2 left-2 bg-red-600 text-[#f8f8ff] text-xs font-bold px-2 py-1 rounded";
 		link.appendChild(badge);
 	}
