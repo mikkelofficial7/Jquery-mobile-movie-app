@@ -227,6 +227,7 @@ async function runMovieTrendingTodayList() {
 
 		$.each(data.results, function() {	
 			const posterList = document.querySelector("#item-movie-trending-today");
+			posterList.innerHTML = "";
 
 			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
@@ -295,6 +296,7 @@ async function runTvTrendingTodayList() {
 
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-tv-trending-today");
+			posterList.innerHTML = "";
 
 			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
@@ -357,6 +359,7 @@ async function runCastTrendingTodayList() {
 	$.getJSON("https://api.themoviedb.org/3/trending/person/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-cast-trending-today");
+			posterList.innerHTML = "";
 
 			data.results.forEach(data => {
 				const imageUrl = data.profile_path == null
@@ -456,6 +459,8 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 					.sort()
 					.slice(0, 20);
 
+		$("#item-reviews-trending-today").html("");
+		
 		takeOnly.forEach(itemReviews => {
 			const imageUrl = itemReviews.poster_path == null
 			? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
