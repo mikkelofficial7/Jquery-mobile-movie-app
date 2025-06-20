@@ -752,7 +752,7 @@ async function runSearchList(currentPage, keyword) {
 
 	if (isTvNotFound && isMovieNotFound) {
 		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-		$("#movieListSearch").append("<li class='flex justify-center'>Data not found</li>");
+		createElementDataNotFound("#movieListSearch")
 	}
 
 	if (totalMovieFound.length > 0 || totalTvFound.length > 0) {
@@ -908,9 +908,9 @@ async function populateItemGenre() {
 		const li = document.createElement("li");
 
 		if (selectedMovieGenreId.includes(this['id'])) {
-			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] item-click-genre-active";
 		} else {
-			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] item-click-genre";
 		}
 
 		li.setAttribute("data-genre-id", this['id']);
@@ -925,9 +925,9 @@ async function populateItemGenre() {
 		const li = document.createElement("li");
 
 		if (selectedTvGenreId.includes(this['id'])) {
-			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre-active";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] item-click-genre-active";
 		} else {
-			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] no-text-shadow item-click-genre";
+			li.className = "bg-gradient-to-b from-[#5e87b0] to-[#355f89] px-4 py-2 rounded-[30px] text-[#f8f8ff] item-click-genre";
 		}
 
 		li.setAttribute("data-genre-id", this['id']);
@@ -1734,6 +1734,43 @@ function createItemElementCast(item, displayType, hrefDestination = "#item-cast"
 	$li.append($a, "<br>", $title, $character);
 
 	$("#item-casts").append($li);
+}
+
+function createElementDataNotFound(parentName) {
+	const container = document.querySelector(parentName);
+	container.innerHTML = "";
+
+	const wrapper = document.createElement("div");
+	wrapper.className = "flex flex-col items-center justify-center text-center py-12";
+
+	// Create SVG
+	const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	svg.setAttribute("class", "w-16 h-16 text-[#121212] mb-4");
+	svg.setAttribute("fill", "none");
+	svg.setAttribute("stroke", "currentColor");
+	svg.setAttribute("stroke-width", "1.5");
+	svg.setAttribute("viewBox", "0 0 24 24");
+
+	const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	path.setAttribute("stroke-linecap", "round");
+	path.setAttribute("stroke-linejoin", "round");
+	path.setAttribute("d", "M12 14v2m0-6.75V12m9 0a9 9 0 11-18 0 9 9 0 0118 0z");
+
+	svg.appendChild(path);
+
+	const heading = document.createElement("h2");
+	heading.className = "text-lg font-semibold text-[#121212]";
+	heading.textContent = "No Data Found";
+
+	const paragraph = document.createElement("p");
+	paragraph.className = "text-sm text-[#121212]";
+	paragraph.textContent = "We couldn’t find what you’re looking for.";
+
+	wrapper.appendChild(svg);
+	wrapper.appendChild(heading);
+	wrapper.appendChild(paragraph);
+
+	container.appendChild(wrapper);
 }
 
 function getExternalDetailPageUrl(type, id) {
