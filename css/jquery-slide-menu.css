@@ -1,3 +1,6 @@
+html, body {
+	overscroll-behavior: none; /* For modern browsers */
+}
 body
 {
 	background-color: #999;
