@@ -235,7 +235,7 @@ async function runMovieTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
+				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center shadow-lg";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "movie");
 
@@ -304,7 +304,7 @@ async function runTvTrendingTodayList() {
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
+				slide.className = "list-tv-movie relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center shadow-lg";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "tv");
 
@@ -367,7 +367,7 @@ async function runCastTrendingTodayList() {
 						: baseImageLoad + data.profile_path;
 				
 				const slide = document.createElement("div");
-				slide.className = "list-cast relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center";
+				slide.className = "list-cast relative w-1/3 h-[200px] flex-shrink-0 overflow-hidden flex items-center justify-center shadow-lg";
 				slide.setAttribute("data-slug", data.id);
 				slide.setAttribute("data-ref", "cast");
 
