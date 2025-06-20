@@ -160,6 +160,30 @@ $(document).ready(function(){
 	});
 
 	// LOAD MORE REVIEW
+	$(document).on("click", ".btn-review-home", function () {
+		currentPageReview = 1;
+
+		var id = $(this).attr("data-slug");
+		var displayType = $(this).attr("data-ref");
+		var itemPoster = $(this).attr("data-image");
+		var title = $(this).attr("data-title-name");
+
+		const imageUrl = itemPoster == null
+						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						: baseImageLoad + itemPoster;
+
+		$("#review-movie-title").text(title);
+		$("#review-movie-poster").attr("src", imageUrl);
+		$("#review-movie-poster-bg").attr("src", imageUrl);
+
+		$("#btn-load-more-all-review").attr("data-ref", displayType);
+		$("#btn-load-more-all-review").attr("data-slug", id);
+		
+		$("#review-list").html("");
+		$("#load-more-all-review").removeClass("hidden");
+		runReviewList(id, displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {})
+	});
+
 	$(document).on("click", "#btn-load-more-review", function () {
 		currentPageReview = 1;
 
@@ -465,7 +489,11 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 			: baseImageLoad + itemReviews.poster_path;
 
 			const container = document.createElement("div");
-			container.className = "relative h-[300px] w-[380px] rounded-xl m-2 shrink-0";
+			container.className = "relative h-[300px] w-[380px] rounded-xl m-2 shrink-0 btn-review-home";
+			container.setAttribute("data-slug", itemReviews.id)
+			container.setAttribute("data-ref", displayType)
+			container.setAttribute("data-image", itemReviews.poster_path)
+			container.setAttribute("data-title-name", itemReviews.name)
 
 			const image_bg = document.createElement("img");
 			image_bg.src = imageUrl;
@@ -480,7 +508,11 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 			image.src = imageUrl;
 			image.className = "w-full h-full object-cover rounded shadow-lg";
 
-			imageWrapper.appendChild(image);
+			const a = document.createElement("a");
+			a.href = "#item-all-review";
+			a.appendChild(image);
+
+			imageWrapper.appendChild(a);
 			container.appendChild(imageWrapper);
 
 			container.appendChild(createReviewBox("top-[70px] w-[150px] left-[10px] z-20 shadow-lg", itemReviews.reviews[0].author_details.username, itemReviews.name, itemReviews.reviews[0].author_details.rating));
