@@ -1,7 +1,7 @@
 let isLocalEnv = false;
 var availableLanguage = [];
-var listReviewMovieId = [];
-var listReviewTvShowId = [];
+var listReviewMovieData = [];
+var listReviewTvShowData = [];
 const castGender = ["Not Set", "Female", "Male", "Non Binary"];
 
 const scrollAmount = 320;
@@ -26,6 +26,7 @@ $(document).ready(function(){
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")
+	autoScroll("item-reviews-trending-today")
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
@@ -33,6 +34,7 @@ $(document).ready(function(){
 	runCastTrendingTodayList()
 	runMovieGenreList()
 	runTvGenreList()
+
 	runDetailMovieData()
 	runDetailTvShowData()
 	runDetailCastData()
@@ -179,7 +181,7 @@ $(document).ready(function(){
 		
 		$("#review-list").html("");
 		$("#load-more-all-review").removeClass("hidden");
-		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {})
+		runReviewList(id, displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {})
 	});
 
 	$(document).on("click", "#btn-load-more-all-review", function () {
@@ -187,7 +189,7 @@ $(document).ready(function(){
 		var id = $(this).attr("data-slug");
 		var displayType = $(this).attr("data-ref");
 
-		runReviewList([id], displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {
+		runReviewList(id, displayType, "#review-list", currentPageReview, 50, 250, true, (listReview) => {
 			if (listReview.length < 1) {
 				$("#load-more-all-review").addClass("hidden");
 			} else {
@@ -217,7 +219,11 @@ async function runMovieTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
-		listReviewMovieId = data.results.map(item => item.id);
+		listReviewMovieData = data.results.map(item => ({
+			id: item.id,
+			name: item.title,
+			poster_path: item.poster_path
+		}));
 
 		$.each(data.results, function() {	
 			const posterList = document.querySelector("#item-movie-trending-today");
@@ -263,7 +269,7 @@ async function runMovieTrendingTodayList() {
 
 				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
+				caption.className = "absolute bottom-2 left-2 text-[#f8f8ff] text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
 				caption.textContent = data.title || "Movie Title";
 
 				// Append elements
@@ -273,7 +279,7 @@ async function runMovieTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewMovieId, "movie", "#item-reviews-trending-today", 1, 10, 250, false)
+		runReviewListHome(listReviewMovieData, "movie", 1)
 	});
 }
 
@@ -281,7 +287,11 @@ async function runTvTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 
 	$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
-		listReviewTvShowId = data.results.map(item => item.id);
+		listReviewTvShowData = data.results.map(item => ({
+			id: item.id,
+			name: item.name,
+			poster_path: item.poster_path
+		}));
 
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-tv-trending-today");
@@ -327,7 +337,7 @@ async function runTvTrendingTodayList() {
 
 				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
+				caption.className = "absolute bottom-2 left-2 text-[#f8f8ff] text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
 				caption.textContent = data.name || "TV Show Title";
 
 				// Append elements
@@ -337,7 +347,7 @@ async function runTvTrendingTodayList() {
 			});
 		});
 
-		runReviewList(listReviewTvShowId, "tv", "#item-reviews-trending-today", 1, 10, 250, false)
+		runReviewListHome(listReviewTvShowData, "tv", 1)
 	});
 }
 
@@ -389,7 +399,7 @@ async function runCastTrendingTodayList() {
 
 				// Caption
 				const caption = document.createElement("p");
-				caption.className = "absolute bottom-2 left-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
+				caption.className = "absolute bottom-2 left-2 text-[#f8f8ff] text-xs bg-black bg-opacity-60 px-2 py-1 rounded z-20";
 				caption.textContent = data.name || "Cast Name";
 
 				// Append elements
@@ -401,32 +411,124 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function runReviewList(listOfId = [], displayType = "", parentList = "", page = 1, maxItem = 10, maxCommentLength = 150, addReadMoreButton = false, onComplete = () => {}) {
-	if (listOfId.length < 1 && window.location.hash == "#item-all-review") {
+async function getMovieReviewApi(id, displayType, page, onComplete = () => {}) {
+  const apikey = await decryptString(ciphertext, iv, password);
+
+  return $.getJSON(`https://api.themoviedb.org/3/${displayType}/${id}/reviews?page=${page}&api_key=${apikey}`)
+    .then(data => {
+      	onComplete(data);
+      	return data;
+    });
+}
+
+async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
+	if (listOfData.length < 1 && window.location.hash == "#item-all-review") {
 		window.location.href = document.referrer;
 		return;
 	}
 
-	const apikey = await decryptString(ciphertext, iv, password);
 	let listReview = [];
 
-	const fetchAllReviews= () => {
-		return Promise.all(
-			listOfId.map(id =>
-				$.getJSON("https://api.themoviedb.org/3/"+displayType+"/" + id + "/reviews?page="+page+"&api_key=" + apikey)
-					.then(data => {
-						data.results.forEach(item => listReview.push(item));
-					})
-			)
-		);
+	const fetchAllReviews = () => {
+		const promises = listOfData.map(dataContent => {
+			return getMovieReviewApi(dataContent.id, displayType, page)
+			.then(data => {
+				if (data.results.length >= 2) {
+					const resultReview = {
+						id: dataContent.id,
+						name: dataContent.name,
+						poster_path: dataContent.poster_path,
+						reviews: data.results
+					}
+
+					listReview.push(resultReview);
+				}
+			});
+		});
+
+		return Promise.all(promises);
 	};
 
-	fetchAllReviews().then(() => {
-		if (listReview.length < 1 && page < 2) {
+	fetchAllReviews().then(() => {		
+		if (listReview.length < 1) return;
+
+		const takeOnly = listReview
+					.sort()
+					.slice(0, 20);
+
+		takeOnly.forEach(itemReviews => {
+			const imageUrl = itemReviews.poster_path == null
+			? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
+			: baseImageLoad + itemReviews.poster_path;
+
+			const container = document.createElement("div");
+			container.className = "relative h-[300px] w-[420px] rounded-xl m-2 shrink-0";
+
+			const image_bg = document.createElement("img");
+			image_bg.src = imageUrl;
+			image_bg.className = "w-full h-full object-cover rounded shadow-lg opacity-50 backdrop-blur-lg";
+
+			container.appendChild(image_bg);
+
+			const imageWrapper = document.createElement("div");
+			imageWrapper.className = "absolute top-[20px] left-[120px] w-[150px] h-[250px] flex justify-center items-center";
+
+			const image = document.createElement("img");
+			image.src = imageUrl;
+			image.className = "w-full h-full object-cover rounded shadow-lg";
+
+			imageWrapper.appendChild(image);
+			container.appendChild(imageWrapper);
+
+			container.appendChild(createReviewBox("top-[70px] w-[150px] left-[10px] z-20 shadow-lg", itemReviews.reviews[0].author_details.username, itemReviews.name, itemReviews.reviews[0].author_details.rating));
+			container.appendChild(createReviewBox("bottom-[70px] w-[150px] right-[10px] z-30 shadow-lg", itemReviews.reviews[1].author_details.username, itemReviews.name, itemReviews.reviews[1].author_details.rating));
+
+			$("#item-reviews-trending-today").append(container);
+		});
+	});
+
+	function createReviewBox(positionClasses, username, movieTitle, ratingStar) {
+		const wrapper = document.createElement("div");
+		wrapper.className = `absolute ${positionClasses} text-sm z-20 rounded-sm shadow`;
+
+		const card = document.createElement("div");
+		card.className = "max-w-sm p-2 bg-[#f8f8ff] rounded-xl shadow-md space-y-1";
+
+		const name = document.createElement("div");
+		name.className = "text-[10px] text-gray-500";
+		name.textContent = truncateLongTitle("@"+username, 15);
+
+		const title = document.createElement("div");
+		title.className = "text-[12px] font-semibold text-gray-800";
+		title.textContent = truncateLongTitle(movieTitle, 20);
+
+		const starContainer = document.createElement("div");
+		starContainer.className = "flex items-center space-x-1 text-[#121212]";
+
+		const starFull = "⭐";
+		starContainer.innerHTML = `${starFull} ${ratingStar}/10`;
+
+		card.appendChild(name);
+		card.appendChild(title);
+		card.appendChild(starContainer);
+
+		wrapper.appendChild(card);
+			return wrapper;
+	}
+}
+
+async function runReviewList(id = "", displayType = "", parentList = "", page = 1, maxItem = 10, maxCommentLength = 150, addReadMoreButton = false, onComplete = () => {}) {
+	if (id == "" && window.location.hash == "#item-all-review") {
+		window.location.href = document.referrer;
+		return;
+	}
+
+	getMovieReviewApi(id, displayType, page, (data) => {
+		if (data.results.length < 1 && page < 2) {
 			$(parentList).html("No Reviews");
 		}
 
-		createElementReviewBig(listReview, parentList, maxItem, maxCommentLength, addReadMoreButton);
+		createElementReviewList(data.results, parentList, maxItem, maxCommentLength, addReadMoreButton);
 		onComplete(listReview);
 	});
 }
@@ -1141,7 +1243,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 	
-	runReviewList([movieId], "movie", "#item-reviews", 1, 3, 150, true, (listReview) => {
+	runReviewList(movieId, "movie", "#item-reviews", 1, 3, 150, true, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
@@ -1418,7 +1520,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	$("#item-reviews").html("");
 
-	runReviewList([tvShowId], "tv", "#item-reviews", 1, 3, 150, true, (listReview) => {
+	runReviewList(tvShowId, "tv", "#item-reviews", 1, 3, 150, true, (listReview) => {
 		if (listReview.length < 3) {
 			$("#load-more-reviews").addClass("hidden")
 		} else {
@@ -1482,7 +1584,7 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 	});
 }
 
-function createElementReviewBig(listReview, parentList, maxItem, maxCommentLength, addReadMoreButton) {
+function createElementReviewList(listReview, parentList, maxItem, maxCommentLength, addReadMoreButton) {
 	const takeOnly = listReview
 					.sort(() => Math.random() - 0.5)
 					.slice(0, maxItem);
@@ -1492,7 +1594,7 @@ function createElementReviewBig(listReview, parentList, maxItem, maxCommentLengt
 			? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
 			: baseImageLoad + data.author_details.avatar_path;
 		
-		const $li = $('<li>').addClass('bg-white rounded-xl p-4 flex flex-col shadow sm:flex-row gap-4');
+		const $li = $('<li>').addClass('bg-[#f8f8ff] rounded-xl p-4 flex flex-col shadow sm:flex-row gap-4');
 
 		const $img = $('<img>')
 		.attr('src', imageUrl)
@@ -1532,6 +1634,24 @@ function createElementReviewBig(listReview, parentList, maxItem, maxCommentLengt
 	});
 }
 
+function createElementReviewHome() {
+	const container = document.createElement("div");
+	container.addClass("relative w-full h-64 bg-gray-100");
+
+	const items = [
+		{ text: "1", class: "absolute top-0 left-0 bg-red-500 text-[#f8f8ff] p-4 z-10" },
+		{ text: "2", class: "absolute top-8 left-8 bg-blue-500 text-[#f8f8ff] p-4 z-20" },
+		{ text: "3", class: "absolute top-16 left-16 bg-green-500 text-[#f8f8ff] p-4 z-30" }
+	];
+
+	items.forEach(item => {
+		const div = document.createElement("div");
+		div.className = item.class;
+		div.textContent = item.text;
+		container.appendChild(div);
+	});
+}
+
 function createItemElementMovieTvShow(parentName, item, displayType, hrefDestination = "#item-detail") {
 	const imageUrl = item['poster_path'] == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
@@ -1558,7 +1678,7 @@ function createItemElementMovieTvShow(parentName, item, displayType, hrefDestina
 	if (item["adult"]) {
 		const badge = document.createElement("span");
 		badge.textContent = "Adult";
-		badge.className = "absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded";
+		badge.className = "absolute top-2 left-2 bg-red-600 text-[#f8f8ff] text-xs font-bold px-2 py-1 rounded";
 		link.appendChild(badge);
 	}
 
