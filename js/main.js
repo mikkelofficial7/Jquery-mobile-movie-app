@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
-	autoScroll("item-movie-trending-today")
-	autoScroll("item-tv-trending-today")
-	autoScroll("item-cast-trending-today")
-	autoScroll("item-reviews-trending-today")
+	// autoScroll("item-movie-trending-today")
+	// autoScroll("item-tv-trending-today")
+	// autoScroll("item-cast-trending-today")
+	// autoScroll("item-reviews-trending-today")
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
@@ -348,8 +348,6 @@ async function runTvTrendingTodayList() {
 				posterList.appendChild(slide);
 			});
 		});
-
-		runReviewListHome(listReviewTvShowData, "tv", 1)
 	});
 }
 

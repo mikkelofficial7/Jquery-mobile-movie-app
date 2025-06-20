@@ -2,7 +2,9 @@ body
 {
 	background-color: #999;
 	font-family: Helvetica,Arial,sans-serif !important;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+.ui-body-c, .ui-overlay-c, .ui-body-b, .ui-overlay-b {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 .text-#f8f8ff {
 	color: #f8f8ff !important;
