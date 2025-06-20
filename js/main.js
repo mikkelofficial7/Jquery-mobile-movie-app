@@ -508,8 +508,9 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 		const starContainer = document.createElement("div");
 		starContainer.className = "flex items-center space-x-1 text-[#121212]";
 
+		var rate = ratingStar == null || ratingStar == "" ? "0" : ratingStar
 		const starFull = "⭐";
-		starContainer.innerHTML = `${starFull} ${ratingStar}/10`;
+		starContainer.innerHTML = `${starFull} ${rate}/10`;
 
 		card.appendChild(name);
 		card.appendChild(title);
