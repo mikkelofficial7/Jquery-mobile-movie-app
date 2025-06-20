@@ -532,7 +532,7 @@ async function runReviewList(id = "", displayType = "", parentList = "", page = 
 		}
 
 		createElementReviewList(data.results, parentList, maxItem, maxCommentLength, addReadMoreButton);
-		onComplete(listReview);
+		onComplete(data.results);
 	});
 }
 
@@ -767,53 +767,17 @@ var selectedTvGenreId = []
 let movieGenre = [];
 let tvGenre = [];
 
-async function runMovieGenreList() {
+async function runMovieGenreList() {	
 	const apikey = await decryptString(ciphertext, iv, password);
-	
+
 	$.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key='+apikey, function(data) {
 		movieGenre = data.genres;
 		populateItemGenre();
 	});
 
 	$("#movieGenreList").on("click", "li", function () {
-		currentPageGenreSearch = 1;
-		selectedTvGenreId = [];
-		
 		const index = $(this).index(); // Get the index of clicked <li>
-		if (movieGenre[index]) {
-			if (selectedMovieGenreId.includes(movieGenre[index].id)) {
-				const i = selectedMovieGenreId.indexOf(movieGenre[index].id);
-  				selectedMovieGenreId.splice(i, 1); 
-			} else {
-				selectedMovieGenreId.push(movieGenre[index].id);
-			}
-			populateItemGenre();
-			
-			const section = document.getElementById('load-more-section-genre-list');
-			section.classList.add('hidden');
-			
-			$("#GenreListSearch").html("");
-			if (selectedMovieGenreId.length < 1) return
-
-			$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+selectedMovieGenreId.join(","), function(data) {
-				$.each(data.results, function(index, item){
-					createItemElementMovieTvShow("GenreListSearch", item, "movie");
-				});
-
-				if (data.results.length < 1 && currentPage < 2) {
-					$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-					$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
-				}
-
-				if (data.results.length > 0) {
-					const section = document.getElementById('load-more-section-genre-list');
-					section.classList.remove('hidden');
-				} else {
-					const section = document.getElementById('load-more-section-genre-list');
-					section.classList.add('hidden');
-				}
-			});
-		}
+		runSelectedGenreMovie(index)
 	});
 
 	$(document).on("click", "#btn-load-more-genre-list", function () {
@@ -835,6 +799,57 @@ async function runMovieGenreList() {
 		});
 	});
 
+	$("#genre-tags").on("click", "span", function () {
+		const id = $(this).attr("data-genre-id");
+		const displayType = $(this).attr("data-genre-tag");
+
+		if (displayType === "movie") {
+			const i = movieGenre.findIndex(item => item.id === Number(id));
+			runSelectedGenreMovie(i)
+		}
+	});
+}
+
+async function runSelectedGenreMovie(index) {
+	const apikey = await decryptString(ciphertext, iv, password);
+
+	currentPageGenreSearch = 1;
+	selectedTvGenreId = [];
+	
+	if (movieGenre[index]) {
+		if (selectedMovieGenreId.includes(movieGenre[index].id)) {
+			const i = selectedMovieGenreId.indexOf(movieGenre[index].id);
+			selectedMovieGenreId.splice(i, 1); 
+		} else {
+			selectedMovieGenreId.push(movieGenre[index].id);
+		}
+		populateItemGenre();
+		
+		const section = document.getElementById('load-more-section-genre-list');
+		section.classList.add('hidden');
+		
+		$("#GenreListSearch").html("");
+		if (selectedMovieGenreId.length < 1) return
+
+		$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+selectedMovieGenreId.join(","), function(data) {
+			$.each(data.results, function(index, item){
+				createItemElementMovieTvShow("GenreListSearch", item, "movie");
+			});
+
+			if (data.results.length < 1 && currentPage < 2) {
+				$("#GenreListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
+			}
+
+			if (data.results.length > 0) {
+				const section = document.getElementById('load-more-section-genre-list');
+				section.classList.remove('hidden');
+			} else {
+				const section = document.getElementById('load-more-section-genre-list');
+				section.classList.add('hidden');
+			}
+		});
+	}
 }
 
 async function runTvGenreList() {
@@ -846,44 +861,8 @@ async function runTvGenreList() {
 	});
 
 	$("#tvGenreList").on("click", "li", function () {
-		currentPageGenreSearch = 1;
-		selectedMovieGenreId = [];
-
 		const index = $(this).index(); // Get the index of clicked <li>
-		if (tvGenre[index]) {
-			if (selectedTvGenreId.includes(tvGenre[index].id)) {
-				const i = selectedTvGenreId.indexOf(tvGenre[index].id);
-  				selectedTvGenreId.splice(i, 1); 
-			} else {
-				selectedTvGenreId.push(tvGenre[index].id);	 
-			}
-			populateItemGenre();
-
-			const section = document.getElementById('load-more-section-genre-list');
-			section.classList.add('hidden');
-
-			$("#GenreListSearch").html("");
-			if (selectedTvGenreId.length < 1) return
-
-			$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+selectedTvGenreId.join(","), function(data) {				
-				$.each(data.results, function(index, item){
-					createItemElementMovieTvShow("GenreListSearch", item, "tv")
-				});
-
-				if (data.results.length < 1 && currentPage < 2) {
-					$("#GenreListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-					$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
-				}
-
-				if (data.results.length > 0) {
-					const section = document.getElementById('load-more-section-genre-list');
-					section.classList.remove('hidden');
-				} else {
-					const section = document.getElementById('load-more-section-genre-list');
-					section.classList.add('hidden');
-				}
-			});
-		}
+		runSelectedGenreTv(index)
 	});
 
 	$(document).on("click", "#btn-load-more-genre-list", function () {
@@ -904,6 +883,58 @@ async function runTvGenreList() {
 			}
 		});
 	});
+
+	$("#genre-tags").on("click", "span", function () {
+		const id = $(this).attr("data-genre-id");
+		const displayType = $(this).attr("data-genre-tag");
+
+		if (displayType === "tv") {
+			const i = tvGenre.findIndex(item => item.id === Number(id));
+			runSelectedGenreTv(i)
+		}
+	});
+}
+
+async function runSelectedGenreTv(index) {
+	const apikey = await decryptString(ciphertext, iv, password);
+
+	currentPageGenreSearch = 1;
+	selectedMovieGenreId = [];
+
+	if (tvGenre[index]) {
+		if (selectedTvGenreId.includes(tvGenre[index].id)) {
+			const i = selectedTvGenreId.indexOf(tvGenre[index].id);
+			selectedTvGenreId.splice(i, 1); 
+		} else {
+			selectedTvGenreId.push(tvGenre[index].id);	 
+		}
+		populateItemGenre();
+
+		const section = document.getElementById('load-more-section-genre-list');
+		section.classList.add('hidden');
+
+		$("#GenreListSearch").html("");
+		if (selectedTvGenreId.length < 1) return
+
+		$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+selectedTvGenreId.join(","), function(data) {				
+			$.each(data.results, function(index, item){
+				createItemElementMovieTvShow("GenreListSearch", item, "tv")
+			});
+
+			if (data.results.length < 1 && currentPage < 2) {
+				$("#GenreListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				$("#GenreListSearch").append("<li class='flex justify-center'>Data not found</li>");
+			}
+
+			if (data.results.length > 0) {
+				const section = document.getElementById('load-more-section-genre-list');
+				section.classList.remove('hidden');
+			} else {
+				const section = document.getElementById('load-more-section-genre-list');
+				section.classList.add('hidden');
+			}
+		});
+	}
 }
 
 async function populateItemGenre() {
@@ -951,7 +982,7 @@ function truncateLongTitle(title, maxLength) {
 	return title?.substring(0, maxLength - 3) + '...';
 }
 
-function setGenresAndOverview(data) {
+function setGenresAndOverview(data, displayType) {
 	document.getElementById("item-overview").textContent = data.overview.length < 1 ? "No overview is available" : data.overview;
 
 	const genreContainer = document.getElementById("genre-tags");
@@ -964,10 +995,17 @@ function setGenresAndOverview(data) {
 		genreContainer.appendChild(span);
 	} else {
 		data.genres.forEach(genre => {
+			const a = document.createElement("a");
+			a.href = "#find-genre";
+
 			const span = document.createElement("span");
 			span.className = "px-4 py-1 bg-[#6facd5] hover:bg-[#456f9a] text-[#121212] font-medium rounded-full text-xs shadow transition-all item-genre-tv-movie";
+			span.setAttribute("data-genre-id", genre.id);
+			span.setAttribute("data-genre-tag", displayType);
 			span.textContent = genre.name;
-			genreContainer.appendChild(span);
+
+			a.appendChild(span)
+			genreContainer.appendChild(a);
 		});
 	}
 }
@@ -1115,7 +1153,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
-		setGenresAndOverview(data);
+		setGenresAndOverview(data, "movie");
 
 		const imageUrl = data.poster_path == null
 					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
@@ -1381,7 +1419,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	});
 
 	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
-		setGenresAndOverview(data);
+		setGenresAndOverview(data, "tv");
 
 		const imageUrl = data.poster_path == null
 						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
