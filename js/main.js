@@ -426,54 +426,7 @@ async function runReviewList(listOfId = [], displayType = "", parentList = "", p
 			$(parentList).html("No Reviews");
 		}
 
-		const takeOnly = listReview
-						.sort(() => Math.random() - 0.5)
-						.slice(0, maxItem);
-						
-		takeOnly.forEach(function(data) {
-			const imageUrl = data.author_details.avatar_path == null
-				? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
-				: baseImageLoad + data.author_details.avatar_path;
-			
-			const $li = $('<li>').addClass('bg-white rounded-xl p-4 flex flex-col shadow sm:flex-row gap-4');
-
-			const $img = $('<img>')
-			.attr('src', imageUrl)
-			.attr('alt', 'Reviewer Photo')
-			.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
-
-			const $content = $('<div>').addClass('flex-1 w-full');
-
-			const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
-			.text(data.author_details.name + " (@" + data.author_details.username + ")");
-
-			const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
-			.text("Reviewed at " + convertIsoString(data.updated_at));
-
-			var longReview = truncateLongTitle(data.content, maxCommentLength);
-			
-			const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
-			.html(longReview);
-			
-			if (addReadMoreButton && longReview.trim().endsWith("...")) {
-				$review.append(
-					$('<span>').text(data.content).addClass('hidden review-full-text'),
-					$('<span>').text('Read more').addClass('text-blue-500 hover:underline cursor-pointer ml-2 mr-5 review-read-more')
-				)
-			}
-
-			const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
-			$stars.append(
-				$('<span>').text('⭐'),
-				$('<span>').text(data.author_details.rating+"/10" ?? 'No Rating')
-			);
-
-			$content.append($title, $stars, $release, $review);
-			$li.append($img, $content);
-
-			$(parentList).append($li);
-		});
-
+		createElementReviewBig(listReview, parentList, maxItem, maxCommentLength, addReadMoreButton);
 		onComplete(listReview);
 	});
 }
@@ -1526,6 +1479,56 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 				});
 			});
 		}
+	});
+}
+
+function createElementReviewBig(listReview, parentList, maxItem, maxCommentLength, addReadMoreButton) {
+	const takeOnly = listReview
+					.sort(() => Math.random() - 0.5)
+					.slice(0, maxItem);
+					
+	takeOnly.forEach(function(data) {
+		const imageUrl = data.author_details.avatar_path == null
+			? "https://connectkaro.org/wp-content/uploads/2019/03/placeholder-profile-male-500x500.png"
+			: baseImageLoad + data.author_details.avatar_path;
+		
+		const $li = $('<li>').addClass('bg-white rounded-xl p-4 flex flex-col shadow sm:flex-row gap-4');
+
+		const $img = $('<img>')
+		.attr('src', imageUrl)
+		.attr('alt', 'Reviewer Photo')
+		.addClass('w-24 h-36 object-cover rounded-lg mx-auto sm:mx-0 flex-shrink-0'); // keep image size stable
+
+		const $content = $('<div>').addClass('flex-1 w-full');
+
+		const $title = $('<h3>').addClass('text-xl font-semibold text-gray-800')
+		.text(data.author_details.name + " (@" + data.author_details.username + ")");
+
+		const $release = $('<p>').addClass('text-sm text-gray-500 mb-2')
+		.text("Reviewed at " + convertIsoString(data.updated_at));
+
+		var longReview = truncateLongTitle(data.content, maxCommentLength);
+		
+		const $review = $('<p>').addClass('text-gray-700 mb-2 whitespace-pre-wrap break-words')
+		.html(longReview);
+		
+		if (addReadMoreButton && longReview.trim().endsWith("...")) {
+			$review.append(
+				$('<span>').text(data.content).addClass('hidden review-full-text'),
+				$('<span>').text('Read more').addClass('text-blue-500 hover:underline cursor-pointer ml-2 mr-5 review-read-more')
+			)
+		}
+
+		const $stars = $('<div>').addClass('text-black-500 flex items-center gap-2');
+		$stars.append(
+			$('<span>').text('⭐'),
+			$('<span>').text(data.author_details.rating+"/10" ?? 'No Rating')
+		);
+
+		$content.append($title, $stars, $release, $review);
+		$li.append($img, $content);
+
+		$(parentList).append($li);
 	});
 }
 
