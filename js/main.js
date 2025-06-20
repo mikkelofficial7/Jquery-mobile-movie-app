@@ -1031,7 +1031,7 @@ function setGenresAndOverview(data, displayType, isDisplayOnly) {
 	} else {
 		data.genres.forEach(genre => {
 			const a = document.createElement("a");
-			a.href = isDisplayOnly ? "" : "#find-genre";
+			a.href = isDisplayOnly ? "#" : "#find-genre";
 
 			const span = document.createElement("span");
 			span.className = "px-4 py-1 bg-[#6facd5] hover:bg-[#456f9a] text-[#121212] font-medium rounded-full text-xs shadow transition-all item-genre-tv-movie";
@@ -1076,8 +1076,8 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	let backdropImages = [];
 
-	var hrefCast = isDisplayOnly ? "" : "#item-cast";
-	var hrefSimilar = isDisplayOnly ? "" : "#item-detail";
+	var hrefCast = isDisplayOnly ? "#" : "#item-cast";
+	var hrefSimilar = isDisplayOnly ? "#" : "#item-detail";
 		
 	$("#externalLink").attr("data-ref", "movie");
 	$("#externalLink").attr("data-slug", movieId);
@@ -1342,8 +1342,8 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	let backdropImages = [];
 
-	var hrefCast = isDisplayOnly ? "" : "#item-cast";
-	var hrefSimilar = isDisplayOnly ? "" : "#item-detail";
+	var hrefCast = isDisplayOnly ? "#" : "#item-cast";
+	var hrefSimilar = isDisplayOnly ? "#" : "#item-detail";
 
 	$("#externalLink").attr("data-ref", "tv");
 	$("#externalLink").attr("data-slug", tvShowId);
@@ -1617,7 +1617,7 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 		return;
 	}
 
-	var hrefMovie = isDisplayOnly ? "" : "#item-detail";
+	var hrefMovie = isDisplayOnly ? "#" : "#item-detail";
 
 	$("#externalLinkCast").attr("data-ref", "cast");
 	$("#externalLinkCast").attr("data-slug", castId);
