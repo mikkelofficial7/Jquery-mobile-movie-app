@@ -804,6 +804,7 @@ async function runMovieGenreList() {
 		const displayType = $(this).attr("data-genre-tag");
 
 		if (displayType === "movie") {
+			selectedMovieGenreId = [];
 			const i = movieGenre.findIndex(item => item.id === Number(id));
 			runSelectedGenreMovie(i)
 		}
@@ -889,6 +890,7 @@ async function runTvGenreList() {
 		const displayType = $(this).attr("data-genre-tag");
 
 		if (displayType === "tv") {
+			selectedTvGenreId = []
 			const i = tvGenre.findIndex(item => item.id === Number(id));
 			runSelectedGenreTv(i)
 		}
