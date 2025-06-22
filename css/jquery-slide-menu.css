@@ -118,9 +118,6 @@ body
 .ui-submit.ui-btn.ui-btn-up-b.ui-shadow.ui-btn-corner-all {
 	margin-right: 10px !important;
 }
-#btn-load-more {
-	margin: 20px !important;
-}
 
 .list-item-title p {
 	max-lines: 2;
@@ -175,6 +172,14 @@ body
 }
 ul::-webkit-scrollbar {
   display: none !important;
+}
+.btn-search:hover {
+	transform: scale(1.09);
+	transition: transform 0.3s ease-in-out;
+	background: linear-gradient(to bottom, #5688a9, #33516f);
+}
+.load-more:hover {
+	background: linear-gradient(to bottom, #5688a9, #33516f);
 }
 
 @media screen and (max-width: 639px) {
