@@ -152,7 +152,7 @@ body
 {
 	width: 400px;
 }
-#externalLink, #externalLinkCast, #goToRealPage, #today-trending-movie, #today-trending-tv, #today-trending-cast, #copyLink, 
+#externalLink, #externalLinkCast, #goToRealPage, #today-trending-movie, #today-trending-tv, #today-trending-cast, #copyLink, #copyLinkCast, 
 .item-click-genre, .item-genre-tv-movie, .item-genre-tv-movie-unknown {
 	cursor: pointer;
 }

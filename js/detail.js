@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			id = segments[2];
 		}
 	}
-
-	autoScroll("", 1)
 	
 	if (type.toLowerCase() === "movie") {
 		$("#external-section-detail").removeClass("hidden");
@@ -41,6 +39,16 @@ $(document).on("click", "#goToRealPage", function () {
 });
 
 $(document).on("click", "#copyLink", function () {
+	navigator.clipboard.writeText(window.location.href)
+		.then(() => {
+			showSnackBar(2500, "Link copied successfully!", "#00b120")
+		})
+		.catch(() => {
+			showSnackBar(2500, "Failed to copy link!", "#fc0404")
+		})
+});
+
+$(document).on("click", "#copyLinkCast", function () {
 	navigator.clipboard.writeText(window.location.href)
 		.then(() => {
 			showSnackBar(2500, "Link copied successfully!", "#00b120")
