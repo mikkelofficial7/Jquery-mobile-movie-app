@@ -23,10 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
-	autoScroll("item-movie-trending-today")
-	autoScroll("item-tv-trending-today")
-	autoScroll("item-cast-trending-today")
-	autoScroll("item-reviews-trending-today")
+	if (window.location.pathname.includes("/detail/")) {
+		autoScroll("item-movie-trending-today")
+		autoScroll("item-tv-trending-today")
+		autoScroll("item-cast-trending-today")
+		autoScroll("item-reviews-trending-today")
+	}
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
