@@ -23,12 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
-	if (window.location.pathname.includes("/detail/")) {
-		autoScroll("item-movie-trending-today")
-		autoScroll("item-tv-trending-today")
-		autoScroll("item-cast-trending-today")
-		autoScroll("item-reviews-trending-today")
-	}
+	autoScroll("item-movie-trending-today")
+	autoScroll("item-tv-trending-today")
+	autoScroll("item-cast-trending-today")
+	autoScroll("item-reviews-trending-today")
 
 	runAllLanguageProvided()
 	runMovieTrendingTodayList()
@@ -1889,12 +1887,14 @@ function convertDate(input) {
 	return formatted
 }
 
-function autoScroll(parentName, pixelPerFrame = 1) {
-  const parent = document.getElementById(parentName).scrollLeft += pixelPerFrame;
+function autoScroll(parentName = "", pixelPerFrame = 1) {
+  if (parentName != "") {
+	const parent = document.getElementById(parentName).scrollLeft += pixelPerFrame;
 
-  if (parent.scrollLeft >= parent.scrollWidth - parent.clientWidth) {
-    parent.scrollLeft = 0;
+	if (parent.scrollLeft >= parent.scrollWidth - parent.clientWidth) {
+		parent.scrollLeft = 0;
+	}
+
+	requestAnimationFrame(() => autoScroll(parentName));
   }
-
-  requestAnimationFrame(() => autoScroll(parentName));
 }

@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			id = segments[2];
 		}
 	}
+
+	autoScroll("", 1)
 	
 	if (type.toLowerCase() === "movie") {
 		$("#external-section-detail").removeClass("hidden");
