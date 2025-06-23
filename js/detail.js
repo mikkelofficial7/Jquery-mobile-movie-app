@@ -59,23 +59,23 @@ $(document).on("click", "#copyLinkCast", function () {
 });
 
 function showSnackBar(duration, text, color) {
-	$("#topSnackbar").html(text);
-	$("#topSnackbar").removeClass("hidden");
-	$("#topSnackbar").addClass("bg-["+color+"]");
-	$("#topSnackbar").addClass("opacity-100");
+	$(".topSnackbar").html(text);
+	$(".topSnackbar").removeClass("hidden");
+	$(".topSnackbar").addClass("bg-["+color+"]");
+	$(".topSnackbar").addClass("opacity-100");
 	
 	setTimeout(() => {
-		$("#topSnackbar").removeClass("opacity-100");
-		$("#topSnackbar").addClass("opacity-50");
+		$(".topSnackbar").removeClass("opacity-100");
+		$(".topSnackbar").addClass("opacity-50");
 	}, duration/3);
 
 	setTimeout(() => {
-		$("#topSnackbar").removeClass("opacity-50");
-		$("#topSnackbar").addClass("opacity-30");
+		$(".topSnackbar").removeClass("opacity-50");
+		$(".topSnackbar").addClass("opacity-30");
 	}, duration/3);
 
 	setTimeout(() => {
-		$("#topSnackbar").removeClass("opacity-30");
-		$("#topSnackbar").addClass("hidden");
+		$(".topSnackbar").removeClass("opacity-30");
+		$(".topSnackbar").addClass("hidden");
 	}, duration/3);
 }
