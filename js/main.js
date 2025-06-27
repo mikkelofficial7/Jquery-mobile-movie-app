@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
+	const toggle = document.getElementById('toggle');
+  	const dot = toggle.querySelector('.dot');
+	let isToggleOn = false;
+
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")
@@ -228,6 +232,23 @@ $(document).ready(function(){
 
 		const $fullText = $(this).siblings('.review-full-text');
 		$parentParagraph.text($fullText.text());
+	});
+
+	// Toggle search
+	toggle.addEventListener('click', () => {
+		if (isToggleOn) {
+			isToggleOn = false;
+			toggle.classList.remove('bg-blue-600')
+			toggle.classList.add('bg-gray-300');
+			toggle.classList.toggle(isToggleOn);
+			dot.style.transform = 'translateX(0)';
+		} else {
+			isToggleOn = true;
+			toggle.classList.remove('bg-gray-300')
+			toggle.classList.add('bg-blue-600');
+			toggle.classList.toggle(isToggleOn);
+			dot.style.transform = 'translateX(20px)';
+		}
 	});
 });
 
@@ -438,14 +459,18 @@ async function runCastTrendingTodayList() {
 	});
 }
 
-async function getMovieReviewApi(id, displayType, page, onComplete = () => {}) {
-  const apikey = await decryptString(ciphertext, iv, password);
+async function getMovieReviewApi(id, displayType, page = 1, onComplete = () => {}) {
+	if (id == "" || displayType == "") {
+		return;
+	}
 
-  return $.getJSON(`https://api.themoviedb.org/3/${displayType}/${id}/reviews?page=${page}&api_key=${apikey}`)
-    .then(data => {
-      	onComplete(data);
-      	return data;
-    });
+	const apikey = await decryptString(ciphertext, iv, password);
+
+	return $.getJSON(`https://api.themoviedb.org/3/${displayType}/${id}/reviews?page=${page}&api_key=${apikey}`)
+		.then(data => {
+			onComplete(data);
+			return data;
+		});
 }
 
 async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
@@ -1072,6 +1097,8 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 	if (movieId == null && window.location.hash == "#item-detail") {
 		window.location.href = document.referrer;
 		return;
+	} else if (movieId == null && window.location.hash != "#item-detail") {
+		return;
 	}
 
 	let backdropImages = [];
@@ -1337,6 +1364,8 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 	if (tvShowId == null && window.location.hash == "#item-detail") {
 		window.location.href = document.referrer;
+		return;
+	} else if (tvShowId == null && window.location.hash != "#item-detail") {
 		return;
 	}
 
@@ -1614,6 +1643,8 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 async function runDetailCastData(castId, isDisplayOnly = false) {
 	if (castId == null && window.location.hash == "#item-cast") {
 		window.location.href = document.referrer;
+		return;
+	} else if (castId == null && window.location.hash != "#item-cast") {
 		return;
 	}
 
