@@ -23,10 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
-	const toggle = document.getElementById('toggle');
-  	const dot = toggle.querySelector('.dot');
-	let isToggleOn = false;
-
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")
@@ -235,17 +231,21 @@ $(document).ready(function(){
 	});
 
 	// Toggle search
+	const toggle = document.getElementById('toggle');
+  	const dot = toggle.querySelector('.dot');
+	let isToggleOn = false;
+
 	toggle.addEventListener('click', () => {
 		if (isToggleOn) {
 			isToggleOn = false;
-			toggle.classList.remove('bg-blue-600')
-			toggle.classList.add('bg-gray-300');
+			toggle.classList.remove('bg-[#456f9a]')
+			toggle.classList.add('bg-[#9ebdd1]');
 			toggle.classList.toggle(isToggleOn);
 			dot.style.transform = 'translateX(0)';
 		} else {
 			isToggleOn = true;
-			toggle.classList.remove('bg-gray-300')
-			toggle.classList.add('bg-blue-600');
+			toggle.classList.remove('bg-[#9ebdd1]')
+			toggle.classList.add('bg-[#456f9a]');
 			toggle.classList.toggle(isToggleOn);
 			dot.style.transform = 'translateX(20px)';
 		}
