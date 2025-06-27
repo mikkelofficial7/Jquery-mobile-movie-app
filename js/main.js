@@ -103,9 +103,15 @@ $(document).ready(function(){
 		currentPageSearch = 1;
 		$("#movieListSearch").html('');
 
+		let totalMovieFound = [];
+		let totalTvFound = [];
+
 		if (keyword != "") {
-			runSearchList(currentPageSearch, keyword)
+			runSearchList(currentPageSearch, keyword, totalMovieFound, totalTvFound)
 		} else {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.add('hidden');
+
 			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
 		}
 	});
@@ -114,9 +120,15 @@ $(document).ready(function(){
 		const keyword = $("#et-search").val();
 		currentPageSearch += 1;
 
+		let totalMovieFound = [];
+		let totalTvFound = [];
+
 		if (keyword != "") {
-			runSearchList(currentPageSearch, keyword)
+			runSearchList(currentPageSearch, keyword, totalMovieFound, totalTvFound)
 		} else {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.add('hidden');
+		
 			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
 		}
 	});
@@ -763,13 +775,11 @@ async function runTvShowTopRatedList(currentPage) {
 	});
 }
 
-async function runSearchList(currentPage, keyword) {
+async function runSearchList(currentPage, keyword, totalMovieFound, totalTvFound) {
 	const apikey = await decryptString(ciphertext, iv, password);
 
 	// make 2 type of api run synchronously
-	
-	let totalMovieFound = [];
-	let totalTvFound = [];
+
 	let isMovieNotFound = false
 	let isTvNotFound = false
 
@@ -810,7 +820,7 @@ async function runSearchList(currentPage, keyword) {
 		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		createElementDataNotFound("#movieListSearch")
 	}
-
+	
 	if (totalMovieFound.length > 0 || totalTvFound.length > 0) {
 		const loadMoreSection = document.getElementById('load-more-section-search');
 		loadMoreSection.classList.remove('hidden');
