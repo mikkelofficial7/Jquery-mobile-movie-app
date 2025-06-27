@@ -18,6 +18,7 @@ var tv_currentPageTopRated = 1;
 var currentPageReview = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
+	document.getElementById("et-search").placeholder = "Search your title here...";
 	const baseUrl = window.location.origin;
 	isLocalEnv = !baseUrl.includes("vercel.app");
 });
@@ -254,12 +255,26 @@ $(document).ready(function(){
 			toggle.classList.add('bg-[#9ebdd1]');
 			toggle.classList.toggle(isToggleOn);
 			dot.style.transform = 'translateX(0)';
+
+			document.getElementById("et-search").value = "";
+			document.getElementById("et-search").placeholder = "Search your title here...";
+			document.getElementById("et-search").rows = 1;
 		} else {
 			isToggleOn = true;
 			toggle.classList.remove('bg-[#9ebdd1]')
 			toggle.classList.add('bg-[#456f9a]');
 			toggle.classList.toggle(isToggleOn);
 			dot.style.transform = 'translateX(20px)';
+
+			document.getElementById("et-search").value = "";
+			document.getElementById("et-search").placeholder = "Describe specifically your movie/tv show story";
+			document.getElementById("et-search").rows = 4;
+		}
+	});
+
+	document.getElementById("et-search").addEventListener('keydown', function(e) {
+		if (e.key === 'Enter' && !isToggleOn) {
+			e.preventDefault(); // Block new lines
 		}
 	});
 });
