@@ -14,20 +14,18 @@ const maxGeminiOutputToken = 100
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
-$(document).ready(function() {	
+window.onJQueryLoad = () => {
 	fetch('/api/env')
         .then((res) => res.json())
         .then((data) => {
             iv = data["ivKey"]
             ivGemini = data["ivKeyGemini"]
             password = data["passwordKey"]
-
-            console.log("Finish load apikey")
         })
         .catch((err) => {
             console.log(`Error: ${err}`);
         });
-});
+};
 
 function bufferToBase64(buf) {
     return btoa(String.fromCharCode(...new Uint8Array(buf)));
