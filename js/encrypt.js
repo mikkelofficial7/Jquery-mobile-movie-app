@@ -14,18 +14,18 @@ const maxGeminiOutputToken = 100
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
-window.onJQueryLoad = () => {
-	fetch('/api/env')
-        .then((res) => res.json())
-        .then((data) => {
-            iv = data["ivKey"]
-            ivGemini = data["ivKeyGemini"]
-            password = data["passwordKey"]
-        })
-        .catch((err) => {
-            console.log(`Error: ${err}`);
-        });
-};
+async function loadEnvKeys() {
+  try {
+    const res = await fetch('/api/env');
+    const data = await res.json();
+
+    iv = data["ivKey"];
+    ivGemini = data["ivKeyGemini"];
+    password = data["passwordKey"];
+  } catch (err) {
+    console.log(`Error: ${err}`);
+  }
+}
 
 function bufferToBase64(buf) {
     return btoa(String.fromCharCode(...new Uint8Array(buf)));

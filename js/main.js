@@ -18,12 +18,13 @@ var tv_currentPageTopRated = 1;
 var currentPageReview = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
-	document.getElementById("et-search").placeholder = "Search your title here...";
 	const baseUrl = window.location.origin;
 	isLocalEnv = !baseUrl.includes("vercel.app");
 });
 
 $(document).ready(function() {	
+	loadEnvKeys();
+	
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")
@@ -314,6 +315,8 @@ $(document).ready(function() {
 			createElementDataNotFound("#movieListSearch")
 		}
 	}
+
+	document.getElementById("et-search").placeholder = "Search your title here...";
 
 	toggle.addEventListener('click', () => {
 		if (isToggleOn) {
