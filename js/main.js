@@ -99,41 +99,6 @@ $(document).ready(function(){
 		runTvShowTopRatedList(tv_currentPageTopRated);
 	});
 
-	$(document).on("click", ".btn-search", function () {
-		const keyword = $("#et-search").val();
-		currentPageSearch = 1;
-		$("#movieListSearch").html('');
-
-		let totalMovieFound = [];
-		let totalTvFound = [];
-
-		if (keyword != "") {
-			runSearchList(currentPageSearch, keyword, totalMovieFound, totalTvFound)
-		} else {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.add('hidden');
-
-			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
-		}
-	});
-
-	$(document).on("click", "#btn-load-more-search", function () {
-		const keyword = $("#et-search").val();
-		currentPageSearch += 1;
-
-		let totalMovieFound = [];
-		let totalTvFound = [];
-
-		if (keyword != "") {
-			runSearchList(currentPageSearch, keyword, totalMovieFound, totalTvFound)
-		} else {
-			const loadMoreSection = document.getElementById('load-more-section-search');
-			loadMoreSection.classList.add('hidden');
-		
-			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
-		}
-	});
-
 	// HYPERLINK CAST AND DETAIL
 
 	$(document).on("click", "#externalLink", function () {
@@ -246,7 +211,106 @@ $(document).ready(function(){
 	// Toggle search
 	const toggle = document.getElementById('toggle');
   	const dot = toggle.querySelector('.dot');
+	let searchKeyword = "";
 	let isToggleOn = false;
+
+	$(document).on("click", ".btn-search", function () {
+		currentPageSearch = 1;
+		searchKeyword = "";
+		$("#movieListSearch").html('');
+
+		let totalMovieFound = [];
+		let totalTvFound = [];
+
+		searchKeyword = $("#et-search").val();
+
+		if (!isToggleOn) {
+			if (searchKeyword != "") {
+				runSearchList(currentPageSearch, searchKeyword, totalMovieFound, totalTvFound)
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.add('hidden');
+
+				showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
+			}
+		} else {
+			if (searchKeyword != "") {
+				$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				createElementDataLoading("#movieListSearch")
+				
+				runGeminiSearch(searchKeyword)
+			} else {
+				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.add('hidden');
+
+				showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
+			}
+		}
+	});
+
+	$(document).on("click", "#btn-load-more-search", function () {
+		currentPageSearch += 1;
+
+		let totalMovieFound = [];
+		let totalTvFound = [];
+
+		if (searchKeyword != "") {
+			runSearchList(currentPageSearch, searchKeyword, totalMovieFound, totalTvFound)
+		} else {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.add('hidden');
+		
+			showSnackBar(2500, "Keyword cannot be empty!", "#fc0404")
+		}
+	});
+
+	async function runGeminiSearch(description) {
+		let totalMovieFound = [];
+		let totalTvFound = [];
+
+		const apikeyGemini = await decryptString(cipherGemini, ivGemini, password);		
+		const geminiUrl = `${geminiBaseUrl}?key=${apikeyGemini}`;
+
+		const requestBody = {
+			contents: [{
+				parts: [{ text: templateGeminiSearch+description }]
+			}]
+		};
+
+		try {
+			const response = await fetch(geminiUrl, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(requestBody)
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			const responseJson = await response.json();
+			const aiResponse = responseJson.candidates?.[0]?.content?.parts?.[0]?.text;
+
+			const match = aiResponse.match(/\*\*(.*?)\*\*/);
+			searchKeyword = match ? match[1] : "";
+			
+			if (searchKeyword == "") {
+				$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				createElementDataNotFound("#movieListSearch")
+			} else {
+				$("#movieListSearch").html("");
+				$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				runSearchList(currentPageSearch, searchKeyword, totalMovieFound, totalTvFound)
+			}
+		} catch (error) {
+			console.error("Request failed:", error);
+
+			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+			createElementDataNotFound("#movieListSearch")
+		}
+	}
 
 	toggle.addEventListener('click', () => {
 		if (isToggleOn) {
@@ -1866,6 +1930,54 @@ function createItemElementCast(item, displayType, hrefDestination = "#item-cast"
 	$li.append($a, "<br>", $title, $character);
 
 	$("#item-casts").append($li);
+}
+
+function createElementDataLoading(parentName) {
+	const container = document.querySelector(parentName);
+	container.innerHTML = "";
+
+	// Wrapper container
+	const wrapper = document.createElement("div");
+	wrapper.className = "flex flex-col items-center justify-center text-center py-12";
+
+	// Spinner (Tailwind-style animation)
+	const spinner = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	spinner.setAttribute("class", "animate-spin w-12 h-12 text-[#121212] mb-4");
+	spinner.setAttribute("fill", "none");
+	spinner.setAttribute("viewBox", "0 0 24 24");
+	spinner.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+
+	const spinnerPath = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+	spinnerPath.setAttribute("class", "opacity-25");
+	spinnerPath.setAttribute("cx", "12");
+	spinnerPath.setAttribute("cy", "12");
+	spinnerPath.setAttribute("r", "10");
+	spinnerPath.setAttribute("stroke", "currentColor");
+	spinnerPath.setAttribute("stroke-width", "4");
+
+	const spinnerArc = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	spinnerArc.setAttribute("class", "opacity-75");
+	spinnerArc.setAttribute("fill", "currentColor");
+	spinnerArc.setAttribute("d", "M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z");
+
+	spinner.appendChild(spinnerPath);
+	spinner.appendChild(spinnerArc);
+
+	// Heading: "Loading..."
+	const heading = document.createElement("h2");
+	heading.className = "text-lg font-semibold text-[#121212]";
+	heading.textContent = "Loading...";
+
+	// Optional paragraph
+	const paragraph = document.createElement("p");
+	paragraph.className = "text-sm text-[#121212]";
+	paragraph.textContent = "Please wait while we fetch your data.";
+
+	wrapper.appendChild(spinner);
+	wrapper.appendChild(heading);
+	wrapper.appendChild(paragraph);
+
+	container.appendChild(wrapper);
 }
 
 function createElementDataNotFound(parentName) {
