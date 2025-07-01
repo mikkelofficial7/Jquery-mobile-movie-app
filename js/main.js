@@ -247,7 +247,7 @@ $(document).ready(function() {
 						}
 					};
 
-					runGeminiSearch(requestBody)
+					runGeminiSearch(requestBody, "text")
 				} else {
 					const loadMoreSection = document.getElementById('load-more-section-search');
 					loadMoreSection.classList.add('hidden');
@@ -312,7 +312,7 @@ $(document).ready(function() {
 	});
 });
 
-async function runGeminiSearch(requestBody) {
+async function runGeminiSearch(requestBody, modelType = "text") {
 	let totalMovieFound = [];
 	let totalTvFound = [];
 
@@ -335,8 +335,15 @@ async function runGeminiSearch(requestBody) {
 		const responseJson = await response.json();
 		const aiResponse = responseJson.candidates?.[0]?.content?.parts?.[0]?.text;
 
-		const match = aiResponse.includes("**") ? aiResponse.match(/\*\*(.*?)\*\*/) : aiResponse;
-		searchKeyword = match ? match[1] : "";
+		if (modelType == "text") {
+			const match = aiResponse.includes("**") ? aiResponse.match(/\*\*(.*?)\*\*/) : aiResponse;
+			searchKeyword = match ? match[1] : "";
+
+		} else if (modelType == "image") {
+			searchKeyword = aiResponse;
+			
+		}
+
 		
 		if (searchKeyword == "") {
 			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");

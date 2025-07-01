@@ -56,7 +56,7 @@ $(document).ready(function() {
             }
         };
 
-        runGeminiSearch(requestBody)
+        runGeminiSearch(requestBody, "image")
     });
 });
 
