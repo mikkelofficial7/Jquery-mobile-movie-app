@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
+	const ssss = process.env.IV_KEY;
+	console.log(ssss);
+
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")
