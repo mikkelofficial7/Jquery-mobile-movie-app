@@ -1,9 +1,9 @@
 const ciphertext = "gL+BlN25mO7/Zj9re+B6GMTCzKUVoALwIDmm7un+6W63Kr498V7SzQPVZuhAaJAO"
 const cipherGemini = "4LLV8E6s0gD9Z1jFfIt0YmuY8oJ53OvKORJ9makgqyUed3y2Nsq6hniPRj9/jIFY6CBhdeI7eg=="
 
-const iv = "5orUg6E0UVPz7wdl"
-const ivGemini = "8EYlvvaIoaqMLXhr"
-const password = "X&tDNHYZ4z[%Ok$=Hk6eNz@6hgm$)vo4zPr-GG<>Hb}pbI90iLr4LWJ@b&M5jQuZFa^{xFb<AE80#VG|;Uv)Ce#oW-1S&A_}~D";
+let iv = ""
+let ivGemini = ""
+let password = "";
 
 const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
 const baseUrl = "https://findyourmovi.vercel.app/"
@@ -14,17 +14,20 @@ const maxGeminiOutputToken = 100
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
-fetch('/api/env')
-  .then((res) => res.json())
-  .then((data) => {
-    //  iv = data.ivKey
-    //  ivGemini = data.ivKeyGemini
-    //  password = data.passwordKey
-     console.log(data);
-  })
-  .catch((err) => {
-    console.log(`Error: ${err}`);
-  });
+document.addEventListener("DOMContentLoaded", function () {
+	fetch('/api/env')
+        .then((res) => res.json())
+        .then((data) => {
+            iv = data.ivKey
+            ivGemini = data.ivKeyGemini
+            password = data.passwordKey
+            
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(`Error: ${err}`);
+        });
+});
 
 function bufferToBase64(buf) {
     return btoa(String.fromCharCode(...new Uint8Array(buf)));
