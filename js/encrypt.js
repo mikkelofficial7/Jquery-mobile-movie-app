@@ -17,9 +17,9 @@ const textDecoder = new TextDecoder();
 fetch('/api/env')
   .then((res) => res.json())
   .then((data) => {
-     iv = data.ivKey
-     ivGemini = data.ivKeyGemini
-     password = data.passwordKey
+    //  iv = data.ivKey
+    //  ivGemini = data.ivKeyGemini
+    //  password = data.passwordKey
      console.log("finish fetch data");
   })
   .catch((err) => {
