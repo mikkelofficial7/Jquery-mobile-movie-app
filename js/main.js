@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function(){
-	const ssss = process.env.IV_KEY;
+	const ssss = process.env.NEXT_PUBLIC_IV_KEY;
 	console.log(ssss);
 
 	autoScroll("item-movie-trending-today")
