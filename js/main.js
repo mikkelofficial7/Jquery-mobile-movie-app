@@ -266,6 +266,7 @@ $(document).ready(function() {
 
 		document.getElementById("et-search").placeholder = "Search your title here...";
   		document.getElementById("et-search").setAttribute("maxlength", 200);
+		document.getElementById("powered-by").innerHTML = `Powered by ${AiModel}`;
 
 		toggle.addEventListener('click', () => {
 			if (isToggleOn) {
