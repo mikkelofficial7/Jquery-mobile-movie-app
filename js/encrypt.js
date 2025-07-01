@@ -20,7 +20,7 @@ fetch('/api/env')
     //  iv = data.ivKey
     //  ivGemini = data.ivKeyGemini
     //  password = data.passwordKey
-     console.log("finish fetch data");
+     console.log("finish fetch data "+data);
   })
   .catch((err) => {
     console.log(`Error: ${err}`);
