@@ -348,7 +348,7 @@ async function runGeminiSearch(description) {
 		console.error("Request failed:", error);
 
 		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-		createElementDataNotFound("#movieListSearch")
+		createElementDataNotFound("#movieListSearch", "Gemini API Error", "Your gemini credential API token is invalid")
 	}
 }
 
@@ -1989,7 +1989,7 @@ function createElementDataLoading(parentName) {
 	container.appendChild(wrapper);
 }
 
-function createElementDataNotFound(parentName) {
+function createElementDataNotFound(parentName, textTitle = "No Data Found", textContent = "We couldn’t find what you’re looking for.") {
 	const container = document.querySelector(parentName);
 	container.innerHTML = "";
 
@@ -2013,11 +2013,11 @@ function createElementDataNotFound(parentName) {
 
 	const heading = document.createElement("h2");
 	heading.className = "text-lg font-semibold text-[#121212]";
-	heading.textContent = "No Data Found";
+	heading.textContent = textTitle;
 
 	const paragraph = document.createElement("p");
 	paragraph.className = "text-sm text-[#121212]";
-	paragraph.textContent = "We couldn’t find what you’re looking for.";
+	paragraph.textContent = textContent;
 
 	wrapper.appendChild(svg);
 	wrapper.appendChild(heading);
