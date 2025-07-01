@@ -3,6 +3,8 @@ const cipherGemini = "4LLV8E6s0gD9Z1jFfIt0YmuY8oJ53OvKORJ9makgqyUed3y2Nsq6hniPRj
 const iv = "5orUg6E0UVPz7wdl"
 const ivGemini = "8EYlvvaIoaqMLXhr"
 const password = "X&tDNHYZ4z[%Ok$=Hk6eNz@6hgm$)vo4zPr-GG<>Hb}pbI90iLr4LWJ@b&M5jQuZFa^{xFb<AE80#VG|;Uv)Ce#oW-1S&A_}~D";
+const templateGeminiSearch = "I forget the title but can you give me one title that closest to my description: "
+const templateGeminiSearchImage = "Give me a movie/tv show title according to this image poster or frame scene: "
 
 // Utility functions
 const textEncoder = new TextEncoder();

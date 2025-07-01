@@ -1,6 +1,8 @@
 const iv = ""
 const ivGemini = ""
 const password = "";
+const templateGeminiSearch = ""
+const templateGeminiSearchImage = ""
 
 const ciphertext = "gL+BlN25mO7/Zj9re+B6GMTCzKUVoALwIDmm7un+6W63Kr498V7SzQPVZuhAaJAO"
 const cipherGemini = "4LLV8E6s0gD9Z1jFfIt0YmuY8oJ53OvKORJ9makgqyUed3y2Nsq6hniPRj9/jIFY6CBhdeI7eg=="
@@ -13,8 +15,6 @@ const geminiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models/g
 const defaultPosterImage = "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 const defaultCompanyLogo = "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
 
-const templateGeminiSearch = "I forget the title but can you give me one title that closest to my description: "
-const templateGeminiSearchImage = "Give me a movie/tv show title according to this image poster or frame scene: "
 const maxGeminiOutputToken = 100
 
 const textEncoder = new TextEncoder();
@@ -28,6 +28,8 @@ async function loadEnvKeys() {
     iv = data["ivKey"];
     ivGemini = data["ivKeyGemini"];
     password = data["passwordKey"];
+    templateGeminiSearch = data["templateGeminiSearch"];
+    templateGeminiSearchImage = data["templateGeminiSearchImage"];
   } catch (err) {
     console.log(`Error: ${err}`);
   }
