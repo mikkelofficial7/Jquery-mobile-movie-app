@@ -18,11 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	fetch('/api/env')
         .then((res) => res.json())
         .then((data) => {
-            iv = data.ivKey
-            ivGemini = data.ivKeyGemini
-            password = data.passwordKey
-            
-            console.log(data["ivKey"]);
+            iv = data["ivKey"]
+            ivGemini = data["ivKeyGemini"]
+            password = data["passwordKey"]
         })
         .catch((err) => {
             console.log(`Error: ${err}`);
