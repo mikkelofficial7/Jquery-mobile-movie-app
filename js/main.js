@@ -274,7 +274,10 @@ $(document).ready(function(){
 		const requestBody = {
 			contents: [{
 				parts: [{ text: templateGeminiSearch+description }]
-			}]
+			}],
+			generationConfig: {
+				maxOutputTokens: maxGeminiOutputToken
+			}
 		};
 
 		try {

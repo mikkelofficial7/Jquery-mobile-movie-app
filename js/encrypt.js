@@ -8,6 +8,7 @@ const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
 const baseUrl = "https://findyourmovi.vercel.app/"
 const geminiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 const templateGeminiSearch = "I forget the title but can you give me one title that closest to my description: "
+const maxGeminiOutputToken = 100
 
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
