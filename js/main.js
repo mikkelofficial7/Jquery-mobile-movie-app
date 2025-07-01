@@ -23,10 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	isLocalEnv = !baseUrl.includes("vercel.app");
 });
 
-$(document).ready(function(){
-	const ssss = process.env.NEXT_PUBLIC_IV_KEY;
-	console.log(ssss);
-
+$(document).ready(function() {
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")

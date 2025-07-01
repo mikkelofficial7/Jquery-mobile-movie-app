@@ -54,3 +54,12 @@ async function decryptString(ciphertextBase64, ivBase64, password) {
 
     return textDecoder.decode(decrypted);
 }
+
+fetch('/api/env')
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(`API URL: ${data.ivKey}`);
+  })
+  .catch((err) => {
+    console.log(`Error: ${err}`);
+  });
