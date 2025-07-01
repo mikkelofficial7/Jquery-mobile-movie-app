@@ -18,15 +18,12 @@ var tv_currentPageTopRated = 1;
 var currentPageReview = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
-	console.log("running dom ui");
 	document.getElementById("et-search").placeholder = "Search your title here...";
 	const baseUrl = window.location.origin;
 	isLocalEnv = !baseUrl.includes("vercel.app");
 });
 
 $(document).ready(function() {	
-	console.log("running ui");
-
 	autoScroll("item-movie-trending-today")
 	autoScroll("item-tv-trending-today")
 	autoScroll("item-cast-trending-today")

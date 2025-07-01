@@ -14,7 +14,7 @@ const maxGeminiOutputToken = 100
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function() {	
 	fetch('/api/env')
         .then((res) => res.json())
         .then((data) => {
