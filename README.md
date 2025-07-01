@@ -1,40 +1,29 @@
-jQuery Mobile Slide Menu
-------------------------
-This is a simple side aligned sliding menu for jQuery Mobile. You can access the menu either by hitting the menu icon or by swiping your finger from left to right, to slide the menu out. Likewise, you can hide it with the menu icon, or by swiping your finger from right to left to slide the menu back in.
+# 🎬 Movi Snap - AI Based Movie and TV Show Search
+
+A simple and clean movie discovery web app built with HTML, CSS (Tailwind), and JQuery Mobile (Javascript). Easily browse and search for popular, top-rated, upcoming, and now-playing movies powered by the TMDB API with `Gemini 2.0 flash` AI integrated.
+
+🚀 Live Demo: [here](https://findyourmovi.vercel.app)
 
 <img src="https://github.com/mikkelofficial7/Jquery-mobile-movie-app/blob/master/demo.jpg" alt="Project screenshot" width="700" />
 
-Usage
------
-Include the following files:
-```html
-<link rel="stylesheet" href="css/jquery-mobile-slide-menu.css" type="text/css" />
-<script type="text/javascript" src="js/jquery-mobile-slide-menu.js"></script>
-```
+---
 
-Then insert your menu, before your `<div data-role="page">` tag:
-```html
-<div id="side-menu">
-	<ul>
-		<li><a href="/">Main</a><span class="icon"></span></li>
-		<li><a href="/page-2/">Page 2</a><span class="icon"></span></li>
-		<li><a href="/page-3/">Page 3</a><span class="icon"></span></li>
-		<li><a href="/page-4/">Page 4</a><span class="icon"></span></li>
-	</ul>
-</div>
-```
+## ✨ Features
 
-Then add this to initiate the menu:
-```javascript
-$(function(){
-	$('#side-menu').slideMenu();
-});
-```
+- 🔍 AI-Based Search for any movie and tv show (can search by description and image scene)
+- 🎞️ Browse categories:
+  - Now Playing
+  - Popular
+  - Top Rated
+  - Upcoming
+- 📄 View basic movie info (poster, title, release date)
+- 📱 Responsive design with Tailwind CSS
+- ⚡ Fast and lightweight interface
 
-Demo
-----
-Can also be seen at http://jsfiddle.net/gh/gist/jquery/1.9.1/5624435/ or in `index.html`
+---
 
-License
--------
-Copyright (c) 2013 Don Walter. Licensed under the MIT license.
+## 🛠️ Tech Stack
+
+- **Web**: HTML, Tailwind CSS, JQuery Mobile (Javascript)
+- **Movie DB API**: [TMDB (The Movie Database)](https://developer.themoviedb.org/)
+- **AI Model** [Gemini 2.0 flash API](https://ai.google.dev/gemini-api/docs)
