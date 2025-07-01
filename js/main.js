@@ -265,6 +265,7 @@ $(document).ready(function() {
 		});
 
 		document.getElementById("et-search").placeholder = "Search your title here...";
+  		document.getElementById("et-search").setAttribute("maxlength", 200);
 
 		toggle.addEventListener('click', () => {
 			if (isToggleOn) {
@@ -289,7 +290,7 @@ $(document).ready(function() {
 
 				$(".btn-search").text("Ask AI");
 				document.getElementById("et-search").placeholder = "Describe specifically your movie/tv show detail, AI will recommend you a title";
-				document.getElementById("et-search").rows = 4;
+				document.getElementById("et-search").rows = 3;
 			}
 		});
 
