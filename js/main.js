@@ -238,7 +238,16 @@ $(document).ready(function() {
 					$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 					createElementDataLoading("#movieListSearch")
 					
-					runGeminiSearch(searchKeyword)
+					const requestBody = {
+						contents: [{
+							parts: [{ text: templateGeminiSearch+searchKeyword }]
+						}],
+						generationConfig: {
+							maxOutputTokens: maxGeminiOutputToken
+						}
+					};
+
+					runGeminiSearch(requestBody)
 				} else {
 					const loadMoreSection = document.getElementById('load-more-section-search');
 					loadMoreSection.classList.add('hidden');
@@ -303,21 +312,12 @@ $(document).ready(function() {
 	});
 });
 
-async function runGeminiSearch(description) {
+async function runGeminiSearch(requestBody) {
 	let totalMovieFound = [];
 	let totalTvFound = [];
 
 	const apikeyGemini = await decryptString(cipherGemini, ivGemini, password);		
 	const geminiUrl = `${geminiBaseUrl}?key=${apikeyGemini}`;
-
-	const requestBody = {
-		contents: [{
-			parts: [{ text: templateGeminiSearch+description }]
-		}],
-		generationConfig: {
-			maxOutputTokens: maxGeminiOutputToken
-		}
-	};
 
 	try {
 		const response = await fetch(geminiUrl, {
@@ -335,7 +335,7 @@ async function runGeminiSearch(description) {
 		const responseJson = await response.json();
 		const aiResponse = responseJson.candidates?.[0]?.content?.parts?.[0]?.text;
 
-		const match = aiResponse.match(/\*\*(.*?)\*\*/);
+		const match = aiResponse.includes("**") ? aiResponse.match(/\*\*(.*?)\*\*/) : aiResponse;
 		searchKeyword = match ? match[1] : "";
 		
 		if (searchKeyword == "") {
