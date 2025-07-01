@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ivGemini = data.ivKeyGemini
             password = data.passwordKey
             
-            console.log(data);
+            console.log(data["ivKey"]);
         })
         .catch((err) => {
             console.log(`Error: ${err}`);
