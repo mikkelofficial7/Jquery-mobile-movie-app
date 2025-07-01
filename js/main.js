@@ -274,7 +274,9 @@ $(document).ready(function() {
 				toggle.classList.toggle(isToggleOn);
 				dot.style.transform = 'translateX(0)';
 
-				document.getElementById("et-search").value = "";
+				const newValue = document.getElementById("et-search").value.replace(/[\r\n]+/g, " ");
+				document.getElementById("et-search").value = newValue;
+
 				document.getElementById("et-search").placeholder = "Search your title here...";
 				document.getElementById("et-search").rows = 1;
 			} else {
@@ -284,7 +286,6 @@ $(document).ready(function() {
 				toggle.classList.toggle(isToggleOn);
 				dot.style.transform = 'translateX(20px)';
 
-				document.getElementById("et-search").value = "";
 				document.getElementById("et-search").placeholder = "Describe specifically your movie/tv show detail, AI will recommend you a title";
 				document.getElementById("et-search").rows = 4;
 			}
