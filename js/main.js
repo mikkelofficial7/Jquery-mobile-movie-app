@@ -147,7 +147,7 @@ $(document).ready(function() {
 			var title = $(this).attr("data-title-name");
 
 			const imageUrl = itemPoster == null
-							? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+							? defaultPosterImage
 							: baseImageLoad + itemPoster;
 
 			$("#review-movie-title").text(title);
@@ -171,7 +171,7 @@ $(document).ready(function() {
 			var title = $(this).attr("data-title-name");
 
 			const imageUrl = itemPoster == null
-							? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+							? defaultPosterImage
 							: baseImageLoad + itemPoster;
 
 			$("#review-movie-title").text(title);
@@ -352,7 +352,7 @@ async function runGeminiSearch(description) {
 async function runAllLanguageProvided() {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/configuration/languages?api_key="+apikey, function(data){
+	$.getJSON(baseUrlTmdb+"configuration/languages?api_key="+apikey, function(data){
 		availableLanguage = data;
 	});
 }
@@ -360,7 +360,7 @@ async function runAllLanguageProvided() {
 async function runMovieTrendingTodayList() {	
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/trending/movie/day?api_key="+apikey, function(data){
+	$.getJSON(baseUrlTmdb+"trending/movie/day?api_key="+apikey, function(data){
 		listReviewMovieData = data.results.map(item => ({
 			id: item.id,
 			name: item.title,
@@ -373,7 +373,7 @@ async function runMovieTrendingTodayList() {
 
 			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
@@ -429,7 +429,7 @@ async function runMovieTrendingTodayList() {
 async function runTvTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	$.getJSON("https://api.themoviedb.org/3/trending/tv/day?api_key="+apikey, function(data){
+	$.getJSON(baseUrlTmdb+"trending/tv/day?api_key="+apikey, function(data){
 		listReviewTvShowData = data.results.map(item => ({
 			id: item.id,
 			name: item.name,
@@ -442,7 +442,7 @@ async function runTvTrendingTodayList() {
 
 			data.results.forEach(data => {
 				const imageUrl = data.poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.poster_path;
 				
 				const slide = document.createElement("div");
@@ -498,14 +498,14 @@ async function runTvTrendingTodayList() {
 async function runCastTrendingTodayList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	$.getJSON("https://api.themoviedb.org/3/trending/person/day?api_key="+apikey, function(data){
+	$.getJSON(baseUrlTmdb+"trending/person/day?api_key="+apikey, function(data){
 		$.each(data.results, function(){	
 			const posterList = document.querySelector("#item-cast-trending-today");
 			posterList.innerHTML = "";
 
 			data.results.forEach(data => {
 				const imageUrl = data.profile_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.profile_path;
 				
 				const slide = document.createElement("div");
@@ -563,7 +563,7 @@ async function getMovieReviewApi(id, displayType, page = 1, onComplete = () => {
 
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	return $.getJSON(`https://api.themoviedb.org/3/${displayType}/${id}/reviews?page=${page}&api_key=${apikey}`)
+	return $.getJSON(`${baseUrlTmdb}${displayType}/${id}/reviews?page=${page}&api_key=${apikey}`)
 		.then(data => {
 			onComplete(data);
 			return data;
@@ -694,7 +694,7 @@ async function runReviewList(id = "", displayType = "", parentList = "", page = 
 async function runUpcomingList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListUpcoming").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListUpcoming").append("<li class='flex justify-center'>Data not found</li>");
@@ -719,7 +719,7 @@ async function runUpcomingList(currentPage) {
 async function runTopRatedList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListTopRated").append("<li class='flex justify-center'>Data not found</li>");
@@ -743,7 +743,7 @@ async function runTopRatedList(currentPage) {
 async function runPopularList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListPopular").append("<li class='flex justify-center'>Data not found</li>");
@@ -767,7 +767,7 @@ async function runPopularList(currentPage) {
 async function runNowPlayingList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
@@ -791,7 +791,7 @@ async function runNowPlayingList(currentPage) {
 async function runTvShowNowPlayingList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
@@ -815,7 +815,7 @@ async function runTvShowNowPlayingList(currentPage) {
 async function runTvShowPopularList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListPopular").append("<li class='flex justify-center'>Data not found</li>");
@@ -839,7 +839,7 @@ async function runTvShowPopularList(currentPage) {
 async function runTvShowTopRatedList(currentPage) {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
+	$.getJSON(baseUrlTmdb+"tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListTopRated").append("<li class='flex justify-center'>Data not found</li>");
@@ -868,8 +868,8 @@ async function runSearchList(currentPage, keyword, totalMovieFound, totalTvFound
 	let isMovieNotFound = false
 	let isTvNotFound = false
 
-	const movieUrl = `https://api.themoviedb.org/3/search/movie?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
-	const tvUrl = `https://api.themoviedb.org/3/search/tv?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
+	const movieUrl = `${baseUrlTmdb}search/movie?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
+	const tvUrl = `${baseUrlTmdb}search/tv?page=${currentPage}&query=${keyword}&api_key=${apikey}&include_adult=true`;
 
 	// Fetch movies
 	const movieResponse = await fetch(movieUrl);
@@ -923,7 +923,7 @@ let tvGenre = [];
 async function runMovieGenreList() {	
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	$.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key='+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"genre/movie/list?api_key="+apikey, function(data) {
 		movieGenre = data.genres;
 		populateItemGenre();
 	});
@@ -937,7 +937,7 @@ async function runMovieGenreList() {
 		const index = $(this).index(); // Get the index of clicked <li>
 		currentPageGenreSearch += 1;
 		
-		$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+movieGenre[index].id, function(data) {	
+		$.getJSON(baseUrlTmdb+"discover/movie?api_key="+apikey+"&with_genres="+movieGenre[index].id, function(data) {	
 			$.each(data.results, function(index, item){
 				createItemElementMovieTvShow("GenreListSearch", item, "movie");
 			});
@@ -985,7 +985,7 @@ async function runSelectedGenreMovie(index) {
 		$("#GenreListSearch").html("");
 		if (selectedMovieGenreId.length < 1) return
 
-		$.getJSON('https://api.themoviedb.org/3/discover/movie?api_key='+apikey+'&with_genres='+selectedMovieGenreId.join(","), function(data) {
+		$.getJSON(baseUrlTmdb+"discover/movie?api_key="+apikey+"&with_genres="+selectedMovieGenreId.join(","), function(data) {
 			$.each(data.results, function(index, item){
 				createItemElementMovieTvShow("GenreListSearch", item, "movie");
 			});
@@ -1009,7 +1009,7 @@ async function runSelectedGenreMovie(index) {
 async function runTvGenreList() {
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON('https://api.themoviedb.org/3/genre/tv/list?api_key='+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"genre/tv/list?api_key="+apikey, function(data) {
 		tvGenre = data.genres;
 		populateItemGenre();
 	});
@@ -1023,7 +1023,7 @@ async function runTvGenreList() {
 		currentPageGenreSearch += 1;
 		const index = $(this).index(); // Get the index of clicked <li>
 		
-		$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+tvGenre[index].id, function(data) {	
+		$.getJSON(baseUrlTmdb+"discover/tv?api_key="+apikey+"&with_genres="+tvGenre[index].id, function(data) {	
 			$.each(data.results, function(index, item){
 				createItemElementMovieTvShow("GenreListSearch", item, "tv");
 			});
@@ -1071,7 +1071,7 @@ async function runSelectedGenreTv(index) {
 		$("#GenreListSearch").html("");
 		if (selectedTvGenreId.length < 1) return
 
-		$.getJSON('https://api.themoviedb.org/3/discover/tv?api_key='+apikey+'&with_genres='+selectedTvGenreId.join(","), function(data) {				
+		$.getJSON(baseUrlTmdb+"discover/tv?api_key="+apikey+"&with_genres="+selectedTvGenreId.join(","), function(data) {				
 			$.each(data.results, function(index, item){
 				createItemElementMovieTvShow("GenreListSearch", item, "tv")
 			});
@@ -1213,7 +1213,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 			const selectedPath = backdropImages[index].file_path;
 			const imageUrl = selectedPath
 			? baseImageLoad + selectedPath
-			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
+			: defaultPosterImage;
 
 			$("#item-bg").attr("src", imageUrl);
 		}
@@ -1221,7 +1221,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
+	$.getJSON(baseUrlTmdb+"movie/"+movieId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 		$("#itemListSimilar").html("");
 
 		$("#itemListSimilar").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -1235,14 +1235,14 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		});
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/images?api_key="+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"movie/"+movieId+"/images?api_key="+apikey, function(data) {
 		const posterList = document.getElementById("item-images-alternate");
 			posterList.innerHTML = "";
 
 			backdropImages = data.backdrops;
 			data.backdrops.forEach((data, index) => {
 				const imageUrl = data.file_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + data.file_path;
 
 			const li = document.createElement("li");
@@ -1259,7 +1259,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		});
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/videos?api_key="+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"movie/"+movieId+"/videos?api_key="+apikey, function(data) {
 		const youtubeVideoList = document.getElementById("item-videos");
 		youtubeVideoList.innerHTML = "";
 		
@@ -1309,11 +1309,11 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
+	$.getJSON(baseUrlTmdb+"movie/"+movieId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
 		setGenresAndOverview(data, "movie", isDisplayOnly);
 
 		const imageUrl = data.poster_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + data.poster_path;
 
 		document.getElementById("item-title").textContent = data.title;
@@ -1322,7 +1322,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		document.getElementById("item-poster").src = imageUrl;
 
 		const backdropUrl = data.backdrop_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + data.backdrop_path;
 
 		document.getElementById("item-bg").src = backdropUrl;
@@ -1342,7 +1342,7 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 
 			// Create logo image if available
 			const imageUrl = company.logo_path == null
-					? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+					? defaultCompanyLogo
 					: baseImageLoad + company.logo_path;
 
 			const img = document.createElement("img");
@@ -1429,11 +1429,11 @@ async function runDetailMovieData(movieId, isDisplayOnly = false) {
 		$("#btn-load-more-review").attr("data-title-name", data.title);
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
+	$.getJSON(baseUrlTmdb+"movie/"+movieId+"/external_ids?api_key="+apikey, function(dataId) {
 		if (dataId.imdb_id !== null) {
-			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+			$.getJSON(baseUrlTmdb+"find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
 				const imageUrl = data.movie_results[0].poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.movie_results[0].poster_path;
 
 				document.getElementById("item-title").textContent = data.movie_results[0].title;
@@ -1481,7 +1481,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 			const selectedPath = backdropImages[index].file_path;
 			const imageUrl = selectedPath
 			? baseImageLoad + selectedPath
-			: "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg";
+			: defaultPosterImage;
 
 			$("#item-bg").attr("src", imageUrl);
 		}
@@ -1489,14 +1489,14 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	const apikey = await decryptString(ciphertext, iv, password);
 	
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/images?api_key="+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"tv/"+tvShowId+"/images?api_key="+apikey, function(data) {
 		const posterList = document.getElementById("item-images-alternate");
 			posterList.innerHTML = "";
 
 			backdropImages = data.backdrops;
 			data.backdrops.forEach(data => {
 				const imageUrl = data.file_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + data.file_path;
 
 			const li = document.createElement("li");
@@ -1512,7 +1512,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		});
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
+	$.getJSON(baseUrlTmdb+"tv/"+tvShowId+"/similar?api_key="+apikey+"&include_adult=true", function(data) {
 		
 		$("#itemListSimilar").html("");
 		$("#itemListSimilar").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
@@ -1527,7 +1527,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		});
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/videos?api_key="+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"tv/"+tvShowId+"/videos?api_key="+apikey, function(data) {
 		const youtubeVideoList = document.getElementById("item-videos");
 		youtubeVideoList.innerHTML = "";
 		
@@ -1577,11 +1577,11 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
+	$.getJSON(baseUrlTmdb+"tv/"+tvShowId+"?api_key="+apikey+"&include_adult=true&append_to_response=credits", function(data) {
 		setGenresAndOverview(data, "tv", isDisplayOnly);
 
 		const imageUrl = data.poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.poster_path;
 
 		document.getElementById("item-title").textContent = data.name;
@@ -1590,7 +1590,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		document.getElementById("item-poster").src = imageUrl;
 
 		const backdropUrl = data.backdrop_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + data.backdrop_path;
 
 		document.getElementById("item-bg").src = backdropUrl;
@@ -1610,7 +1610,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 
 			// Create logo image if available
 			const imageUrl = company.logo_path == null
-					? "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
+					? defaultCompanyLogo
 					: baseImageLoad + company.logo_path;
 
 			const img = document.createElement("img");
@@ -1682,7 +1682,7 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		}
 		$.each(data.seasons, function(index, season) {
 			const posterSeason = season.poster_path == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + season.poster_path;
 
 			const seasonOrdinal = season.season_number < 1 ? "Special edition" : "Season "+season.season_number;
@@ -1709,11 +1709,11 @@ async function runDetailTvShowData(tvShowId, isDisplayOnly = false) {
 		$("#btn-load-more-review").attr("data-title-name", data.name);
 	});
 
-	$.getJSON("https://api.themoviedb.org/3/tv/"+tvShowId+"/external_ids?api_key="+apikey, function(dataId) {
+	$.getJSON(baseUrlTmdb+"tv/"+tvShowId+"/external_ids?api_key="+apikey, function(dataId) {
 		if(dataId.imdb_id !== null) {
-			$.getJSON("https://api.themoviedb.org/3/find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
+			$.getJSON(baseUrlTmdb+"find/"+dataId.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(data) {
 				const imageUrl = data.tv_results[0].poster_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.tv_results[0].poster_path;
 
 				document.getElementById("item-title").textContent = data.tv_results[0].name;
@@ -1750,9 +1750,9 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 
 	const apikey = await decryptString(ciphertext, iv, password);
 
-	$.getJSON("https://api.themoviedb.org/3/person/"+castId+"?api_key="+apikey, function(data) {
+	$.getJSON(baseUrlTmdb+"person/"+castId+"?api_key="+apikey, function(data) {
 		const imageUrl = data.profile_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + data.profile_path;
 
 		let birthAndDeathDay = "N/A";
@@ -1770,9 +1770,9 @@ async function runDetailCastData(castId, isDisplayOnly = false) {
 		document.getElementById("cast-biodata").textContent = data.biography.length > 0 ? data.biography : "No Biography"; 
 
 		if (data.imdb_id != null) {
-			$.getJSON("https://api.themoviedb.org/3/find/"+data.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(dataImdb) {
+			$.getJSON(baseUrlTmdb+"find/"+data.imdb_id+"?api_key="+apikey+"&external_source=imdb_id", function(dataImdb) {
 				const imageUrl = dataImdb.person_results[0].profile_path == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + dataImdb.person_results[0].profile_path;
 
 				document.getElementById("cast-poster").src = imageUrl;
@@ -1862,7 +1862,7 @@ function createElementReviewHome() {
 
 function createItemElementMovieTvShow(parentName, item, displayType, hrefDestination = "#item-detail") {
 	const imageUrl = item['poster_path'] == null
-					? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+					? defaultPosterImage
 					: baseImageLoad + item['poster_path'];
 					
 	const name = item['title'] || item['name'];
@@ -1911,7 +1911,7 @@ function createItemElementMovieTvShow(parentName, item, displayType, hrefDestina
 
 function createItemElementCast(item, displayType, hrefDestination = "#item-cast") {
 	const photoCast = item["profile_path"] == null
-						? "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
+						? defaultPosterImage
 						: baseImageLoad + item["profile_path"];
 
 	const $li = $("<li>")
