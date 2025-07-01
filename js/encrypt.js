@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
             iv = data["ivKey"]
             ivGemini = data["ivKeyGemini"]
             password = data["passwordKey"]
+
+            console.log("Finish load apikey")
         })
         .catch((err) => {
             console.log(`Error: ${err}`);
