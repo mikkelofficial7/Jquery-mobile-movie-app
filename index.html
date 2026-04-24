@@ -344,7 +344,32 @@
                       </div>
                     </div>
                 </div>
-
+                <div class="w-full flex justify-end mt-5 mb-3 hidden" id="input-api-key">
+                  <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <div class="relative inline-block">
+                      <i class="fas fa-info-circle cursor-pointer" id="info-about-apikey"></i>
+                      <div 
+                        id="tooltip-apikey"
+                        class="hidden absolute left-0 sm:left-1/2000 sm:-translate-x-1/2 mt-2 
+                              w-48 sm:w-56 max-w-[90vw] 
+                              bg-black text-white text-sm rounded-lg px-3 py-2 shadow-lg z-50">
+                        We encourage you to obtain and use your own API key from the Google Cloud Console for uninterrupted access. Api Key will not be saved in our system and will be erased after you refresh or leave the page.
+                      </div>
+                    </div>
+                    <p class="whitespace-nowrap text-lg" id="apikey-symbol">U+1F511</p>
+                    <input 
+                      type="text"
+                      data-role="none"
+                      id="gemini-api-key"
+                      class="resize-none w-full px-4 py-4 lg:w-[350px] text-base rounded-md outline-none border border-[#f8f8ff] focus:border-[#a5a1a1] focus:outline-none focus:bg-[#d1e0ea] focus:placeholder-[#9d9d9d] focus:text-[#121212] transition-all"
+                      placeholder="Insert your Gemini Api Key..."
+                      autocomplete="off"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    />
+                  </div>
+                </div>
                 <div id="layout-search" class="flex w-full rounded-md overflow-hidden border-0 bg-[#f8f8ff]">
                   <textarea
                     type="text"

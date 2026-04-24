@@ -235,9 +235,6 @@ $(document).ready(function() {
 				}
 			} else {
 				if (searchKeyword != "") {
-					$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-					createElementDataLoading("#movieListSearch")
-					
 					const requestBody = {
 						contents: [{
 							parts: [{ text: templateGeminiSearch+searchKeyword }]
@@ -286,6 +283,9 @@ $(document).ready(function() {
 				const areaOr = document.getElementById('parent-or');
 				areaOr.classList.add('hidden');
 
+				const areaApiKey = document.getElementById('input-api-key');
+				areaApiKey.classList.add('hidden');
+
 				toggle.classList.remove('bg-[#456f9a]')
 				toggle.classList.add('bg-[#9ebdd1]');
 				toggle.classList.toggle(isToggleOn);
@@ -305,6 +305,9 @@ $(document).ready(function() {
 				const areaOr = document.getElementById('parent-or');
 				areaOr.classList.remove('hidden');
 
+				const areaApiKey = document.getElementById('input-api-key');
+				areaApiKey.classList.remove('hidden');
+
 				toggle.classList.remove('bg-[#9ebdd1]')
 				toggle.classList.add('bg-[#456f9a]');
 				toggle.classList.toggle(isToggleOn);
@@ -322,56 +325,99 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	// Tooltip API Key for Gemini AI
+	const tooltip = $("#tooltip-apikey");
+
+	// Desktop hover
+	$("#info-about-apikey").hover(
+		function () {
+		tooltip.removeClass("hidden");
+		},
+		function () {
+		tooltip.addClass("hidden");
+		}
+	);
+
+	// Mobile click toggle
+	$("#info-about-apikey").on("click", function (e) {
+		e.stopPropagation();
+		tooltip.toggleClass("hidden");
+	});
+
+	// Click outside to close
+	$(document).on("click", function () {
+		tooltip.addClass("hidden");
+	});
 });
 
 async function runGeminiSearch(requestBody, modelType = "text", modelName = "gemini-2.0-flash") {
 	let totalMovieFound = [];
 	let totalTvFound = [];
 
-	const apikeyGemini = await decryptString(cipherGemini, ivGemini, password);		
+	const googleApiKeyRegex = /^AIza[0-9A-Za-z_\-]{30,}$/ 
+	const apikeyGemini = document.getElementById("gemini-api-key").value;
+
 	const geminiUrl = `${getGeminiUrl(modelName)}?key=${apikeyGemini}`;
 
-	try {
-		const response = await fetch(geminiUrl, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(requestBody)
-		});
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
-
-		const responseJson = await response.json();
-		const aiResponse = responseJson.candidates?.[0]?.content?.parts?.[0]?.text;
-
-		if (modelType == "text") {
-			const match = aiResponse.includes("**") ? aiResponse.match(/\*\*(.*?)\*\*/) : aiResponse;
-			searchKeyword = match ? match[1] : "";
-
-		} else if (modelType == "image") {
-			searchKeyword = aiResponse;
-		}
-
-		
-		if (searchKeyword == "") {
-			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			createElementDataNotFound("#movieListSearch")
-		} else {
-			$("#movieListSearch").html("");
-			$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-			runSearchList(currentPageSearch, searchKeyword, totalMovieFound, totalTvFound)
-		}
-	} catch (error) {
-		console.error("Request failed:", error);
-
+	if (apikeyGemini == "") {
 		const loadMoreSection = document.getElementById('load-more-section-search');
 		loadMoreSection.classList.add('hidden');
 
-		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-		createElementDataNotFound("#movieListSearch", "Gemini API Error", "Your gemini credential API token is invalid")
+		showSnackBar(2500, "Gemini Api Key cannot be empty!", "#fc0404");
+	} else {
+		if (!googleApiKeyRegex.test(apikeyGemini)) {
+			const loadMoreSection = document.getElementById('load-more-section-search');
+			loadMoreSection.classList.add('hidden');
+
+			showSnackBar(2500, "Invalid Gemini Api Key Format!", "#fc0404");
+		} else {
+			$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+			createElementDataLoading("#movieListSearch")
+
+			try {
+				const response = await fetch(geminiUrl, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(requestBody)
+				});
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+
+				const responseJson = await response.json();
+				const aiResponse = responseJson.candidates?.[0]?.content?.parts?.[0]?.text;
+
+				if (modelType == "text") {
+					const match = aiResponse.includes("**") ? aiResponse.match(/\*\*(.*?)\*\*/) : aiResponse;
+					searchKeyword = match ? match[1] : "";
+
+				} else if (modelType == "image") {
+					searchKeyword = aiResponse;
+				}
+
+				
+				if (searchKeyword == "") {
+					$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+					createElementDataNotFound("#movieListSearch")
+				} else {
+					$("#movieListSearch").html("");
+					$("#movieListSearch").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+					runSearchList(currentPageSearch, searchKeyword, totalMovieFound, totalTvFound)
+				}
+			} catch (error) {
+				console.error("Request failed:", error);
+
+				const loadMoreSection = document.getElementById('load-more-section-search');
+				loadMoreSection.classList.add('hidden');
+
+				$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+				createElementDataNotFound("#movieListSearch", "Gemini API Error", "Your gemini credential API token is invalid")
+			}
+		}
 	}
 }
 

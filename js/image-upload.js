@@ -10,6 +10,9 @@ $(document).ready(function() {
     var selectModelValue = "";
     var selectedModelText = "";
 
+    const emoji = String.fromCodePoint(0x1F511);
+    document.getElementById("apikey-symbol").textContent = emoji;
+
     // Click to upload
     dropzone.addEventListener('click', () => fileInput.click());
 
@@ -53,9 +56,6 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".btn-search-image", function () {
-        $("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
-		createElementDataLoading("#movieListSearch")
-
         const modelName = selectModelValue;
         const src = $("#upload-preview").attr("src");
 
