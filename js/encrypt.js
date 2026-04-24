@@ -11,7 +11,8 @@ const AiModel = "Google AI Studio"
 const baseImageLoad = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
 const baseUrlTmdb = "https://api.themoviedb.org/3/"
 const baseUrl = "https://findyourmovi.vercel.app/"
-const geminiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+const getGeminiUrl = (model) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 const defaultPosterImage = "https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg"
 const defaultCompanyLogo = "https://www.shutterstock.com/image-vector/image-icon-trendy-flat-style-600nw-643080895.jpg"
 

@@ -181,6 +181,15 @@ ul::-webkit-scrollbar {
 .load-more:hover {
 	background: linear-gradient(to bottom, #5688a9, #33516f);
 }
+.btn-search-image:hover {
+	transform: scale(1.09);
+	transition: transform 0.3s ease-in-out;
+	background: linear-gradient(to bottom, #5688a9, #33516f);
+}
+#dropdown-model:hover {
+	transition: transform 0.3s ease-in-out;
+	background: linear-gradient(to bottom, #e9e9e9, #5688a9);
+}
 
 @media screen and (max-width: 639px) {
 	.poster-images

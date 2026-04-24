@@ -247,7 +247,7 @@ $(document).ready(function() {
 						}
 					};
 
-					runGeminiSearch(requestBody, "text")
+					runGeminiSearch(requestBody, "text", "gemini-2.0-flash")
 				} else {
 					const loadMoreSection = document.getElementById('load-more-section-search');
 					loadMoreSection.classList.add('hidden');
@@ -282,8 +282,9 @@ $(document).ready(function() {
 				isToggleOn = false;
 				const areaImageDropZone = document.getElementById('parent-drop-zone');
 				areaImageDropZone.classList.add('hidden');
+
 				const areaOr = document.getElementById('parent-or');
-				areaOr.classList.add('hidden')
+				areaOr.classList.add('hidden');
 
 				toggle.classList.remove('bg-[#456f9a]')
 				toggle.classList.add('bg-[#9ebdd1]');
@@ -300,8 +301,9 @@ $(document).ready(function() {
 				isToggleOn = true;
 				const areaImageDropZone = document.getElementById('parent-drop-zone');
 				areaImageDropZone.classList.remove('hidden');
+
 				const areaOr = document.getElementById('parent-or');
-				areaOr.classList.remove('hidden')
+				areaOr.classList.remove('hidden');
 
 				toggle.classList.remove('bg-[#9ebdd1]')
 				toggle.classList.add('bg-[#456f9a]');
@@ -322,12 +324,12 @@ $(document).ready(function() {
 	});
 });
 
-async function runGeminiSearch(requestBody, modelType = "text") {
+async function runGeminiSearch(requestBody, modelType = "text", modelName = "gemini-2.0-flash") {
 	let totalMovieFound = [];
 	let totalTvFound = [];
 
 	const apikeyGemini = await decryptString(cipherGemini, ivGemini, password);		
-	const geminiUrl = `${geminiBaseUrl}?key=${apikeyGemini}`;
+	const geminiUrl = `${getGeminiUrl(modelName)}?key=${apikeyGemini}`;
 
 	try {
 		const response = await fetch(geminiUrl, {
@@ -364,6 +366,9 @@ async function runGeminiSearch(requestBody, modelType = "text") {
 		}
 	} catch (error) {
 		console.error("Request failed:", error);
+
+		const loadMoreSection = document.getElementById('load-more-section-search');
+		loadMoreSection.classList.add('hidden');
 
 		$("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		createElementDataNotFound("#movieListSearch", "Gemini API Error", "Your gemini credential API token is invalid")

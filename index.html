@@ -344,6 +344,7 @@
                       </div>
                     </div>
                 </div>
+
                 <div id="layout-search" class="flex w-full rounded-md overflow-hidden border-0 bg-[#f8f8ff]">
                   <textarea
                     type="text"
@@ -376,10 +377,19 @@
                   <p class="text-[10px] text-[#121212]">(Only .png, .jpg, and .jpeg files supported)</p>
                   <img id="upload-preview" class="hidden mt-4 w-40 h-40 object-cover rounded-md border" />
                 </div>
+                <div class="relative justify-center w-full hidden" id="dropdown-parent-model">
+                  <select id="dropdown-model"  data-role="none" class="appearance-none w-full pl-4 pr-12 py-2 mt-4 mb-4 rounded-lg bg-white text-black">
+                    <option selected disabled>Choose Model</option>
+                    <option value="gemini-2.5-flash-image">Nano Banana</option>
+                    <option value="gemini-3.1-flash-image-preview">Nano Banana 2</option>
+                    <option value="gemini-3-pro-image-preview">Nano Banana Pro</option>
+                  </select>
+                  <div class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2">
+                    ▼
+                  </div>
+                </div>
                 <div class="flex justify-center w-full">
-                  <button type="submit" data-role="none" class="hidden w-[100px] bg-gradient-to-b from-[#6facd5] to-[#456f9a] text-[#f8f8ff] rounded-lg mt-5 px-3 py-2 btn-search-image" aria-label="Search button">
-                    Ask AI
-                  </button>
+                  <button type="submit" data-role="none" class="hidden disabled w-[140px] bg-gradient-to-b from-[#6facd5] to-[#456f9a] text-[#f8f8ff] rounded-lg mt-2 px-3 py-2 btn-search-image" aria-label="Search button"></button>
                 </div>
               </div>
             </div>

@@ -5,6 +5,10 @@ $(document).ready(function() {
     fileUploadedExt = "";
     const dropzone = document.getElementById('upload-dropzone');
     const fileInput = document.getElementById('upload-file-input');
+    const dropdownModel = document.getElementById("dropdown-model");
+
+    var selectModelValue = "";
+    var selectedModelText = "";
 
     // Click to upload
     dropzone.addEventListener('click', () => fileInput.click());
@@ -33,36 +37,57 @@ $(document).ready(function() {
         handleFile(file);
     });
 
+    // Dropdown select model
+    dropdownModel.addEventListener("change", function () {
+        const selectedValue = this.value;
+        const selectedText = this.options[this.selectedIndex].text;
+
+        selectModelValue = selectedValue;
+        selectedModelText = selectedText;
+
+        if (selectedValue != "") {
+            const submitButton = document.querySelector('.btn-search-image');
+            submitButton.classList.remove('hidden');
+            submitButton.textContent = `Ask ${selectedModelText}`;
+        }
+    });
+
     $(document).on("click", ".btn-search-image", function () {
         $("#movieListSearch").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		createElementDataLoading("#movieListSearch")
 
-        const base64Data = $("#upload-preview").attr("src").split(',')[1];
-        
-        const requestBody = {
-            contents: [{
-                parts: [
-                    { text: templateGeminiSearchImage },
-                    { 
-                        inlineData: { 
-                            mimeType: "image/"+fileUploadedExt,
-                            data: base64Data
-                        } 
-                    }
-                ]
-            }],
-            generationConfig: {
-                maxOutputTokens: maxGeminiOutputToken
-            }
-        };
+        const modelName = selectModelValue;
+        const src = $("#upload-preview").attr("src");
 
-        runGeminiSearch(requestBody, "image")
+        const base64Data = src && src.includes(",") ? src.split(",")[1] : null;        
+            if (base64Data != null && modelName != "") {
+                const requestBody = {
+                contents: [{
+                    parts: [
+                        { text: templateGeminiSearchImage },
+                        { 
+                            inlineData: { 
+                                mimeType: "image/"+fileUploadedExt,
+                                data: base64Data
+                            } 
+                        }
+                    ]
+                }],
+                generationConfig: {
+                    maxOutputTokens: maxGeminiOutputToken
+                }
+            };
+
+            runGeminiSearch(requestBody, "image", modelName)
+        } else {
+            
+        }
     });
 });
 
 function handleFile(file) {
     const preview = document.getElementById('upload-preview');
-    const submitButton = document.querySelector('.btn-search-image');
+    const dropdownModel = document.getElementById('dropdown-parent-model');
 
     if (file && (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg')) {
         if (file.size <= maxSizeInBytes) {
@@ -73,7 +98,7 @@ function handleFile(file) {
             reader.onload = () => {
                 preview.src = reader.result;
                 preview.classList.remove('hidden');
-                submitButton.classList.remove('hidden');
+                dropdownModel.classList.remove('hidden');
             };
             reader.readAsDataURL(file);
         } else {
