@@ -280,6 +280,11 @@ $(document).ready(function() {
 		toggle.addEventListener('click', () => {
 			if (isToggleOn) {
 				isToggleOn = false;
+				const areaImageDropZone = document.getElementById('parent-drop-zone');
+				areaImageDropZone.classList.add('hidden');
+				const areaOr = document.getElementById('parent-or');
+				areaOr.classList.add('hidden')
+
 				toggle.classList.remove('bg-[#456f9a]')
 				toggle.classList.add('bg-[#9ebdd1]');
 				toggle.classList.toggle(isToggleOn);
@@ -293,6 +298,11 @@ $(document).ready(function() {
 				document.getElementById("et-search").rows = 1;
 			} else {
 				isToggleOn = true;
+				const areaImageDropZone = document.getElementById('parent-drop-zone');
+				areaImageDropZone.classList.remove('hidden');
+				const areaOr = document.getElementById('parent-or');
+				areaOr.classList.remove('hidden')
+
 				toggle.classList.remove('bg-[#9ebdd1]')
 				toggle.classList.add('bg-[#456f9a]');
 				toggle.classList.toggle(isToggleOn);
@@ -341,7 +351,6 @@ async function runGeminiSearch(requestBody, modelType = "text") {
 
 		} else if (modelType == "image") {
 			searchKeyword = aiResponse;
-			
 		}
 
 		

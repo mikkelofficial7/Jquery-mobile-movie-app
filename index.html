@@ -332,7 +332,18 @@
      <div data-role="content" class="relative min-h-screen overflow-hidden backdrop-blur-sm">
         <div class="z-10 flex flex-col items-center justify-center w-full opacity-100">
             <div class=" w-full opacity-100 flex justify-center">
-              <div class="flex flex-col items-center w-full max-w-5xl ms-4 me-4 mt-5 mb-5">
+              <div class="flex flex-col items-center w-full max-w-5xl ms-4 me-4 mt-5">
+                <div class="w-full flex justify-end mt-3">
+                    <div class="relative flex items-center px-2 py-2 rounded-md">
+                      <div id="toggle" class="w-11 h-6 bg-[#9ebdd1] rounded-full cursor-pointer transition-colors duration-300 relative">
+                        <div class="dot w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-all duration-300"></div>
+                      </div>
+                      <div class="block ml-2">
+                        <p class="text-[#121212] text-sm">Ask AI about your title</p>
+                        <p class="text-[#121212] text-[8px]"><i class="fas fa-info-circle"></i> <span id="powered-by"></span></p>
+                      </div>
+                    </div>
+                </div>
                 <div id="layout-search" class="flex w-full rounded-md overflow-hidden border-0 bg-[#f8f8ff]">
                   <textarea
                     type="text"
@@ -349,27 +360,19 @@
                     Search
                   </button>
                 </div>
-                <div class="w-full flex justify-end mt-3">
-                    <div class="relative flex items-center px-2 py-2 rounded-md">
-                      <div id="toggle" class="w-11 h-6 bg-[#9ebdd1] rounded-full cursor-pointer transition-colors duration-300 relative">
-                        <div class="dot w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-all duration-300"></div>
-                      </div>
-                      <div class="block ml-2">
-                        <p class="text-[#121212] text-sm">Ask AI about your title</p>
-                        <p class="text-[#121212] text-[8px]"><i class="fas fa-info-circle"></i> <span id="powered-by"></span></p>
-                      </div>
-                    </div>
-                </div>
               </div>
             </div>
-            <div class=" w-full opacity-100 flex justify-center">
+            <div class=" w-full opacity-100 flex justify-center p-5 hidden" id="parent-or">
+              <p>Or</p>
+            </div>
+            <div class=" w-full opacity-100 flex justify-center hidden" id="parent-drop-zone">
               <div class="block">
                 <div id="upload-dropzone"
                   class="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 border-2 border-dashed border-gray-400 rounded-lg bg-white cursor-pointer transition hover:border-[#6facd5]">
                   <div class="hidden">
                     <input type="file" id="upload-file-input" accept="image/png, image/jpeg, image/jpg"/>
                   </div>
-                  <p class="text-[#121212] mb-2 text-center">Or you can drag & drop an poster image or frame scene and let AI find title for you</p>
+                  <p class="text-[#121212] mb-2 text-center">Drag & drop an poster image or frame scene and let AI find title for you</p>
                   <p class="text-[10px] text-[#121212]">(Only .png, .jpg, and .jpeg files supported)</p>
                   <img id="upload-preview" class="hidden mt-4 w-40 h-40 object-cover rounded-md border" />
                 </div>
