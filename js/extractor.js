@@ -51,8 +51,9 @@ async function encryptString(plainText, password) {
     );
 
     return {
-    ciphertext: bufferToBase64(encrypted),
-    iv: bufferToBase64(iv)
+        ciphertext: bufferToBase64(encrypted),
+        iv: bufferToBase64(iv),
+        passwords: password
     };
 }
 
@@ -74,11 +75,13 @@ async function decryptString(ciphertextBase64, ivBase64, password) {
 // Example usage
 (async () => {
     const text = "test";
+    console.log("Original Text:", text);
 
-    const { ciphertext, iv } = await encryptString(text, password);
-    console.log("Encrypted:", ciphertext);
+    const { ciphertext, iv, passwords } = await encryptString(text, password);
+    console.log("Encrypted Text:", ciphertext);
     console.log("IV:", iv);
+    console.log("Password:", passwords);
 
     const decrypted = await decryptString(ciphertext, iv, password);
-    console.log("Decrypted:", decrypted);
+    console.log("Decrypted Text:", decrypted);
 })();
