@@ -1046,6 +1046,7 @@ let movieGenre = [];
 let tvGenre = [];
 
 async function runMovieGenreList() {	
+	$('#movieGenreList').append("<li class='px-3 py-1 rounded cursor-pointer hover:bg-gray-200'>No Genre Available</li>");
 	const apikey = await decryptString(ciphertext, iv, password);
 
 	$.getJSON(baseUrlTmdb+"genre/movie/list?api_key="+apikey, function(data) {
@@ -1132,6 +1133,8 @@ async function runSelectedGenreMovie(index) {
 }
 
 async function runTvGenreList() {
+	$('#tvGenreList').append("<li class='px-3 py-1 rounded cursor-pointer hover:bg-gray-200'>No Genre Available</li>");
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"genre/tv/list?api_key="+apikey, function(data) {
