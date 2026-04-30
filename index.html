@@ -40,6 +40,7 @@
     <li><img class="pic" src = "logo.png"></img><span class="icon"></span></li>
     <li class="uname">MoviSnap<span class="icon"></span></li>
     <li id = "item" class="menu-item active"><a href="#main" data-transition="none"><i class="fas fa-home"></i> Home</a></li>
+    <li id = "item" class="menu-item"><a href="#search" data-transition="none"><i class="fas fa-search"></i> Search</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#now-playing" data-transition="none"><i class="fas fa-film"></i> Now Playing</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#upcoming" data-transition="none"><i class="fas fa-film"></i> Upcoming</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#popular" data-transition="none"><i class="fas fa-film"></i> Popular</a><span class="icon"></span></li>
@@ -47,7 +48,6 @@
     <li id = "item" class="menu-item"><a href="#tv-main" data-transition="none"><i class="fas fa-tv"></i> Now Playing</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-popular" data-transition="none"><i class="fas fa-tv"></i> Popular</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#tv-top-rated" data-transition="none"><i class="fas fa-tv"></i> Top Rated</a><span class="icon"></span></li>
-    <li id = "item" class="menu-item"><a href="#search" data-transition="none"><i class="fas fa-search"></i> Search</a><span class="icon"></span></li>
     <li id = "item" class="menu-item"><a href="#find-genre" data-transition="none"><i class="fas fa-tags"></i> Find by Genre</a><span class="icon"></span></li>
   </ul>
 </div>
@@ -75,6 +75,7 @@
               </span>
               <div class="w-full relative mx-auto overflow-x-hidden rounded-xl">
                 <div id="item-reviews-trending-today" class="flex overflow-x-hidden scroll-smooth snap-x snap-mandatory space-x-4">
+                  N/A
                 </div>
               </div>
             </div>
@@ -136,7 +137,6 @@
         <div class="w-full">
             <ul id="movieListNowPlaying" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 justify-center">
             </ul>
-
             <!-- Load More Section -->
             <div id="load-more-section-main" class="w-full px-4 m-5 flex justify-center">
               <div id="btn-load-more-main" class="w-full bg-gradient-to-b from-[#6facd5] to-[#456f9a] text-[#f8f8ff] py-3 rounded-lg text-center font-semibold transition-all duration-300 cursor-pointer load-more">
