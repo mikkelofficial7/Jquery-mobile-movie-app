@@ -673,6 +673,9 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 	fetchAllReviews().then(() => {		
 		if (listReview.length < 1) return;
 
+		const reviewList = document.querySelector("#item-reviews-trending-today");
+		reviewList.innerHTML = "";
+
 		const takeOnly = listReview
 					.sort()
 					.slice(0, 20);
@@ -712,7 +715,7 @@ async function runReviewListHome(listOfData = [], displayType = "", page = 1) {
 			container.appendChild(createReviewBox("top-[70px] w-[150px] left-[10px] z-20 shadow-lg", itemReviews.reviews[0].author_details.username, itemReviews.name, itemReviews.reviews[0].author_details.rating));
 			container.appendChild(createReviewBox("bottom-[70px] w-[150px] right-[10px] z-30 shadow-lg", itemReviews.reviews[1].author_details.username, itemReviews.name, itemReviews.reviews[1].author_details.rating));
 
-			$("#item-reviews-trending-today").append(container);
+			reviewList.append(container);
 		});
 	});
 
