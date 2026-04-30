@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function() {	
+	setInterval(() => {
+		const star = document.getElementById("starIcon");
+		star.classList.toggle("opacity-0");
+	}, 500);
+
 	loadEnvKeys().then(() => {
 		autoScroll("item-movie-trending-today")
 		autoScroll("item-tv-trending-today")
@@ -1046,7 +1051,8 @@ let movieGenre = [];
 let tvGenre = [];
 
 async function runMovieGenreList() {	
-	$('#movieGenreList').append("<li class='px-3 py-1 rounded cursor-pointer hover:bg-gray-200'>No Genre Available</li>");
+	$('#movieGenreList').append("<li class='px-3 py-1'>No Genre Available</li>");
+
 	const apikey = await decryptString(ciphertext, iv, password);
 
 	$.getJSON(baseUrlTmdb+"genre/movie/list?api_key="+apikey, function(data) {
@@ -1133,7 +1139,7 @@ async function runSelectedGenreMovie(index) {
 }
 
 async function runTvGenreList() {
-	$('#tvGenreList').append("<li class='px-3 py-1 rounded cursor-pointer hover:bg-gray-200'>No Genre Available</li>");
+	$('#tvGenreList').append("<li class='px-3 py-1'>No Genre Available</li>");
 
 	const apikey = await decryptString(ciphertext, iv, password);
 	
