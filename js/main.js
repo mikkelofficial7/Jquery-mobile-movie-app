@@ -779,7 +779,7 @@ async function runNowPlayingList(currentPage) {
 			$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#movieListNowPlaying").html = "";
+		$("#movieListNowPlaying").html("");
 		$("#movieListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item) {
@@ -810,7 +810,7 @@ async function runUpcomingList(currentPage) {
 			$("#movieListUpcoming").append("<li class='flex justify-center'>Data not found</li>");
 		} 
 
-		$("#movieListUpcoming").html = "";
+		$("#movieListUpcoming").html("");
 		$("#movieListUpcoming").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -840,7 +840,7 @@ async function runTopRatedList(currentPage) {
 			$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#movieListTopRated").html = "";
+		$("#movieListTopRated").html("");
 		$("#movieListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -869,7 +869,7 @@ async function runPopularList(currentPage) {
 			$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListPopular").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#movieListPopular").html = "";
+		$("#movieListPopular").html("");
 		$("#movieListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -899,7 +899,7 @@ async function runTvShowNowPlayingList(currentPage) {
 			$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#tvListNowPlaying").html = "";
+		$("#tvListNowPlaying").html("");
 		$("#tvListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){	
@@ -929,7 +929,7 @@ async function runTvShowPopularList(currentPage) {
 			$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListPopular").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#tvListPopular").html = "";
+		$("#tvListPopular").html("");
 		$("#tvListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){		
@@ -959,7 +959,7 @@ async function runTvShowTopRatedList(currentPage) {
 			$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 		}
-		$("#tvListTopRated").html = "";
+		$("#tvListTopRated").html("");
 		$("#tvListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		
 		$.each(data.results, function(index, item){	
