@@ -767,14 +767,20 @@ async function runReviewList(id = "", displayType = "", parentList = "", page = 
 }
 
 async function runUpcomingList(currentPage) {
+	if (currentPage < 2) {
+		$("#movieListUpcoming").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#movieListUpcoming").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"movie/upcoming?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
 		if (data.results.length < 1 && currentPage < 2) {
 			$("#movieListUpcoming").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListUpcoming").append("<li class='flex justify-center'>Data not found</li>");
-		}
+		} 
 
+		$("#movieListUpcoming").innerHTML = "";
 		$("#movieListUpcoming").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -792,6 +798,11 @@ async function runUpcomingList(currentPage) {
 }
 
 async function runTopRatedList(currentPage) {
+	if (currentPage < 2) {
+		$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#movieListTopRated").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"movie/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -799,6 +810,7 @@ async function runTopRatedList(currentPage) {
 			$("#movieListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#movieListTopRated").innerHTML = "";
 		$("#movieListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -816,6 +828,10 @@ async function runTopRatedList(currentPage) {
 }
 
 async function runPopularList(currentPage) {
+	if (currentPage < 2) {
+		$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#movieListPopular").append("<li class='flex justify-center'>Data not found</li>");
+	}
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"movie/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -823,6 +839,7 @@ async function runPopularList(currentPage) {
 			$("#movieListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListPopular").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#movieListPopular").innerHTML = "";
 		$("#movieListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){
@@ -840,6 +857,11 @@ async function runPopularList(currentPage) {
 }
 
 async function runNowPlayingList(currentPage) {
+	if (currentPage < 2) {
+		$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#movieListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"movie/now_playing?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -847,6 +869,7 @@ async function runNowPlayingList(currentPage) {
 			$("#movieListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#movieListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#movieListNowPlaying").innerHTML = "";
 		$("#movieListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item) {
@@ -864,6 +887,11 @@ async function runNowPlayingList(currentPage) {
 }
 
 async function runTvShowNowPlayingList(currentPage) {
+	if (currentPage < 2) {
+		$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#tvListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"tv/airing_today?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -871,6 +899,7 @@ async function runTvShowNowPlayingList(currentPage) {
 			$("#tvListNowPlaying").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListNowPlaying").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#tvListNowPlaying").innerHTML = "";
 		$("#tvListNowPlaying").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){	
@@ -888,6 +917,11 @@ async function runTvShowNowPlayingList(currentPage) {
 }
 
 async function runTvShowPopularList(currentPage) {
+	if (currentPage < 2) {
+		$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#tvListPopular").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"tv/popular?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -895,6 +929,7 @@ async function runTvShowPopularList(currentPage) {
 			$("#tvListPopular").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListPopular").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#tvListPopular").innerHTML = "";
 		$("#tvListPopular").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 
 		$.each(data.results, function(index, item){		
@@ -912,6 +947,11 @@ async function runTvShowPopularList(currentPage) {
 }
 
 async function runTvShowTopRatedList(currentPage) {
+	if (currentPage < 2) {
+		$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
+		$("#tvListTopRated").append("<li class='flex justify-center'>Data not found</li>");
+	}
+
 	const apikey = await decryptString(ciphertext, iv, password);
 	
 	$.getJSON(baseUrlTmdb+"tv/top_rated?page="+currentPage+"&api_key="+apikey+"&include_adult=true", function(data){
@@ -919,6 +959,7 @@ async function runTvShowTopRatedList(currentPage) {
 			$("#tvListTopRated").removeClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 			$("#tvListTopRated").append("<li class='flex justify-center'>Data not found</li>");
 		}
+		$("#tvListTopRated").innerHTML = "";
 		$("#tvListTopRated").addClass("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2");
 		
 		$.each(data.results, function(index, item){	
